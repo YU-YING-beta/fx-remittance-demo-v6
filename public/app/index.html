@@ -718,7 +718,7 @@ body[data-mode="cover"] .appmain{padding:0;max-width:none}
 .cv-title span{color:#0071E3}
 .cv-wheel{position:relative;height:264px;border-radius:22px;overflow:hidden;background:rgba(255,255,255,.72);box-shadow:inset 0 0 0 1px rgba(255,255,255,.95),0 14px 30px -18px rgba(0,30,80,.3);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);margin-top:6px}
 .cv-sel{position:absolute;left:8px;right:8px;top:110px;height:44px;border-radius:12px;background:#0071E3}
-.cv-roll{position:relative;transform:translateY(-66px)}
+.cv-roll{position:relative;transform:translateY(-22px)}
 .cv-roll div{height:44px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;color:rgba(29,29,31,.3)}
 .cv-roll div.on{color:#FFFFFF}
 .cv-fade{position:absolute;inset:0;background:linear-gradient(#F5F5F7,rgba(245,245,247,0) 35%,rgba(245,245,247,0) 65%,#F5F5F7);pointer-events:none}
@@ -731,21 +731,6 @@ body[data-mode="cover"] .appmain{padding:0;max-width:none}
 .cv-go:active{transform:scale(.98)}
 .cv-fine{position:relative;margin:12px 0 0;text-align:center;font-size:11px;color:#86868B}
 .cover .cv-team{margin-bottom:28px}
-@media (prefers-reduced-motion:no-preference){
-  .cv-school,.cv-title{animation:cvUp .8s cubic-bezier(.2,.7,.2,1) both}
-  .cv-title{animation-delay:.12s}
-  .cv-wheel{animation:cvUp .8s .2s cubic-bezier(.2,.7,.2,1) both}
-  .cv-roll{animation:cvSpin 1.8s .35s cubic-bezier(.15,.8,.2,1.04) both}
-  .cv-sel{animation:cvPop .5s 2s cubic-bezier(.2,.8,.3,1.4) both}
-  .cv-card{animation:cvUp .6s cubic-bezier(.2,.7,.2,1) both}
-  .cv-go{animation:cvUp .6s 2.4s cubic-bezier(.2,.7,.2,1) both}
-  .cv-fine{animation:cvFade .6s 2.6s both}
-  .cv-fx{animation:cvFade 1.4s .3s both}
-}
-@keyframes cvUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@keyframes cvFade{from{opacity:0}to{opacity:1}}
-@keyframes cvSpin{0%{transform:translateY(-330px)}100%{transform:translateY(-66px)}}
-@keyframes cvPop{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
 </style>
 </head>
 <body class="app">
@@ -2542,8 +2527,38 @@ function toast(t){ const el = document.createElement('div'); el.className = 'toa
 
 
 /* ---------- 封面 ---------- */
-const COVER_CODES = ['612','70A','262','510','19D','134','701','250','441','711','192','111','220','19K','360'];
+const COVER_CODES = ['620','121','320','19D','170','212','440','15A','520','28A','310','161','695','2A0','420','113','711','360','19K','220','701','192','250','441','134','510','70A','262','612','111'];
 const TEAM = [['114ZB1081','鄭郁瀠'],['114ZB1108','李冠霖'],['114ZB1109','柯旭鴻'],['114ZB1116','林妤珊']];
+/* 封面動畫用程式播放（不受手機「減少動態效果」影響），等頁面載入完成且畫面可見才開始 */
+function coverStart(el){
+  if(!el || typeof el.animate !== 'function') return;
+  const E = 'cubic-bezier(.2,.7,.2,1)';
+  const up = [{opacity:0, transform:'translateY(16px)'}, {opacity:1, transform:'none'}];
+  const fade = [{opacity:0}, {opacity:1}];
+  const q = s => Array.from(el.querySelectorAll(s));
+  const plan = [
+    ['.cv-school', up, 800, 0, E], ['.cv-title', up, 800, 120, E], ['.cv-wheel', up, 800, 200, E],
+    ['.cv-roll', [{transform:'translateY(-1078px)'}, {transform:'translateY(-22px)'}], 2100, 350, 'cubic-bezier(.3,.05,.12,1)'],
+    ['.cv-sel', [{transform:'scale(1)'}, {transform:'scale(1.08)'}, {transform:'scale(1)'}], 500, 2400, 'cubic-bezier(.2,.8,.3,1.4)'],
+    ['.cv-go', up, 600, 2600, E], ['.cv-fine', fade, 600, 2800, 'ease'], ['.cv-fx', fade, 1400, 300, 'ease']
+  ];
+  const anims = [];
+  plan.forEach(([s, k, d, delay, easing]) => q(s).forEach(n => anims.push(n.animate(k, {duration:d, delay, easing, fill:'both'}))));
+  q('.cv-card').forEach((n, i) => anims.push(n.animate(up, {duration:600, delay:1900 + i * 120, easing:E, fill:'both'})));
+  anims.forEach(a => a.pause());
+  let done = false;
+  const go = () => {
+    if(done || !el.isConnected || document.visibilityState === 'hidden') return;
+    done = true;
+    window.removeEventListener('load', onLoad);
+    document.removeEventListener('visibilitychange', go);
+    requestAnimationFrame(() => requestAnimationFrame(() => anims.forEach(a => a.play())));
+  };
+  const onLoad = () => setTimeout(go, 200);
+  document.addEventListener('visibilitychange', go);
+  if(document.readyState === 'complete') setTimeout(go, 200);
+  else { window.addEventListener('load', onLoad); setTimeout(go, 3000); }
+}
 function renderCover(){
   document.getElementById('appbar').innerHTML = '';
   view.innerHTML = '<div class="cover">' +
@@ -2551,10 +2566,11 @@ function renderCover(){
     '<p class="cv-school">國立政治大學國際金融學院</p>' +
     '<div class="cv-main"><h1 class="cv-title">From<br>Self-Selected<br>Codes to<br><span>Reliable</span><br>FX Purpose<br>Data</h1>' +
       '<div class="cv-wheel" role="img" aria-label="分類代碼滾輪停在 19D"><div class="cv-sel"></div><div class="cv-roll">' + COVER_CODES.map(c => '<div' + (c === '19D' ? ' class="on"' : '') + '>' + c + '</div>').join('') + '</div><div class="cv-fade"></div></div></div>' +
-    '<div class="cv-team">' + TEAM.map((m, i) => '<div class="cv-card" style="animation-delay:' + (1.9 + i * 0.12).toFixed(2) + 's"><b>' + m[1] + '</b><span>' + m[0] + '</span></div>').join('') + '</div>' +
+    '<div class="cv-team">' + TEAM.map(m => '<div class="cv-card"><b>' + m[1] + '</b><span>' + m[0] + '</span></div>').join('') + '</div>' +
     '<button class="cv-go" id="cvGo"><span>點擊進入</span><i aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></button>' +
     '<p class="cv-fine">示範用 APP・所有資料皆為虛構</p></div>';
   view.querySelector('#cvGo').addEventListener('click', () => show('home'));
+  coverStart(view.querySelector('.cover'));
 }
 
 /* ---------- 首頁 ---------- */
