@@ -663,8 +663,10 @@ body.app::before{display:none}
 .appnav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:28px}
 .appnav .btn{min-height:52px;padding:12px 30px;font-weight:600}
 .btiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
-.btile{appearance:none;border:0;border-radius:20px;background:#F2F2F7;color:var(--ink);font:inherit;text-align:left;padding:18px;min-height:112px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer}
-.btile b{font-size:18px;line-height:1.3}.btile small{font-size:12px;color:var(--ink2);margin-top:4px;line-height:1.3}
+.btile{appearance:none;border:0;border-radius:20px;background:#F2F2F7;color:var(--ink);font:inherit;text-align:left;padding:18px;min-height:112px;display:flex;flex-direction:column;justify-content:flex-start;cursor:pointer;min-width:0}
+.btile b{font-size:min(18px,4vw);line-height:1.3;white-space:nowrap}.btile small{font-size:12px;color:var(--ink2);margin-top:6px;line-height:1.35}
+.appmain input[type=date]{-webkit-appearance:none;appearance:none;display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:50px;text-align:left}
+.appmain input[type=date]::-webkit-date-and-time-value{text-align:left;margin:0}
 .btile.on,.btile:active{background:var(--accent);color:#FFFFFF}.btile.on small{color:rgba(255,255,255,.82)}
 .fhead{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:15px;color:var(--ink2);margin:-10px 0 18px}
 .fhead .code{color:var(--accent);font-size:17px}.fhead .link{margin-left:auto;font-size:15px}
