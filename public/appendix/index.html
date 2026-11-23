@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>附錄_匯出入分類代碼完整資料</title>
+<style>
+:root{--ink:#1d2330;--sub:#5b6474;--line:#e3e6ec;--bg:#f7f8fa;--card:#fff;--accent:#1f4e79;
+--out:#c2570c;--outbg:#fff1e6;--in:#1d5fa8;--inbg:#e8f1fc;--diff:#8a6d00;--diffbg:#fff6cc;--care:#2e7d4f;--carebg:#e3f4e8}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:14px;line-height:1.6}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:20px 24px 0}
+h1{font-size:20px;margin:0 0 4px}
+.lead{color:var(--sub);margin:0 0 14px;max-width:960px}
+.tabs{display:flex;gap:4px}
+.tab{border:0;background:none;padding:10px 14px;font:inherit;font-weight:600;color:var(--sub);border-bottom:3px solid transparent;cursor:pointer}
+.tab[aria-selected=true]{color:var(--accent);border-color:var(--accent)}
+main{padding:16px 24px 40px;max-width:1400px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px}
+.bar input[type=search]{flex:1 1 260px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit}
+.bar select{padding:7px 8px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin:4px 2px 8px;color:var(--sub);font-size:13px}
+.btn{border:1px solid var(--accent);color:var(--accent);background:#fff;border-radius:8px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+.btn:hover{background:#eef3f9}
+.tablewrap{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:auto}
+table{border-collapse:collapse;width:100%}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{position:sticky;top:0;background:#f1f4f8;font-size:13px;color:#3a4352;z-index:1;white-space:nowrap}
+td.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;white-space:nowrap}
+.st{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;white-space:nowrap;background:#eef0f3;color:#444}
+.st.匯出獨有{background:var(--outbg);color:var(--out)}
+.st.匯入獨有{background:var(--inbg);color:var(--in)}
+.st.同碼異義{background:var(--diffbg);color:var(--diff)}
+.st.同碼需注意{background:var(--carebg);color:var(--care)}
+tr.rowflag-匯出獨有 td{background:#fff7f0}
+tr.rowflag-匯入獨有 td{background:#f1f6fd}
+tr.rowflag-同碼異義 td{background:#fffbe6}
+tr.rowflag-同碼需注意 td{background:#f0f9f2}
+table{min-width:980px}
+#tbl td:nth-child(-n+5){min-width:64px}
+footer ul{margin:0 0 12px;padding-left:20px;line-height:1.8}
+footer .src{border-top:1px solid var(--line);padding-top:10px;line-height:1.7}
+footer .src b{color:var(--ink);font-weight:600}
+footer .src a{color:var(--sub);word-break:break-all}
+.none{color:#9aa1ad}
+details{margin:0}
+summary{cursor:pointer;color:var(--accent);font-size:13px}
+.paths{margin:6px 0 0;padding:0;list-style:none}
+.paths li{background:#f7f9fc;border:1px solid var(--line);border-radius:8px;padding:6px 8px;margin-bottom:6px}
+.paths li b{color:var(--sub);font-weight:600;font-size:12px;display:block;margin-bottom:2px}
+.cond{display:block;font-size:13px}
+.cond span{white-space:nowrap}
+.dir{font-size:12px;font-weight:700;color:var(--sub);margin-top:4px}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px;min-width:110px}
+.stat b{display:block;font-size:20px}
+.stat small{color:var(--sub)}
+footer{color:var(--sub);font-size:12px;margin-top:18px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#1d2330;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;display:none}
+@media (max-width:700px){header,main{padding-left:12px;padding-right:12px}th,td{padding:6px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>附錄　匯出入分類代碼完整資料</h1>
+  <p class="lead">中央銀行外匯局「匯出、入匯款之分類及說明」（112年1月1日起實施）的全部分類編號：匯出 104 個、匯入 105 個，合併為 108 個代碼。附錄1 列出每個代碼由結構化提問推導的條件，附錄2 列出匯出與匯入名稱的逐一對照。</p>
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" data-view="a2" id="t-a2">附錄1　代碼判斷條件</button>
+    <button class="tab" role="tab" data-view="a6" id="t-a6">附錄2　匯出入分類對應表</button>
+  </nav>
+</header>
+<main>
+  <div class="stats" id="stats"></div>
+  <div class="bar">
+    <input type="search" id="q" placeholder="搜尋代碼、名稱或條件，例如 262、股利、通關">
+    <select id="cat"><option value="">全部大項</option></select>
+    <select id="grp"><option value="">全部論文群組</option></select>
+    <div class="chips" id="stchips"></div>
+  </div>
+  <div class="meta"><span id="count"></span><span><button class="btn" id="expand">全部展開條件</button> <button class="btn" id="pdf" hidden>下載 PDF（附錄1＋附錄2 完整版）</button></span></div>
+  <div class="tablewrap"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+  <footer>
+    <ul>
+      <li>推導條件取自規則表（附錄B-2，409 條路徑），每個代碼最多列出三條路徑。</li>
+      <li>論文群組：G1–G9 對應論文表二的九個易混淆群組。</li>
+      <li>未列入：不在九個易混淆群組內，仍可由結構化提問推導（37 個代碼）。</li>
+      <li>G8（電子支付與平台）不對應單一代碼：款項依背後是商品或服務，歸入 7XX 或 1XX，因此表中沒有標為 G8 的代碼。</li>
+      <li>對應狀態：
+        <ul>
+          <li>同碼對應：兩方向使用同一代碼，性質相反。</li>
+          <li>匯出獨有／匯入獨有：只存在於單一方向（整列淺橘／淺藍底）。</li>
+          <li>同碼需注意：兩方向對稱，但主體不同（整列淺綠底）。</li>
+          <li>同碼異義：兩方向的意思不同（整列淺黃底）。</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="src"><b>資料來源</b><br>中央銀行外匯局（2022）。<i>茲修正「匯出、入匯款之分類及說明」，並自112年1月1日起實施</i>。<a href="https://www.cbc.gov.tw/tw/cp-379-153175-c9037-1.html">https://www.cbc.gov.tw/tw/cp-379-153175-c9037-1.html</a></div>
+  </footer>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const STATES=["同碼對應","匯出獨有","匯入獨有","同碼需注意","同碼異義"];
+let DATA=null, view="a2", stSel=new Set(), allOpen=false;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function nameCell(v){return v&&!v.startsWith("—")?esc(v):'<span class="none">（無）</span>'}
+function paths(txt){
+  if(!txt) return '<span class="none">—</span>';
+  const ps=txt.split(/\n或 /);
+  return '<ul class="paths">'+ps.map((p,i)=>{
+    const more=p.match(/（另 \d+ 條路徑，見 B2）/); const body=p.replace(/（另 \d+ 條路徑，見 B2）/,"");
+    const c=body.split("；").map(x=>{const k=x.indexOf("＝");return k<0?esc(x):'<span>'+esc(x.slice(0,k))+'＝<b style="display:inline;color:inherit">'+esc(x.slice(k+1))+'</b></span>'}).join("；");
+    return '<li><b>路徑 '+(i+1)+'</b><span class="cond">'+c+'</span>'+(more?'<span class="none">'+esc(more[0])+'</span>':'')+'</li>'}).join("")+'</ul>';
+}
+function setView(v){
+  view=v==="a6"?"a6":"a2";
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.view===view));
+  $("#grp").hidden=view!=="a2"; $("#expand").hidden=view!=="a2";
+  render();
+}
+function rows(){
+  const list=DATA[view], q=$("#q").value.trim().toLowerCase(), cat=$("#cat").value, g=$("#grp").value;
+  return list.filter(r=>{
+    if(cat&&r.cat!==cat) return false;
+    if(view==="a2"&&g&&r.g!==g) return false;
+    if(stSel.size&&!stSel.has(r.st)) return false;
+    if(q){const hay=Object.values(r).join(" ").toLowerCase(); if(!hay.includes(q)) return false;}
+    return true;});
+}
+function render(){
+  if(!DATA) return;
+  const rs=rows(), th=$("#tbl thead"), tb=$("#tbl tbody");
+  if(view==="a2"){
+    th.innerHTML='<tr><th>代碼</th><th>匯出名稱</th><th>匯入名稱</th><th>大項</th><th>對應狀態</th><th title="未列入＝不在九個易混淆群組內，仍可由結構化提問推導">論文群組 <span style="font-weight:400;color:var(--sub)">ⓘ</span></th><th style="min-width:360px">推導條件（結構化提問的作答路徑）</th></tr>';
+    tb.innerHTML=rs.map(r=>'<tr class="rowflag-'+esc(r.st)+'"><td class="code">'+esc(r.code)+'</td><td>'+nameCell(r.out)+'</td><td>'+nameCell(r.inn)+'</td><td>'+esc(r.cat)+'</td><td><span class="st '+esc(r.st)+'">'+esc(r.st)+'</span></td><td>'+(r.g&&r.g!=='未列入'?esc(r.g):'<span class="none">未列入</span>')+'</td><td><details'+(allOpen?' open':'')+'><summary>匯出 '+(r.co?r.co.split(/\n或 /).length:0)+' 條／匯入 '+(r.ci?r.ci.split(/\n或 /).length:0)+' 條路徑</summary>'+(r.co?'<div class="dir">匯出</div>'+paths(r.co):'')+(r.ci?'<div class="dir">匯入</div>'+paths(r.ci):'')+'</details></td></tr>').join("");
+  }else{
+    th.innerHTML='<tr><th>大項</th><th>分類編號</th><th>匯出分類名稱</th><th>匯入分類名稱</th><th>對應狀態</th><th style="min-width:260px">比對說明</th></tr>';
+    tb.innerHTML=rs.map(r=>'<tr class="rowflag-'+esc(r.st)+'"><td>'+esc(r.cat)+'</td><td class="code">'+esc(r.code)+'</td><td>'+nameCell(r.out)+'</td><td>'+nameCell(r.inn)+'</td><td><span class="st '+esc(r.st)+'">'+esc(r.st)+'</span></td><td>'+(r.note?esc(r.note):'<span class="none">—</span>')+'</td></tr>').join("");
+  }
+  $("#count").textContent="顯示 "+rs.length+" ／ "+DATA[view].length+" 個代碼";
+  try{ if(location.hash!=="#"+view) history.replaceState(null,"","#"+view);}catch(e){}
+}
+function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(t._h);t._h=setTimeout(()=>t.style.display="none",2600)}
+fetch("data.json").then(r=>r.json()).then(d=>{
+  DATA=d;
+  const cats=[...new Set(d.a6.map(r=>r.cat))]; $("#cat").innerHTML+=cats.map(c=>'<option>'+esc(c)+'</option>').join("");
+  const gs=[...new Set(d.a2.map(r=>r.g).filter(Boolean))].sort(); $("#grp").innerHTML+=gs.map(c=>'<option>'+esc(c)+'</option>').join("");
+  const cnt=s=>d.a6.filter(r=>r.st===s).length;
+  $("#stats").innerHTML='<div class="stat"><b>104</b><small>匯出分類</small></div><div class="stat"><b>105</b><small>匯入分類</small></div><div class="stat"><b>108</b><small>合併代碼</small></div>'+STATES.map(s=>'<div class="stat"><b>'+cnt(s)+'</b><small>'+s+'</small></div>').join("");
+  $("#stchips").innerHTML=STATES.map(s=>'<button class="chip" aria-pressed="false" data-st="'+s+'">'+s+'</button>').join("");
+  document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{const s=c.dataset.st; stSel.has(s)?stSel.delete(s):stSel.add(s); c.setAttribute("aria-pressed",stSel.has(s)); render();});
+  setView((location.hash||"#a2").slice(1));
+}).catch(()=>{$("#count").textContent="資料載入失敗，請重新整理頁面。"});
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>setView(t.dataset.view));
+window.addEventListener("hashchange",()=>setView(location.hash.slice(1)));
+["#q","#cat","#grp"].forEach(s=>$(s).addEventListener("input",render));
+$("#expand").onclick=()=>{allOpen=!allOpen;$("#expand").textContent=allOpen?"全部收合條件":"全部展開條件";render();};
+(async()=>{
+  try{
+    if(!window.claude||!claude.use){
+      const b=$("#pdf"); b.hidden=false;
+      b.onclick=()=>{const a=document.createElement("a");a.href="a2a6.pdf";a.download="附錄1、2_匯出入分類代碼完整資料.pdf";document.body.appendChild(a);a.click();a.remove();toast("已下載 PDF");};
+      return;
+    }
+    const dl=await claude.use("downloads"); if(!dl) return;
+    const b=$("#pdf"); b.hidden=false;
+    b.onclick=async()=>{
+      try{const blob=await (await fetch("a2a6.pdf")).blob();
+        await dl.save({filename:"附錄1、2_匯出入分類代碼完整資料.pdf",data:blob}); toast("已下載 PDF");}
+      catch(e){ if(e&&e.code==="declined") return; toast("目前無法下載 PDF");}
+    };
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
