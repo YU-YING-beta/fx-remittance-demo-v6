@@ -692,7 +692,7 @@ td > .sec:first-child{border-top:0}
       <li><b>分類清單</b><span>依「匯出、入匯款之分類及說明」（112年1月1日起實施）。</span></li>
       <li><b>資料性質</b><span>「研究結果」分頁中，研究一、研究二為已完成的實際資料；研究三尚未施測，數字來自模擬資料。</span></li>
       <li><b>表單欄位</b><span>匯出參照臺灣銀行「匯出匯款賣匯申請書」；「外匯收支或交易申報書（結購外匯專用）」與「外匯收支或交易申報書（結售外匯專用）」參照中央銀行。</span></li>
-      <li><b>匯率</b><span>預設使用 ExchangeRate-API 開放端點（open.er-api.com）的國際參考匯率（中間價，每日更新；Rates By Exchange Rate API）；在「行員受理」分頁上傳當日臺灣銀行牌告 CSV 後，當日改用臺銀牌告。兩者都無法取得時改用備援示範匯率並於畫面標示。僅供示範換算，實際以臨櫃成交匯率為準。</span></li>
+      <li><b>匯率</b><span>使用 ExchangeRate-API 開放端點（open.er-api.com）的國際參考匯率（中間價，每日更新；Rates By Exchange Rate API）；暫時無法連線時，改用最近一次取得的參考匯率並標示資料時間。僅供示範換算，實際以臨櫃成交匯率為準。</span></li>
       <li><b>使用限制</b><span>本頁不是官方申報工具，產生的文件不能取代臨櫃簽章。</span></li>
     </ul>
   </div>
@@ -992,14 +992,15 @@ const ben = id => BEN.find(b => b.id === id);
 const fmt = n => Number(n).toLocaleString('zh-TW');
 
 
-/* ---------- FX rates (臺灣銀行牌告) ---------- */
+/* ---------- FX rates（國際參考匯率 API） ---------- */
 const CUR = [['USD','美元'],['EUR','歐元'],['JPY','日圓'],['CNY','人民幣'],['HKD','港幣'],['GBP','英鎊'],['AUD','澳洲幣'],['CAD','加拿大幣'],['SGD','新加坡幣'],['CHF','瑞士法郎'],['NZD','紐西蘭幣'],['ZAR','南非幣'],['THB','泰銖'],['SEK','瑞典幣']];
 const CURN = Object.fromEntries(CUR);
 const CURS = CUR.map(c => c[0]);
-/* 備援示範值：僅在取不到臺灣銀行即時牌告時使用，非實際牌告 */
-const FALLBACK = {USD:[31.81,31.91],EUR:[36.23,36.63],JPY:[0.2050,0.2090],CNY:[4.430,4.480],HKD:[4.050,4.110],GBP:[42.00,42.60],AUD:[20.60,20.90],CAD:[22.70,23.00],SGD:[24.40,24.70],CHF:[39.60,40.00],NZD:[18.10,18.40],ZAR:[1.75,1.85],THB:[0.940,0.990],SEK:[3.30,3.40]};
-const fbRates = () => Object.fromEntries(Object.entries(FALLBACK).map(([k, v]) => [k, {spotBuy:v[0], spotSell:v[1], cashBuy:+(v[0] * 0.99).toFixed(4), cashSell:+(v[1] * 1.01).toFixed(4), fb:true}]));
-let FX = {state:'loading', dataTime:null, fetchedAt:null, rates:fbRates()};
+/* 備援示範值：僅在取不到參考匯率時使用，非實際匯率 */
+const FALLBACK = {USD:[32.9681,32.9681],EUR:[36.1836,36.1836],JPY:[0.20774,0.20774],CNY:[4.9343,4.9343],HKD:[4.2057,4.2057],GBP:[43.1758,43.1758],AUD:[21.8764,21.8764],CAD:[23.0025,23.0025],SGD:[25.5749,25.5749],CHF:[39.2282,39.2282],NZD:[18.0459,18.0459],ZAR:[1.8824,1.8824],THB:[0.9713,0.9713],SEK:[3.2255,3.2255]}, SNAP_TIME = '2026/11/23 08:02';
+const fbRates = () => Object.fromEntries(Object.entries(FALLBACK).map(([k, v]) => [k, {spotBuy:v[0], spotSell:v[1], cashBuy:v[0], cashSell:v[1]}]));
+const snapFx = () => ({state:'live', source:'ref', dataTime:SNAP_TIME, fetchedAt:null, rates:fbRates()});
+let FX = snapFx();
 const KIND = {spotSell:'即期賣出', spotBuy:'即期買入', cashSell:'現金賣出'};
 const SRC = {out:{twd:'以新臺幣結購', fxd:'以外匯存款提出', cash:'外幣現鈔', oth:'其他'}, in:{twd:'結售為新臺幣', fxd:'存入外匯存款'}};
 const SRCS = {out:{twd:'結購', fxd:'外存', cash:'現鈔', oth:'其他'}, in:{twd:'結售', fxd:'存外存'}};
@@ -1021,7 +1022,7 @@ function conv(t){
 }
 function convRows(t){
   const c = conv(t), dir = c.dir, whoZh = c.cap === 1000000 ? '公司' : '個人';
-  const rateTxt = (c.teller ? '行員成交匯率 ' + fmtRate(c.r) + '（臺銀' + KIND[c.kind] + ' ' + fmtRate(c.board) + '）' : '臺銀' + KIND[c.kind] + ' ' + t.cur + '/TWD ' + fmtRate(c.r)) + (c.fb && !c.teller ? '（備援示範值）' : '');
+  const rateTxt = (c.teller ? '行員成交匯率 ' + fmtRate(c.r) + '（參考匯率 ' + fmtRate(c.board) + '）' : '參考匯率 ' + t.cur + '/TWD ' + fmtRate(c.r)) + (c.fb && !c.teller ? '（備援示範值）' : '');
   const art5 = c.settle ? (c.art5 ? '已達等值 ' + fmt(c.cap) + ' 美元（' + whoZh + '），須由銀行確認證明文件' : '未達等值 ' + fmt(c.cap) + ' 美元（' + whoZh + '）') : '不適用：' + SRC[dir][t.src] + '，未涉及新臺幣結匯';
   const decl = !c.settle ? '未涉及新臺幣結匯，不需結匯申報書' : c.ntd50 ? '需填外匯收支或交易申報書（' + (dir === 'in' ? '結售' : '結購') + '外匯專用）' : '未達新臺幣 50 萬元，不需申報書';
   return '<tr><th>' + (dir === 'in' ? '解款方式' : '繳款方式') + '</th><td>' + esc(SRC[dir][t.src] || '—') + '</td></tr>' +
@@ -1034,24 +1035,15 @@ function convRows(t){
 const isToday = dt => !!dt && dt.slice(0, 10).replace(/\//g, '-') === todayStr();
 function fxBarHtml(up){
   let head;
-  if(FX.state === 'live'){
-    const stale = !isToday(FX.dataTime);
-    if(FX.source === 'ref') head = '<span class="dot live"></span><strong>國際參考匯率（中間價，非臺灣銀行牌告）</strong>｜資料時間 ' + esc(FX.dataTime || '—') + '｜資料來源：<a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">Rates By Exchange Rate API</a>（open.er-api.com，每日更新）' +
-      '<br>參考匯率只有中間價，買入、賣出與現金一律以中間價示範換算；' + (up ? '上傳當日臺灣銀行牌告 CSV 後，當日改用臺銀牌告。' : '到「行員受理」分頁上傳當日臺灣銀行牌告 CSV 後，當日改用臺銀牌告。');
-    else head = '<span class="dot ' + (stale ? 'old' : 'live') + '"></span><strong>臺灣銀行牌告匯率</strong>｜牌告時間 ' + esc(FX.dataTime || '檔名未標示') + '｜上傳於 ' + esc(new Date(FX.fetchedAt).toLocaleString('zh-TW', {month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false, timeZone:'Asia/Taipei'})) +
-      (stale ? '<br><strong>這不是今日的牌告</strong>，' + (up ? '請下載今日牌告後重新上傳。' : '請到「行員受理」分頁上傳今日牌告。') : '');
-  }
-  else if(FX.state === 'loading') head = '<span class="dot"></span>正在讀取…目前暫以備援示範匯率顯示';
-  else if(FX.state === 'none') head = '<span class="dot fb"></span><strong>尚未上傳臺灣銀行牌告</strong>，目前使用備援示範匯率（非實際牌告）' + (up ? '' : '，請到「行員受理」分頁上傳。');
-  else head = '<span class="dot fb"></span><strong>無法讀取臺灣銀行牌告</strong>，目前使用備援示範匯率（非實際牌告）';
+  if(FX.state === 'live') head = '<span class="dot live"></span><strong>國際參考匯率（中間價）</strong>｜資料時間 ' + esc(FX.dataTime || '—') + '｜資料來源：<a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">ExchangeRate-API</a>（每日更新）';
+  else if(FX.state === 'loading') head = '<span class="dot"></span>正在讀取參考匯率…';
+  else head = '<span class="dot fb"></span><strong>暫時無法讀取參考匯率</strong>，目前以備援示範匯率顯示（非實際匯率）';
   const missing = FX.state === 'live' ? CURS.filter(c => (FX.rates[c] || {}).fb) : [];
-  const rows = CUR.map(c => { const q = FX.rates[c[0]] || {}; return '<tr><td>' + c[0] + ' ' + c[1] + (q.fb && FX.state === 'live' ? '（備援）' : '') + '</td><td class="num">' + fmtRate(q.spotBuy) + '</td><td class="num">' + fmtRate(q.spotSell) + '</td><td class="num">' + fmtRate(q.cashSell) + '</td></tr>'; }).join('');
-  const upHtml = up ? '<div class="fxup"><strong>改用臺灣銀行牌告</strong>：網站預設使用國際參考匯率（中間價）。要改用臺銀牌告，請到<a href="https://rate.bot.com.tw/xrt?Lang=zh-TW" target="_blank" rel="noopener">臺灣銀行牌告匯率頁</a>下載當日牌告 CSV（中文或英文版皆可），再上傳到這裡。上傳時請保留原始檔名，系統會從檔名讀取牌告時間。上傳後，當日所有人開啟網站都會使用這份牌告。<br>' +
-    '<label class="btn ghost filebtn">上傳臺銀牌告 CSV<input type="file" id="fxfile" accept=".csv,text/csv,text/plain" hidden></label> <span class="upmsg" id="fxupmsg" role="status"></span></div>' : '';
+  const rows = CUR.map(c => { const q = FX.rates[c[0]] || {}; return '<tr><td>' + c[0] + ' ' + c[1] + (q.fb && FX.state === 'live' ? '（備援）' : '') + '</td><td class="num">' + fmtRate(q.spotSell) + '</td></tr>'; }).join('');
   return '<div class="fxbar">' + head + ' <button class="link" data-fx-refresh>重新讀取</button>' +
-    (missing.length ? '<br>以下幣別牌告未取得，暫用備援值：' + missing.join('、') : '') +
-    '<br>匯出以即期賣出（外幣現鈔以現金賣出）、匯入以即期買入換算等值新臺幣；以外匯存款提出時，由行員以當下即期賣出匯率換算等值金額判斷門檻。' +
-    '<details><summary>查看 14 種幣別牌告</summary><div class="tablewrap"><table><thead><tr><th>幣別</th><th class="num">即期買入</th><th class="num">即期賣出</th><th class="num">現金賣出</th></tr></thead><tbody>' + rows + '</tbody></table></div></details>' + upHtml + '</div>';
+    (missing.length ? '<br>以下幣別未取得參考匯率，暫用備援值：' + missing.join('、') : '') +
+    '<br>等值新臺幣以參考匯率估算，實際以臨櫃成交匯率為準。' +
+    '<details><summary>查看 14 種幣別參考匯率</summary><div class="tablewrap"><table><thead><tr><th>幣別</th><th class="num">中間價（TWD）</th></tr></thead><tbody>' + rows + '</tbody></table></div></details></div>';
 }
 function applyRates(d){
   const rates = fbRates();
@@ -1059,41 +1051,10 @@ function applyRates(d){
   FX = {state:'live', source:d.source === 'ref' ? 'ref' : 'upload', dataTime:d.dataTime, fetchedAt:d.uploadedAt, rates};
 }
 function redrawFxSlots(){ document.querySelectorAll('.fxslot').forEach(n => { n.innerHTML = fxBarHtml(n.dataset.up === '1'); }); }
-async function uploadRates(file){
-  const msg = t => { const m = document.getElementById('fxupmsg'); if(m){ m.textContent = t[0]; m.className = 'upmsg ' + (t[1] || ''); } };
-  if(file.size > 200 * 1024){ msg(['檔案過大，請確認是臺銀牌告 CSV', 'err']); return; }
-  msg(['上傳中…']);
-  try{
-    const buf = await file.arrayBuffer();
-    let text = new TextDecoder('utf-8').decode(buf);
-    if(!/USD/.test(text) || /\uFFFD/.test(text)){ try{ const b5 = new TextDecoder('big5').decode(buf); if(/USD/.test(b5)) text = b5; }catch(e){} }
-    const d = await putRatesDoc(text, file.name);
-    if(!d.ok){ msg([d.error || '上傳失敗，請稍後再試', 'err']); return; }
-    applyRates(d); onRates();
-    msg(['已更新：辨識出 ' + d.count + ' 種幣別' + (d.dataTime ? '，牌告時間 ' + d.dataTime : ''), 'ok']);
-  }catch(e){ msg(['上傳失敗，請稍後再試', 'err']); }
-}
-document.addEventListener('change', e => { if(e.target && e.target.id === 'fxfile' && e.target.files && e.target.files[0]){ const f = e.target.files[0]; e.target.value = ''; uploadRates(f); } });
 let fxBusy = false;
 const ON_CLAUDE = !!(window.claude && typeof window.claude.use === 'function');
 let dbReady = Promise.resolve(null);
 const FX_CODES = CUR.map(c => c[0]);
-function parseRatesCsv(text){
-  const rates = {}, num = v => { const n = parseFloat(String(v || '').trim()); return isFinite(n) && n > 0 ? n : null; };
-  String(text).replace(/^\uFEFF/, '').split(/\r?\n/).forEach(raw => {
-    const c = raw.split(/[,\t]/).map(x => x.trim().replace(/^"|"$/g, '').trim());
-    const m = /\b([A-Z]{3})\b/.exec((c[0] || '').toUpperCase()), code = m ? m[1] : '';
-    if(!FX_CODES.includes(code)) return;
-    let b = c.findIndex(x => /^(本行買入|buying)$/i.test(x)), s2 = c.findIndex(x => /^(本行賣出|selling)$/i.test(x));
-    if((b < 0 || s2 < 0) && c.length >= 14){ b = 1; s2 = 11; }
-    if(b < 0 || s2 < 0) return;
-    const q = {cashBuy:num(c[b + 1]), spotBuy:num(c[b + 2]), cashSell:num(c[s2 + 1]), spotSell:num(c[s2 + 2])};
-    if(q.spotBuy == null || q.spotSell == null || !(q.spotSell > q.spotBuy)) return;
-    rates[code] = q;
-  });
-  return rates;
-}
-const dataTimeFromName = n => { const m = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})/.exec(n || ''); return m ? m[1] + '/' + m[2] + '/' + m[3] + ' ' + m[4] + ':' + m[5] : null; };
 const RATES_REMOTE = 'https://fx-remittance-demo-v6.netlify.app/api/rates';
 async function getRemoteRates(){
   try{
@@ -1103,43 +1064,21 @@ async function getRemoteRates(){
   }catch(e){ return null; }
 }
 async function getRatesDoc(){
-  if(ON_CLAUDE){
-    const remote = getRemoteRates();
-    let local = null;
-    try{ const db = await dbReady; if(db){ const snap = await withTimeout(db.doc('fx/rates').get(), 10000); if(snap.exists) local = Object.assign({ok:true, source:'upload'}, snap.data()); } }catch(e){}
-    const auto = await remote;
-    if(local && isToday(local.dataTime)) return local;
-    if(auto && (auto.source === 'ref' || !local || String(auto.dataTime || '') >= String(local.dataTime || ''))) return auto;
-    return local || auto || {ok:false, empty:true};
-  }
+  if(ON_CLAUDE){ const auto = await getRemoteRates(); return auto && auto.source === 'ref' ? auto : {ok:false}; }
   const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 12000);
   const res = await fetch('/api/rates', {cache:'no-store', signal:ctl.signal}); clearTimeout(tm);
   const d = await res.json();
-  if(!res.ok && !d.empty) throw new Error('rates unavailable');
+  if(!res.ok || !d.ok || d.source !== 'ref') throw new Error('rates unavailable');
   return d;
-}
-async function putRatesDoc(text, fileName){
-  if(ON_CLAUDE){
-    const rates = parseRatesCsv(text), n = Object.keys(rates).length;
-    if(n < 10) return {ok:false, error:'只辨識出 ' + n + ' 種幣別，請確認上傳的是臺灣銀行牌告匯率 CSV'};
-    const db = await dbReady; if(!db) return {ok:false, error:'此檢視無法存取共用資料，請登入後再試'};
-    const doc = {bank:'臺灣銀行', source:'upload', rates, count:n, dataTime:dataTimeFromName(fileName), fileName:String(fileName || '').slice(0, 120), uploadedAt:new Date().toISOString()};
-    try{ await withTimeout(db.doc('fx/rates').set(doc), 10000); }catch(e){ return {ok:false, error:'你沒有更新匯率的權限，或連線失敗'}; }
-    return Object.assign({ok:true}, doc);
-  }
-  const r = await fetch('/api/rates', {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({csv:text, fileName})});
-  const d = await r.json().catch(() => ({}));
-  return r.ok && d.ok ? d : Object.assign({ok:false}, d);
 }
 async function loadRates(){
   if(fxBusy) return; fxBusy = true;
   try{
     const d = await getRatesDoc();
     if(d.ok) applyRates(d);
-    else if(d.empty) FX = {state:'none', dataTime:null, fetchedAt:null, rates:fbRates()};
     else throw new Error('rates unavailable');
   }catch(e){
-    FX = {state:'fallback', dataTime:null, fetchedAt:null, rates:fbRates()};
+    FX = snapFx();
   }
   fxBusy = false; onRates();
 }
@@ -1152,7 +1091,7 @@ function onRates(){
     else if(document.getElementById('cconv')) updConv();
   }
 }
-document.addEventListener('click', e => { if(e.target.closest('[data-fx-refresh]')){ FX.state = 'loading'; redrawFxSlots(); loadRates(); } });
+document.addEventListener('click', e => { if(e.target.closest('[data-fx-refresh]')){ loadRates(); } });
 setInterval(() => { if(document.visibilityState === 'visible') loadRates(); }, 5 * 60 * 1000);
 
 /* ---------- RNG ---------- */
@@ -1463,7 +1402,7 @@ const FD = {
     {k:'cty', l:'受款地區國別', e:'Destination of Remittance', t:'cty', notw:1, req:1, re:1},
     {k:'ctyOther', l:'國家或地區名稱（英文）', t:'text', en:1, show:f => f.cty === 'OT', req:1},
     {k:'cur', l:'匯款幣別', e:'Currency', t:'select', o:() => CUR.map(c => [c[0], c[0] + ' ' + c[1]]), req:1, re:1},
-    {k:'amt', l:'匯款金額', e:'Amount', t:'number', req:1, re:'change', chk:v => +v > 0 ? null : '請輸入大於 0 的金額', hint:f => { if(!(+f.amt > 0 && f.cur)) return ''; const c = fConv(f); return '依臺銀' + KIND[c.kind] + ' ' + fmtRate(c.r) + (c.fb ? '（備援示範值）' : '') + '，約新臺幣 ' + fmt(Math.round(c.twd)) + ' 元；實際以臨櫃成交匯率為準'; }},
+    {k:'amt', l:'匯款金額', e:'Amount', t:'number', req:1, re:'change', chk:v => +v > 0 ? null : '請輸入大於 0 的金額', hint:f => { if(!(+f.amt > 0 && f.cur)) return ''; const c = fConv(f); return '依參考匯率 ' + fmtRate(c.r) + (c.fb ? '（備援示範值）' : '') + '，約新臺幣 ' + fmt(Math.round(c.twd)) + ' 元；實際以臨櫃成交匯率為準'; }},
     {k:'mode', l:'匯款方式', e:'By means of', t:'fixed', v:'電匯', wide:1, hint:() => '線上預填只提供電匯；產生的申請書仍保留該行原有的匯款方式欄位'},
     {k:'pay', l:'繳款方式', e:'Payment', t:'radio', o:() => PAY, req:1, re:1, wide:1, hint:() => '先選擇偏好即可，繳款金額與匯率由行員臨櫃填寫'},
     {k:'debitAcct', l:f => f.pay === 'fxd' ? '外匯存款帳號' : '新臺幣扣帳帳號', e:'Debit A/C No.', t:'text', show:f => f.pay === 'twd' || f.pay === 'fxd', chk:v => !v || /^[0-9\-]{6,20}$/.test(v) ? null : '帳號應為 6 至 20 位數字', hint:f => f.pay === 'twd' ? '以現金繳款可留空' : '從外匯存款帳戶扣款時填寫'},
@@ -1530,7 +1469,7 @@ FD.rin = {h:'匯入款內容', d:'依銀行的匯入匯款通知書填寫', f:[
   {k:'cty', l:'匯款地區國別', e:'Remittance from', t:'cty', notw:1, req:1, re:1},
   {k:'ctyOther', l:'國家或地區名稱（英文）', t:'text', en:1, show:f => f.cty === 'OT', req:1},
   {k:'cur', l:'匯入幣別', e:'Currency', t:'select', o:() => CUR.map(c => [c[0], c[0] + ' ' + c[1]]), req:1, re:1},
-  {k:'amt', l:'匯入金額', e:'Amount', t:'number', req:1, re:'change', chk:v => +v > 0 ? null : '請輸入大於 0 的金額', hint:f => { if(!(+f.amt > 0 && f.cur)) return ''; const c = fConv(f); return '依臺銀' + KIND[c.kind] + ' ' + fmtRate(c.r) + (c.fb ? '（備援示範值）' : '') + '，約新臺幣 ' + fmt(Math.round(c.twd)) + ' 元；實際以臨櫃成交匯率為準'; }},
+  {k:'amt', l:'匯入金額', e:'Amount', t:'number', req:1, re:'change', chk:v => +v > 0 ? null : '請輸入大於 0 的金額', hint:f => { if(!(+f.amt > 0 && f.cur)) return ''; const c = fConv(f); return '依參考匯率 ' + fmtRate(c.r) + (c.fb ? '（備援示範值）' : '') + '，約新臺幣 ' + fmt(Math.round(c.twd)) + ' 元；實際以臨櫃成交匯率為準'; }},
   {k:'pay', l:'解款方式', e:'Settlement', t:'radio', o:() => PAY_IN, req:1, re:1, wide:1, hint:() => '結售為新臺幣且金額達新臺幣 50 萬元時，須另填外匯收支或交易申報書（結售外匯專用）'},
   {k:'inRef', l:'匯入匯款編號', e:'Ref. No.', t:'text', up:1, hint:() => '銀行通知書上的編號；沒有可留空，臨櫃由行員帶入'},
   {k:'inAcct', l:'入帳帳號', e:'Account No.', t:'text', chk:v => !v || /^[0-9\-]{6,20}$/.test(v) ? null : '帳號應為 6 至 20 位數字'}
@@ -2389,9 +2328,9 @@ function renderTeller(){
   });
 }
 function rateHint(cs, f){
-  const k = boardKind(f.cur, f.pay, fDir(f)), b = boardRate(f.cur, f.pay, fDir(f)), src = FX.state === 'live' ? '臺銀' : '備援示範';
-  if(cs.rateAuto) return '已帶入' + src + KIND[k] + ' ' + fmtRate(b) + (FX.dataTime ? '（資料時間 ' + FX.dataTime + '）' : '') + '，可依實際成交匯率修改';
-  return '行員已修改；' + src + KIND[k] + '為 ' + fmtRate(b);
+  const b = boardRate(f.cur, f.pay, fDir(f)), src = FX.state === 'live' ? '參考匯率' : '備援示範匯率';
+  if(cs.rateAuto) return '已帶入' + src + ' ' + fmtRate(b) + (FX.state === 'live' && FX.dataTime ? '（資料時間 ' + FX.dataTime + '）' : '') + '，可依實際成交匯率修改';
+  return '行員已修改；' + src + '為 ' + fmtRate(b);
 }
 function ntdText(f, nt){ return f.pay === 'twd' ? 'TWD ' + fmt(nt) : '約 TWD ' + fmt(nt) + '（' + (SRC[fDir(f)][f.pay] || '非新臺幣結匯') + '，不結匯）'; }
 function thrHtml(base, f, nt){
