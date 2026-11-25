@@ -847,6 +847,23 @@ body.at-foot .qrfloat,body.at-foot .qrpill{opacity:0;transform:translateY(12px);
   .rs-c5ref > span{display:none}.rs-c5ref button{flex:none}
   .rs-c5a{grid-column:2;flex-direction:row;align-items:baseline;justify-content:flex-start;gap:8px;text-align:left}
 }
+
+/* 手機上開啟 APP 的入口（桌機改用「手機一起操作」） */
+.m-only{display:none}
+.applink{text-decoration:none}
+@media (max-width:760px){
+  .d-only{display:none}
+  .m-only{display:inline-flex}
+  .hero-cta .applink{align-items:center;gap:8px}
+  .localnav .ln-in{position:relative}
+  .ln-right{position:absolute;right:16px;top:50%;transform:translateY(-50%)}
+  .ln-app{align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--onaccent);background:var(--accent);border-radius:999px;padding:6px 12px;min-height:32px}
+  .ln-app svg{width:13px;height:13px}
+  .appban{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;padding:14px 18px;border-radius:20px;background:#E8F1FD;color:var(--ink)}
+  .appban span{display:flex;flex-direction:column;gap:2px}
+  .appban b{font-size:16px;color:#0058B0}.appban small{font-size:14px;color:var(--ink2)}
+  .appban svg{flex:none;color:#0058B0;width:20px;height:20px}
+}
 </style>
 </head>
 <body>
@@ -855,7 +872,8 @@ body.at-foot .qrfloat,body.at-foot .qrpill{opacity:0;transform:translateY(12px);
   <div class="hero-in">
     <h1 class="h1-title">From Self-Selected Codes to Reliable FX Purpose Data</h1>
     <div class="hero-cta">
-      <button class="btn" data-go="customer">試填一筆申報</button>
+      <button class="btn d-only" data-go="customer">試填一筆申報</button>
+      <a class="btn m-only applink" href="/app/">開啟 APP 試填申報 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
       <button class="link chev" data-go="results">看研究結果</button>
     </div>
     <p class="demo-flag">示範版：所有交易、數據與範例個人資料皆為虛構，請勿輸入真實個人資料</p>
@@ -897,14 +915,14 @@ body.at-foot .qrfloat,body.at-foot .qrpill{opacity:0;transform:translateY(12px);
       <button class="tab" role="tab" data-t="customer" aria-selected="false">客戶申報</button>
       <button class="tab" role="tab" data-t="teller" aria-selected="false">行員受理</button>
       <button class="tab" role="tab" data-t="results" aria-selected="false">研究結果</button>
-    </div><button class="qrbtn" id="qrOpen" aria-haspopup="dialog">手機一起操作</button></div>
+    </div><button class="qrbtn" id="qrOpen" aria-haspopup="dialog">手機一起操作</button><a class="m-only applink ln-app" href="/app/" aria-label="開啟 APP">APP <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
   </div>
 </nav>
 <aside class="qrfloat" id="qrFloat" aria-label="用手機檢視本網頁" hidden><p class="qf-t">掃描檢視本網頁</p><img id="qfImg" alt="開啟本網頁的 QR Code"><div class="qf-act"><button id="qfBig" type="button">放大</button><button id="qfMin" type="button" aria-label="收合 QR Code">收合</button></div></aside>
 <button class="qrpill" id="qrPill" hidden aria-label="顯示本網頁的 QR Code"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM14 18h2M18 14h2"/></svg>本網頁 QR Code</button>
 <nav class="btabs" aria-label="分頁（手機）"><button class="btab" type="button" data-t="overview" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg><span>成果總覽</span></button><button class="btab" type="button" data-t="customer" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4"/></svg><span>客戶申報</span></button><button class="btab" type="button" data-t="teller" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5.5A1.5 1.5 0 0 1 5.5 4H7M17 4h1.5A1.5 1.5 0 0 1 20 5.5V7M20 17v1.5a1.5 1.5 0 0 1-1.5 1.5H17M7 20H5.5A1.5 1.5 0 0 1 4 18.5V17"/><path d="M8 12h8"/></svg><span>行員受理</span></button><button class="btab" type="button" data-t="results" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 20V11M12 20V5M19 20v-6"/></svg><span>研究結果</span></button></nav>
 <main class="wrap" id="main" tabindex="-1">
-  <header class="phead" id="phead" hidden><h2 class="big">客戶申報</h2><p class="fit">回答幾個白話問題，系統推導匯款分類，再一次填好申請書，取得 PDF、QR Code 與預填代號。</p></header>
+  <header class="phead" id="phead" hidden><h2 class="big">客戶申報</h2><p class="fit">回答幾個白話問題，系統推導匯款分類，再一次填好申請書，取得 PDF、QR Code 與預填代號。</p><a class="m-only applink appban" href="/app/"><span><b>在手機上？改用 APP 版</b><small>全螢幕操作，可加入主畫面</small></span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a></header>
   <section id="view"></section>
 </main>
 <footer class="foot">
@@ -2776,6 +2794,7 @@ loadRates();
 document.querySelectorAll('.tab,.btab').forEach(b => b.addEventListener('click', () => show(b.dataset.t)));
 document.querySelectorAll('.hero [data-go]').forEach(b => b.addEventListener('click', () => show(b.dataset.go, 'force')));
 
+document.querySelectorAll('a.applink').forEach(a => { if(window.claude && typeof window.claude.use === 'function'){ a.target = '_blank'; a.rel = 'noopener'; } });
 /* ---------- QR Code：右下角是本網頁；「手機一起操作」是 APP ---------- */
 (function appQr(){
   const fl = document.getElementById('qrFloat'); if(!fl) return;
