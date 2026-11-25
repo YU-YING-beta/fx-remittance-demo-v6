@@ -980,6 +980,11 @@ html{background:#F4F6FA}
 .cv-go{background:#0B1F3A;box-shadow:0 16px 30px -16px rgba(11,31,58,.55)}
 .cv-go i{background:#D4A93C;color:#0B1F3A}
 .cv-fine{color:#5B6B82}
+
+/* 回到研究成果網站 */
+.siteback{display:flex;align-items:center;justify-content:center;gap:6px;margin:20px auto 0;padding:10px 16px;min-height:44px;width:fit-content;border-radius:999px;font-size:15px;font-weight:600;color:var(--navy,#0B1F3A);text-decoration:none;background:rgba(11,31,58,.06);transition:background-color .15s,transform .12s}
+.siteback:active{transform:scale(.97);background:rgba(11,31,58,.1)}
+.siteback svg{flex:none}
 </style>
 </head>
 <body class="app">
@@ -5121,12 +5126,21 @@ function renderCover(){
 }
 
 /* ---------- 首頁 ---------- */
+/* 回到研究成果網站：從網站點進來時回到原本的分頁；加入主畫面的 APP 模式不顯示 */
+const SITE_BACK_URL = () => {
+  if(ON_CLAUDE) return 'https://claude.ai/artifact/1SYuoxm3hMiYCFfQPjXmns';
+  try{ const k = sessionStorage.getItem('fxSiteBack'); if(k && k.charAt(0) === '/' && !/^\/app\b/.test(k)) return k; }catch(e){}
+  try{ const r = new URL(document.referrer); if(r.origin === location.origin && !/^\/app\b/.test(r.pathname)) return r.pathname + r.hash; }catch(e){}
+  return '/';
+};
+const siteBackShow = () => { try{ return !(window.matchMedia('(display-mode: standalone)').matches || navigator.standalone); }catch(e){ return true; } };
 function renderHome(){
   appBackFn = () => show('cover');
   bar('封面', '');
   view.innerHTML = '<div class="home"><p class="eyebrow">FX DECLARATION</p><h1 class="hq">請問您是？</h1><p class="hsub">兩分鐘完成匯款性質分類與申請書預填</p>' +
     '<button class="role pri" id="goCust"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg><span><b>客戶</b><small>回答白話問題，產生申請書</small></span><svg class="rarr" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>' +
     '<button class="role" id="goTel"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"></rect><path d="M8 20h8M12 16v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg><span><b>行員</b><small>輸入代號或掃描 QR Code</small></span><svg class="rarr" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>' +
+    (siteBackShow() ? '<a class="siteback" id="siteBack" href="' + SITE_BACK_URL() + '"' + (ON_CLAUDE ? ' target="_blank" rel="noopener"' : '') + '><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>回到研究成果網站</a>' : '') +
     '<p class="fine">示範用 APP，所有資料皆為虛構，請勿輸入真實個人資料</p></div>';
   view.querySelector('#goCust').addEventListener('click', () => { const d = draftGet(); if(d) return resumeSheet(d); resetCustQuiet(); show('customer'); });
   view.querySelector('#goTel').addEventListener('click', () => appPin ? show('teller') : pinSheet());

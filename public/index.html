@@ -2795,6 +2795,8 @@ document.querySelectorAll('.tab,.btab').forEach(b => b.addEventListener('click',
 document.querySelectorAll('.hero [data-go]').forEach(b => b.addEventListener('click', () => show(b.dataset.go, 'force')));
 
 document.querySelectorAll('a.applink').forEach(a => { if(window.claude && typeof window.claude.use === 'function'){ a.target = '_blank'; a.rel = 'noopener'; } });
+/* 記住從哪個分頁進入 APP，APP 的「回到研究成果網站」會回到這裡 */
+document.addEventListener('click', e => { const a = e.target.closest('a.applink, a.qgo'); if(a){ try{ sessionStorage.setItem('fxSiteBack', location.pathname + location.hash); }catch(x){} } }, true);
 /* ---------- QR Code：右下角是本網頁；「手機一起操作」是 APP ---------- */
 (function appQr(){
   const fl = document.getElementById('qrFloat'); if(!fl) return;
