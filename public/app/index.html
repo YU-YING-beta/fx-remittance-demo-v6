@@ -630,7 +630,10 @@ td > .sec:first-child{border-top:0}
 .qrbig .qt h2{margin:0;font-size:clamp(30px,4vw,46px);line-height:1.15;letter-spacing:-.01em}
 .qrbig .qt p{margin:0;font-size:18px;color:#515154;line-height:1.5}
 .qrbig .qt .u{font-size:15px;color:#6E6E73;word-break:break-all}
-.qrbig .qt button{align-self:flex-start;margin-top:6px}
+.qrbig .qt button{align-self:flex-start}
+.qrbig .qact{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:6px}
+.qrbig .qgo{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:17px;padding:12px 24px;min-height:48px}
+.qrbig .qhint{font-size:14px!important;color:#6E6E73!important}
 @media (max-width:760px){ .qrfloat,.qrpill{display:none} .qrbtn{font-size:12px;padding:5px 10px} }
 @media print{ .qrfloat,.qrpill,.qrbig{display:none} }
 .qrfloat[hidden],.qrpill[hidden]{display:none}
@@ -643,6 +646,97 @@ td > .sec:first-child{border-top:0}
 @media (max-width:860px){
   .hero-visual{gap:20px;padding-bottom:56px}
 }
+/* ===== 研究結果分頁（02c-A） ===== */
+.rs{--rs-ink:#1D1D1F;--rs-sub:#6E6E73;--rs-line:#E5E5EA;--rs-acc:#0071E3;color:var(--rs-ink)}
+.rs-hero{text-align:center;padding:24px 0 36px;scroll-margin-top:72px}
+.rs-kick{margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.18em;color:var(--rs-acc)}
+.rs-hero h1{margin:0 0 14px;font-size:clamp(34px,5vw,60px);line-height:1.1;font-weight:800;letter-spacing:-.03em}
+.rs-sub{margin:0 0 30px;font-size:19px;line-height:1.7;color:var(--rs-sub)}
+.rs-ban{display:flex;gap:12px;align-items:flex-start;text-align:left;padding:14px 18px;border-radius:14px;background:#FFF7E6;color:#7A4B00;font-size:14px;line-height:1.6}
+.rs-ban svg{flex:none;margin-top:1px}
+.rs-body{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}
+.rs-nav{flex:1 1 200px;max-width:230px;position:sticky;top:84px;display:flex;flex-direction:column;gap:4px}
+.rs-navh{margin:0 0 8px 14px;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--rs-sub)}
+.rs-nav a{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-radius:14px;text-decoration:none;color:var(--rs-ink);transition:background .2s}
+.rs-nav a b{font-size:15px}.rs-nav a span{font-size:13px;line-height:1.45;color:var(--rs-sub)}
+.rs-nav a:hover{background:#FAFAFC}
+.rs-nav a.on{background:#F5F5F7}.rs-nav a.on b{color:var(--rs-acc)}
+.rs-nav .rs-top{margin-top:12px;padding:10px 14px;font-size:13px;color:var(--rs-acc)}
+.rs-main{flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:20px}
+.rs-sec{border-radius:28px;background:#F5F5F7;padding:clamp(24px,4vw,48px);scroll-margin-top:84px}
+.rs-eb{margin:0 0 10px;font-size:13px;font-weight:700;letter-spacing:.16em;color:var(--rs-acc)}
+.rs-h2{margin:0 0 14px;font-size:clamp(24px,3vw,34px);line-height:1.2;font-weight:700;color:var(--rs-ink)}
+.rs-h3{margin:28px 0 12px;font-size:18px}
+.rs-p{margin:0 0 18px;font-size:16px;line-height:1.8;color:var(--rs-sub);text-align:justify}
+.rs-note{margin:14px 0 0;font-size:13px;line-height:1.7;color:var(--rs-sub)}
+.rs-callout{margin:0 0 14px;padding:12px 14px;border-radius:12px;background:#F5F5F7;font-size:13px;line-height:1.7;color:var(--rs-sub)}
+.rs-sim{display:inline-block;font-size:12px;font-weight:700;color:#7A4B00;background:#FDE7C2;padding:4px 10px;border-radius:999px;margin-bottom:12px}
+.rs-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.rs-tiles div{border-radius:14px;padding:16px;background:#FFFFFF}
+.rs-tiles b{display:block;font-size:28px}.rs-tiles span{font-size:13px;color:var(--rs-sub)}
+.rs-dets{margin-top:18px}
+.rs-det{background:#FFFFFF;border-radius:18px;padding:0 20px;margin-top:10px}
+.rs-det>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;font-size:16px;font-weight:700}
+.rs-det>summary::-webkit-details-marker,.rs-case>summary::-webkit-details-marker{display:none}
+.rs-dt small{margin-left:10px;font-size:13px;font-weight:500;color:var(--rs-sub)}
+.rs-tog{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--rs-acc);white-space:nowrap}
+.rs-tog .o{display:none}.rs-det[open]>summary .rs-tog .o{display:inline}.rs-det[open]>summary .rs-tog .c{display:none}
+.rs-chev{transition:transform .2s}.rs-det[open]>summary .rs-chev,.rs-case[open]>summary .rs-chev{transform:rotate(180deg)}
+.rs-db{padding:4px 0 20px}
+.rs-scroll{overflow-x:auto}
+.rs-tbl{width:100%;border-collapse:collapse;min-width:640px;font-size:14px}
+.rs-tbl th{text-align:left;padding:10px 12px;font-size:13px;font-weight:700;color:var(--rs-sub);border-bottom:1px solid var(--rs-line);white-space:nowrap;background:none}
+.rs-tbl td{text-align:left;padding:10px 12px;line-height:1.6;border-bottom:1px solid var(--rs-line);vertical-align:top}
+.rs-tbl .num{text-align:right}.rs-tbl .b,.rs-cases .b{font-weight:700}.rs-tbl .nw{white-space:nowrap}
+.rs-sec>.rs-scroll{background:#FFFFFF;border-radius:18px;padding:6px 8px}
+.rs-fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.rs-fcard{border-radius:14px;background:#F5F5F7;padding:16px}
+.rs-fcard p{margin:0 0 6px;font-size:15px}.rs-fcard .h{margin-bottom:10px;font-size:13px;font-weight:700;color:var(--rs-sub)}
+.rs-tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700;background:#F2F2F4;color:var(--rs-sub)}
+.rs-tag.yes{background:#E8F1FD;color:#0058B0}
+.rs-cases{min-width:680px}
+.rs-crow{display:grid;grid-template-columns:48px 56px minmax(0,1fr) 96px 92px 110px 24px;gap:10px;align-items:center;padding:0 12px;min-height:48px;font-size:14px}
+.rs-chead{min-height:0;padding-bottom:8px;border-bottom:1px solid var(--rs-line);font-size:12px;font-weight:700;color:var(--rs-sub)}
+.rs-case{border-bottom:1px solid var(--rs-line)}
+.rs-case>summary{list-style:none;cursor:pointer}.rs-case>summary:hover{background:#FAFAFC}
+.rs-case .sub{color:var(--rs-sub)}.rs-case .rs-chev{color:#86868B}
+.rs-no{width:30px;height:30px;border-radius:9px;background:#F5F5F7;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.rs-cbody{margin:8px 0 14px;padding:14px 16px;border-radius:14px;background:#F5F5F7}
+.rs-cbody .k{margin:0 0 4px;font-size:12px;font-weight:700;color:var(--rs-sub)}
+.rs-cbody .t{margin:0 0 10px;font-size:15px;line-height:1.7}
+.rs-cbody .w{margin:0;font-size:13px;line-height:1.6;color:var(--rs-sub)}.rs-cbody .w b{color:var(--rs-ink)}
+.rs-revs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:4px 28px}
+.rs-rev{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--rs-line)}
+.rs-rev>span{flex:none;width:26px;height:26px;border-radius:8px;background:var(--rs-acc);color:#FFFFFF;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.rs-rev b{display:block;font-size:15px}.rs-rev p{margin:0;font-size:14px;line-height:1.6;color:var(--rs-sub)}
+.rs-scale{display:flex;flex-direction:column;gap:14px}
+.rs-scale .l{display:flex;justify-content:space-between;gap:12px;font-size:14px;margin-bottom:6px}.rs-scale .l span:last-child{color:var(--rs-sub)}.rs-scale b{color:var(--rs-ink)}
+.rs-scale .trk{height:10px;border-radius:5px;background:#D6E6FA}.rs-scale .trk div{height:10px;border-radius:5px;background:var(--rs-acc)}
+.rs-met{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.rs-mcard{background:#FFFFFF;border-radius:28px;padding:20px}
+.rs-mbig{grid-column:span 3;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:16px 28px;flex-wrap:wrap}
+.rs-mbig .l{margin:0;font-size:22px;font-weight:700}
+.rs-mcard .s{margin:0 0 12px;font-size:14px;font-weight:600;color:var(--rs-sub)}
+.rs-mcard .v{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;color:var(--rs-sub)}
+.rs-mbig .v span{font-size:26px}.rs-mbig .v b{font-size:52px;line-height:1;font-weight:800;letter-spacing:-.02em;color:var(--rs-ink)}
+.rs-mcard .v.sm{gap:10px}.rs-mcard .v.sm span{font-size:18px}.rs-mcard .v.sm b{font-size:32px;font-weight:800;color:var(--rs-ink)}
+.rs-leg{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--rs-sub);margin-bottom:14px}
+.rs-leg span{display:flex;align-items:center;gap:6px}.rs-leg i{width:12px;height:12px;border-radius:3px}
+.rs-leg i.a,.rs-bar i.a{background:#C7C7CC}.rs-leg i.b,.rs-bar i.b{background:var(--rs-acc)}
+.rs-bars{display:flex;flex-direction:column;gap:14px}
+.rs-bar{display:grid;grid-template-columns:minmax(150px,220px) minmax(0,1fr);gap:14px;align-items:center}
+.rs-bar .n{font-size:14px}.rs-bar .r{display:flex;align-items:center;gap:8px;margin:2px 0}
+.rs-bar i{display:block;height:10px;border-radius:5px}
+.rs-bar em{font-style:normal;font-size:12px;color:var(--rs-sub)}.rs-bar em.b{font-weight:700;color:var(--rs-ink)}
+@media (max-width:860px){
+  .rs-nav{position:static;max-width:none;flex:1 1 100%;flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:4px}
+  .rs-navh,.rs-nav .rs-top{display:none}
+  .rs-nav a{flex:none;max-width:220px;background:#F5F5F7}.rs-nav a.on{background:#E8F1FD}
+  .rs-met{grid-template-columns:1fr}.rs-mbig{grid-column:auto}
+  .rs-bar{grid-template-columns:1fr}
+  
+}
+.wrap.wide{max-width:1240px}
 
 /* ===== APP ===== */
 html{background:#FFFFFF}
@@ -866,6 +960,9 @@ html{background:#F4F6FA}
 .tk-hint{margin:16px 6px 14px}
 .tk-acts{display:flex;gap:10px}
 .tk-acts .btn{flex:1;min-width:0;border-radius:18px;min-height:56px;justify-content:center}
+.tk-qrhint{display:flex;align-items:center;justify-content:center;gap:6px;margin:10px 0 0;font-size:13px;color:var(--ink2)}
+.ticket .bigqr img{-webkit-touch-callout:default;-webkit-user-select:auto;user-select:auto;pointer-events:auto}
+.tk-pdfhint{margin:10px 6px 0;text-align:center;font-size:13px;line-height:1.5;color:var(--ink2)}
 .done .acts{justify-content:stretch;margin-top:10px}.done .acts .btn{flex:1;border-radius:18px;justify-content:center}
 .done .appnav{justify-content:center}
 /* 封面 D1 */
@@ -3653,7 +3750,7 @@ function renderOverview(){
   '</div></section>' +
   '<section class="band grey"><div class="band-in">' +
     '<h2 class="big">一次填寫，臨櫃免重填</h2>' +
-    '<p>分類推導完成後，客戶接著在同一個流程填寫申請書：匯出填匯出匯款賣匯申請書，匯入填匯入匯款買匯申請書；以新臺幣結購或結售、金額達新臺幣50萬元時，系統自動加填外匯收支或交易申報書（結購或結售外匯專用）。每份文件各有一份 PDF、一組 QR Code 與一組預填代號，行員帶入後只需核對、填寫匯率，再請客戶親自簽章。</p>' +
+    '<p>分類推導完成後，客戶接著在同一個流程填寫資料。匯出填匯出匯款賣匯申請書，以新臺幣結購且金額達新臺幣 50 萬元時，系統加填外匯收支或交易申報書（結購外匯專用）。匯入不填申請書：結售為新臺幣且金額達新臺幣 50 萬元，或分類為 310 僑外股本投資時，系統產生外匯收支或交易申報書（結售外匯專用）；其餘匯入款不需簽署文件，由行員以電話照會交易事實與入戶帳號。每份文件各有一份 PDF、一組 QR Code 與一組預填代號，行員帶入後只需核對、填寫匯率，再請客戶親自簽章。</p><p class="small">' + IN_NOTE + '</p>' +
     '<ol class="v4flow">' +
       '<li><i>1</i><b>回答白話事實問題</b><span>不必先認識分類代碼</span></li>' +
       '<li><i>2</i><b>推導分類代碼</b><span>自動帶入申請書的匯款分類欄</span></li>' +
@@ -3671,7 +3768,7 @@ function renderOverview(){
       '<button class="tile big" data-go="customer"><p class="t-role">匯款客戶</p><p class="t-name">客戶申報</p><p class="t-desc">用白話問題完成匯出或匯入的申報，接著填好申請書，取得 PDF、QR Code 與預填代號</p><span class="t-go">前往客戶申報</span><div class="t-art">' + phoneMini() + '</div></button>' +
       '<button class="tile" data-go="teller"><p class="t-role">分行行員</p><p class="t-name">行員受理</p><p class="t-desc">輸入預填代號或上傳 QR Code，帶入申請書與申報書；看作答紀錄、確認分類、填寫匯率</p><span class="t-go">前往行員受理</span></button>' +
       '<button class="tile" data-go="results"><p class="t-role">研究者</p><p class="t-name">研究結果</p><p class="t-desc">三項研究的結果：文件分析、行員核對與規則表修正、客戶作答（研究三為模擬預覽）</p><span class="t-go">前往研究結果</span><div class="t-art">' + sparkSvg() + '</div></button>' +
-      '<a class="tile" href="https://fx-remittance-demo-v6.netlify.app/appendix/" target="_blank" rel="noopener"><p class="t-role">附錄</p><p class="t-name">匯出入分類代碼完整資料</p><p class="t-desc">108 個分類代碼的推導條件與匯出入對應表，可搜尋、篩選並下載 PDF</p><span class="t-go">開啟附錄</span></a>' +
+      '<a class="tile" href="https://claude.ai/artifact/2NhEveXFqao2bCaLPvLjbp#a2" target="_blank" rel="noopener"><p class="t-role">附錄</p><p class="t-name">匯出入分類代碼完整資料</p><p class="t-desc">108 個分類代碼的推導條件與匯出入對應表，可搜尋、篩選並下載 PDF</p><span class="t-go">開啟附錄</span></a>' +
     '</div>' +
   '</div></section>';
 
@@ -3844,7 +3941,10 @@ const fDir = f => (f && f.dir === 'in') ? 'in' : 'out';
 const fConv = f => conv({dir:fDir(f), src:f.pay, cur:f.cur, amt:f.amt});
 const ntdOf = f => Math.round(fConv(f).twd || 0);
 const usdOf = f => fConv(f).usd || 0;
-const needD = f => f.pay === 'twd' && ntdOf(f) >= 500000;
+const IN_NOTE = '本研究為簡化流程，匯入匯款不另產生匯入匯款申請書；實際作業請依各銀行規定辦理。';
+const curCode = () => { try { return cust.ov || (isSure(derive(cust.a).code) ? derive(cust.a).code : ''); } catch(e){ return ''; } };
+const needD = (f, code) => (f.pay === 'twd' && ntdOf(f) >= 500000) || (fDir(f) === 'in' && (code === undefined ? curCode() : code) === '310');
+const inWhy = p => p && p.dc === '310' ? '分類為 310 僑外股本投資' : '結售為新臺幣且金額達新臺幣 50 萬元';
 const ALPHA = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
 const newCode = () => { const b = new Uint8Array(8); crypto.getRandomValues(b); return Array.from(b, x => ALPHA[x % 32]).join(''); };
 const fmtCode = c => c ? c.slice(0, 4) + '-' + c.slice(4) : '';
@@ -3961,7 +4061,7 @@ FD.rin = {h:'匯入款內容', d:'依銀行的匯入匯款通知書填寫', f:[
   {k:'ctyOther', l:'國家或地區名稱（英文）', t:'text', en:1, show:f => f.cty === 'OT', req:1},
   {k:'cur', l:'匯入幣別', e:'Currency', t:'select', o:() => CUR.map(c => [c[0], c[0] + ' ' + c[1]]), req:1, re:1},
   {k:'amt', l:'匯入金額', e:'Amount', t:'number', req:1, re:'change', chk:v => +v > 0 ? null : '請輸入大於 0 的金額', hint:f => { if(!(+f.amt > 0 && f.cur)) return ''; const c = fConv(f); return '依參考匯率 ' + fmtRate(c.r) + (c.fb ? '（備援示範值）' : '') + '，約新臺幣 ' + fmt(Math.round(c.twd)) + ' 元；實際以臨櫃成交匯率為準'; }},
-  {k:'pay', l:'解款方式', e:'Settlement', t:'radio', o:() => PAY_IN, req:1, re:1, wide:1, hint:() => '結售為新臺幣且金額達新臺幣 50 萬元時，須另填外匯收支或交易申報書（結售外匯專用）'},
+  {k:'pay', l:'解款方式', e:'Settlement', t:'radio', o:() => PAY_IN, req:1, re:1, wide:1, hint:() => '結售為新臺幣且金額達新臺幣 50 萬元，或分類為 310 僑外股本投資時，須填寫外匯收支或交易申報書（結售外匯專用）；其餘匯入款不需簽署文件'},
   {k:'inRef', l:'匯入匯款編號', e:'Ref. No.', t:'text', up:1, hint:() => '銀行通知書上的編號；沒有可留空，臨櫃由行員帶入'},
   {k:'inAcct', l:'入帳帳號', e:'Account No.', t:'text', chk:v => !v || /^[0-9\-]{6,20}$/.test(v) ? null : '帳號應為 6 至 20 位數字'}
 ]};
@@ -3975,7 +4075,7 @@ FD.rm = {h:'匯款人', d:'可參考匯入匯款通知書或電文附言', f:[
   {k:'rmInfo', l:'電文附言（付款明細）', e:'Remittance information', t:'textarea', en:1, max:140, wide:1, hint:() => '通知書上的付款原因或發票號碼，可作為判斷匯款性質的參考'}
 ]};
 FD.oti = {h:'其他', d:'', f:[{k:'memo', l:'備註', e:'Remarks', t:'textarea', en:1, max:140, wide:1, hint:() => '例如發票號碼或合約編號'}]};
-FD.dci = Object.assign({}, FD.dc, {h:'外匯收支或交易申報書（結售外匯專用）', d:'結售為新臺幣、金額達新臺幣 50 萬元，依申報辦法須另填申報書。共同欄位已自動帶入，只需補下列資料。'});
+FD.dci = Object.assign({}, FD.dc, {h:'外匯收支或交易申報書（結售外匯專用）', d:'結售為新臺幣且金額達新臺幣 50 萬元，或分類為 310 僑外股本投資時，須填寫申報書。共同欄位已自動帶入，只需補下列資料。'});
 const ctxOf = () => ({who:cust.a.who, party:cust.a.party, dir:cust.a.dir === 'in' ? 'in' : 'out', code:cust.ov || (isSure(derive(cust.a).code) ? derive(cust.a).code : null)});
 const call = (x, f, c) => typeof x === 'function' ? x(f, c) : x;
 function allSections(f){ if(fDir(f) === 'in'){ const s = ['rin','api','rm','oti']; if(needD(f)) s.push('dci'); return s; } const s = ['rem','ap','bk','bf','ot']; if(needD(f)) s.push('dc'); return s; }
@@ -4041,8 +4141,8 @@ function custSlip(){
     (sure ? '' : '<dt>說明</dt><dd>這筆交易需要行員協助確認分類。你仍可先填寫其他資料，臨櫃時由行員確認。</dd>') +
     '</dl></div>' + researchPanel(r);
   if(canForm){
-    const fn = cust.a.dir === 'in' ? '匯入匯款買匯申請書' : '匯出匯款申請書';
-    view.innerHTML = slip + '<div class="panel" style="margin-top:20px"><h2 class="q">接著填寫' + fn + '</h2><p>分類已帶入申請書。填完後會產生 PDF、QR Code 與預填代號，臨櫃時出示即可，不必再填一次。' + (cust.a.dir === 'in' ? '匯入款請依銀行的匯入匯款通知書填寫。' : '') + '</p>' + overrideCtl() +
+    const fn = cust.a.dir === 'in' ? '匯入款資料' : '匯出匯款申請書';
+    view.innerHTML = slip + '<div class="panel" style="margin-top:20px"><h2 class="q">接著填寫' + fn + '</h2><p>' + (cust.a.dir === 'in' ? '匯入款請依銀行的匯入匯款通知書填寫。結售為新臺幣且達新臺幣 50 萬元，或分類為 310 時，會產生外匯收支或交易申報書（結售外匯專用）的 PDF、QR Code 與預填代號；其餘匯入款不需簽署文件，由行員以電話照會。</p><p class="small">' + IN_NOTE : '分類已帶入申請書。填完後會產生 PDF、QR Code 與預填代號，臨櫃時出示即可，不必再填一次。') + '</p>' + overrideCtl() +
       '<div class="row"><button class="btn" id="toform">填寫' + fn + '</button><button class="link" id="back">上一題</button><button class="link" id="restart">從第 1 題重新開始</button></div></div>';
     bindOverride();
     view.querySelector('#toform').addEventListener('click', () => { initForm(); cust.stage = cust.a.dir === 'in' ? 'form' : 'bank'; renderCustomer(); window.scrollTo({top: document.querySelector('.localnav').getBoundingClientRect().top + window.scrollY}); });
@@ -4184,7 +4284,8 @@ function custForm(){
       '<div class="grid2">' + fs.map(d => fieldHtml(d, f, c)).join('') + '</div></section>';
   });
   if(big) html += '<div class="callout warn">單筆金額達等值 ' + (cust.a.who === 'company' ? '100' : '50') + ' 萬美元，依申報辦法第5條須檢附證明文件，由銀行確認後申報。臨櫃時請攜帶相關文件。</div>';
-  if(!nd && f.pay !== 'twd' && ntdOf(f) >= 500000) html += fDir(f) === 'in' ? '<div class="callout">存入外匯存款，未涉及新臺幣結售，不需填寫結售外匯專用申報書。</div>' : '<div class="callout">以' + esc((PAY.find(p => p[0] === f.pay) || ['', ''])[1]) + '支付，未涉及新臺幣結購，不需填寫結購外匯專用申報書。</div>';
+  if(fDir(f) === 'in') html += '<div class="callout">' + (nd ? '本筆須簽署外匯收支或交易申報書（結售外匯專用），原因是' + inWhy({dc:code}) + '。' : '依目前資料，本筆匯入款不需簽署文件；送出後由行員以電話向你確認交易事實與入戶帳號。') + '<br><span class="small">' + IN_NOTE + '</span></div>';
+  if(!nd && f.pay !== 'twd' && ntdOf(f) >= 500000 && fDir(f) !== 'in') html += fDir(f) === 'in' ? '' : '<div class="callout">以' + esc((PAY.find(p => p[0] === f.pay) || ['', ''])[1]) + '支付，未涉及新臺幣結購，不需填寫結購外匯專用申報書。</div>';
   const lastPg = appPage >= allSections(f).length - 1;
   html += (lastPg ? '<p class="small finep">示範版：請勿輸入真實的個人資料。產生後的資料會編入 QR Code，並以預填代號暫存當日。</p>' : '') + '<div class="appnav cta"><button class="link" id="toslip2">上一步</button><button class="btn" id="gen">' + (lastPg ? '產生申請資料' : '下一步') + '</button></div>';
   view.innerHTML = html;
@@ -4278,13 +4379,13 @@ async function submitForm(){
   const f = cust.f, a = Object.assign({}, cust.a);
   a.amount = f.pay === 'twd' && usdOf(f) >= (a.who === 'company' ? 1e6 : 5e5) ? 'yes' : 'no';
   const r = derive(a), mt = isSure(r.code) ? r.code : '', dc = cust.ov || mt;
-  const nd = needD(f), cA = newCode(), cD = nd ? newCode() : '';
   const din = fDir(f) === 'in';
+  const nd = needD(f, dc), cA = din ? '' : newCode(), cD = nd ? newCode() : '';
   const base = {v:4, k:newCode(), e:todayStr(), w:a.who, p:a.party, d:din ? 'in' : 'out', ans:cust.hist.map(q => q + '=' + cust.a[q]).join(';'), m:mt, dc, o:cust.ov ? 1 : 0, ts:Date.now()};
-  const pA = Object.assign({}, base, {t:din ? 'B' : 'A', c:cA, x:cD, f:pick(f, din ? B_KEYS : A_KEYS)});
+  const pA = din ? null : Object.assign({}, base, {t:'A', c:cA, x:cD, f:pick(f, A_KEYS)});
   const pD = nd ? Object.assign({}, base, {t:'D', c:cD, x:cA, f:pick(f, D_KEYS)}) : null;
-  const okA = await saveCode(cA, pA), okD = pD ? await saveCode(cD, pD) : false;
-  cust.out = {pA, pD, okA, okD, r, doc:'A'}; cust.stage = 'out'; renderCustomer();
+  const okA = pA ? await saveCode(cA, pA) : false, okD = pD ? await saveCode(cD, pD) : false;
+  cust.out = {pA, pD, okA, okD, r, dc, din, doc:pA ? 'A' : 'D'}; cust.stage = 'out'; renderCustomer();
   window.scrollTo({top: document.querySelector('.localnav').getBoundingClientRect().top + window.scrollY});
 }
 const parseAns = s => { const a = {}; String(s || '').split(';').forEach(p => { const i = p.indexOf('='); if(i > 0) a[p.slice(0, i)] = p.slice(i + 1); }); return a; };
@@ -4386,7 +4487,7 @@ function paperD(p, tel){
   const f = p.f, k = f.apKind, nat = natureD(p.dc, derive(parseAns(p.ans)).narrative, p.d), person = p.w === 'person';
   const ind = (lb, val) => '<div class="ln ind">' + lb + val + '</div>';
   return '<div class="paper pD">' + paperHead(din ? '外匯收支或交易申報書（結售外匯專用）' : '外匯收支或交易申報書（結購外匯專用）', 'Declaration Statement of Foreign Exchange Receipts and Disbursements or Transactions (For settlement of ' + (din ? 'sale' : 'purchase') + ' only)', p, '申報書') +
-    (din ? '<div class="dtop"><span>' + cb(true) + '國外匯入款直接結售<small>Inward remittance converted into NTD</small></span><span>' + cb(false) + '國內他行轉入外匯結售<small>Remittance from another domestic bank</small></span><span>' + cb(false) + '外匯存款提出結售<small>Withdrawal from foreign currency deposit account</small></span><span>' + cb(false) + '外幣現鈔或旅行支票結售<small>Foreign currency cash or traveler\'s check</small></span><span>' + cb(false) + '其他（請說明）<small>Others (please indicate)</small></span></div>'
+    (din ? '<div class="dtop"><span>' + cb(f.pay === 'twd') + '國外匯入款直接結售<small>Inward remittance converted into NTD</small></span><span>' + cb(false) + '國內他行轉入外匯結售<small>Remittance from another domestic bank</small></span><span>' + cb(false) + '外匯存款提出結售<small>Withdrawal from foreign currency deposit account</small></span><span>' + cb(false) + '外幣現鈔或旅行支票結售<small>Foreign currency cash or traveler\'s check</small></span><span>' + cb(f.pay !== 'twd') + '其他（請說明）<small>Others (please indicate)</small>' + (f.pay !== 'twd' ? pv('存入外匯存款') : '') + '</span></div>'
       : '<div class="dtop"><span>' + cb(true) + '結購外匯直接匯出<small>Direct outward remittance</small></span><span>' + cb(false) + '結購外匯轉匯國內他行<small>Remittance into another domestic bank</small></span><span>' + cb(false) + '結購外匯存入外匯存款<small>Deposit into foreign currency deposit account</small></span><span>' + cb(false) + '結購外幣現鈔或旅行支票<small>Foreign currency cash or traveler\'s check</small></span><span>' + cb(false) + '其他（請說明）<small>Others (please indicate)</small></span></div>') +
     '<div class="dmain"><div class="dl">' +
       ln('一、申報日期 (Date of Declaration)：', pv(roc(f.dcDate))) +
@@ -4412,7 +4513,7 @@ function paperD(p, tel){
       '<div class="bankbox">銀行業或外匯證券商<br>負責輔導申報義務人員簽章<small>Signature of Banking Enterprise or DSF Personnel Advising the Declarant</small><div></div></div></div>' +
     '<div class="dbank"><div class="dbh">以下各欄由銀行業或外匯證券商填寫<small>The banking enterprise or DSF shall fill out the section below</small></div>' +
       ln('送件編號 Case No.：', pv(tel ? tel.caseNo : '')) + ln('銀行業或外匯證券商簽章及日期 Banking Enterprise or DSF seal and date：', '') + ln('外匯水單編號 Foreign Exchange Memo No.：', pv(tel ? tel.memoNo : '')) + '</div>' +
-    '<div class="pp-foot">' + (din ? '本表為研究示範用（結售外匯專用格式依結購專用申報書改寫），非正式申報書。' : '') + '本表由客戶於網站預填；匯款分類由題組推導，臨櫃時由行員核對。本案' + (din ? '匯入匯款買匯申請書' : '匯出匯款賣匯申請書') + '預填代號 ' + fmtCode(p.x) + '。</div></div>';
+    '<div class="pp-foot">' + (din ? '本表為研究示範用（結售外匯專用格式依結購專用申報書改寫），非正式申報書。' + IN_NOTE : '') + '本表由客戶於網站預填；匯款分類由題組推導，臨櫃時由行員核對。' + (p.x ? '本案匯出匯款賣匯申請書預填代號 ' + fmtCode(p.x) + '。' : '') + '</div></div>';
 }
 /* ---------- 各銀行匯出匯款申請書（版面依各行申請書欄位重新排版，示範用） ---------- */
 const DG = '零壹貳參肆伍陸柒捌玖';
@@ -4657,17 +4758,28 @@ async function saveFile(btn, filename, makeBlob){
 const qrBlob = p => new Promise(res => { const q = qrMake(qrText(p)); qrCanvas(q, 8).toBlob(res, 'image/png'); });
 
 /* ---------- v4: customer output ---------- */
+function custNoDoc(){
+  const o = cust.out, code = o.dc || '';
+  view.innerHTML = '<div class="panel"><p class="step">匯入款資料已完成</p><h2 class="q">本筆匯入款不需簽署文件</h2>' +
+    '<div class="sum"><div><p class="small">匯款分類（匯入）</p><p class="sum-code"><span class="code">' + esc(code || '待確認') + '</span> ' + esc(code ? codeName(code, 'in') : '由行員確認') + '</p><p class="small">' + esc(o.r ? o.r.narrative : '') + '</p></div></div>' +
+    '<p>行員會以電話向你確認交易事實與入戶帳號，你可以直接告知上面的分類。未結售為新臺幣，或結售未達新臺幣 50 萬元，且分類不是 310 的匯入款，不需填寫外匯收支或交易申報書。</p>' +
+    '<div class="callout">' + IN_NOTE + '</div>' +
+    '<div class="row"><button class="link" id="again">再申報一筆</button><button class="link" id="edit">修改匯入款資料</button></div></div>';
+  view.querySelector('#again').addEventListener('click', resetCust);
+  view.querySelector('#edit').addEventListener('click', () => { cust.stage = 'form'; renderCustomer(); });
+}
 function custOut(){
-  const o = cust.out, docs = [o.pA].concat(o.pD ? [o.pD] : []);
+  const o = cust.out, docs = [o.pA, o.pD].filter(Boolean);
+  if(!docs.length) return custNoDoc();
   const name = docName;
   const ok = p => p.t === 'D' ? o.okD : o.okA;
   const card = p => '<div class="ocard"><p class="o-kind">' + name(p) + '</p>' +
     '<div class="o-qr"><img src="' + qrUrl(p) + '" alt="' + name(p) + '的 QR Code"></div>' +
     '<div><p class="small">預填代號</p><p class="ocode' + (ok(p) ? '' : ' off') + '">' + fmtCode(p.c) + '</p><p class="small">' + (ok(p) ? p.e.replace(/-/g, '/') + ' 當日有效，行員帶入後失效' : '此檢視無法寫入暫存資料，代號未啟用；臨櫃請出示 QR Code') + '</p></div>' +
     '<div class="o-act">' + (DL ? '<button class="btn" data-pdf="' + p.t + '">下載 PDF</button><button class="btn ghost" data-qr="' + p.t + '">下載 QR Code</button>' : '<p class="small">此檢視無法下載檔案，請截圖保存 QR Code。</p>') + '<button class="link" data-view="' + p.t + '">預覽文件</button></div></div>';
-  const cur = docs.find(p => p.t === o.doc) || o.pA;
+  const cur = docs.find(p => p.t === o.doc) || docs[0];
   view.innerHTML = '<div class="panel"><p class="step">申請資料已完成</p><h2 class="q">臨櫃時出示 QR Code 或告知預填代號</h2>' +
-    '<p>行員帶入後只需核對資料、填寫匯率，並請你親自簽章；誠實申報的責任在簽章時成立。' + (o.pD ? (o.pA.d === 'in' ? '因為結售為新臺幣且金額達新臺幣 50 萬元，系統一併產生了外匯收支或交易申報書（結售外匯專用）。' : '因為以新臺幣結購且金額達新臺幣 50 萬元，系統一併產生了外匯收支或交易申報書。') : '') + '</p>' +
+    '<p>行員帶入後只需核對資料、填寫匯率，並請你親自簽章；誠實申報的責任在簽章時成立。' + (o.pD ? (o.pD.d === 'in' ? '因為' + inWhy(o.pD) + '，系統產生了外匯收支或交易申報書（結售外匯專用）。</p><p class="small">' + IN_NOTE : '因為以新臺幣結購且金額達新臺幣 50 萬元，系統一併產生了外匯收支或交易申報書。') : '') + '</p>' +
     '<div class="outs2">' + docs.map(card).join('') + '</div>' +
     '<p class="small" style="margin-top:20px">示範版的 QR Code 以明碼編入申請資料，正式導入應改為加密內容，或只放伺服器端代號。作答紀錄已附在 QR Code 中，可作為日後依申報辦法第13條申請更正時的參考。</p>' +
     '<div class="row"><button class="btn ghost" id="demoTel">以示範方式帶入行員端</button><button class="link" id="again">再申報一筆</button><button class="link" id="edit">修改申請資料</button></div></div>' +
@@ -4773,7 +4885,7 @@ function renderTeller(){
     const ntd = Math.round((+f.amt || 0) * (+cs.rate || 0));
     const bk = boardKind(f.cur, f.pay, dd), bRate = boardRate(f.cur, f.pay, dd);
     html += '<div class="fxslot" data-up="1">' + fxBarHtml(true) + '</div><div class="tcase"><div class="panel"><p class="step">案件 ' + esc(cs.k) + '</p><h2 class="q">' + esc(f.apName || f.apNameZh || '') + '　' + esc(money(f.cur, f.amt)) + '</h2>' +
-      '<div class="docstat"><span class="badge ' + (A ? 'pass' : 'fx') + '">' + mainName + '：' + (A ? '已帶入' : '待帶入') + '</span>' + (base.x || D ? '<span class="badge ' + (D ? 'pass' : 'fx') + '">外匯收支或交易申報書：' + (D ? '已帶入' : '待帶入（代號 ' + fmtCode(A ? A.x : '') + '）') + '</span>' : '') + '</div>' +
+      '<div class="docstat">' + (dd === 'in' && !A ? '' : '<span class="badge ' + (A ? 'pass' : 'fx') + '">' + mainName + '：' + (A ? '已帶入' : '待帶入') + '</span>') + (base.x || D ? '<span class="badge ' + (D ? 'pass' : 'fx') + '">外匯收支或交易申報書：' + (D ? '已帶入' : '待帶入（代號 ' + fmtCode(A ? A.x : '') + '）') + '</span>' : '') + '</div>' +
       (needX ? '<p class="small">本案還有一份文件，請輸入代號或掃描另一個 QR Code 一併帶入。</p>' : '') +
       (reasons.length ? '<div class="callout warn"><b>需確認事項</b><br>' + reasons.map(esc).join('<br>') + '</div>' : '') +
       '<div class="grid2 tgrid">' +
@@ -4787,7 +4899,7 @@ function renderTeller(){
         (D || base.x ? '<div class="fld"><label class="f" for="tcase">送件編號</label><input id="tcase" type="text" value="' + esc(cs.caseNo) + '"></div><div class="fld"><label class="f" for="tmemo">外匯水單編號</label><input id="tmemo" type="text" value="' + esc(cs.memoNo) + '"></div>' : '') +
       '</div>' +
       '<details class="ans"><summary>客戶作答紀錄（' + Object.keys(parseAns(base.ans)).length + ' 題）</summary><div class="tablewrap"><table><tbody>' + ansList(base.ans) + '</tbody></table></div><p class="small">產生時間 ' + new Date(base.ts).toLocaleString('zh-TW', {hour12:false}) + '</p></details>' +
-      '<div class="row">' + (cs.sent ? '<span class="badge pass">已完成受理（' + esc(cs.sent) + '）</span>' : '<button class="btn" id="tsend"' + (A && cs.final ? '' : ' disabled') + '>完成受理</button>' + (A ? (cs.final ? '' : '<span class="small">請先確認分類</span>') : '<span class="small">需先帶入' + mainName + '</span>')) + '</div></div>' +
+      '<div class="row">' + (cs.sent ? '<span class="badge pass">已完成受理（' + esc(cs.sent) + '）</span>' : '<button class="btn" id="tsend"' + ((A || D) && cs.final ? '' : ' disabled') + '>完成受理</button>' + ((A || D) ? (cs.final ? '' : '<span class="small">請先確認分類</span>') : '<span class="small">需先帶入' + mainName + '</span>')) + '</div></div>' +
       '<div class="docview"><div class="seg" role="tablist">' + ['A','B','D'].filter(t => cs[t]).map(t => '<button role="tab" data-tdoc="' + t + '" aria-selected="' + (tel.doc === t) + '">' + docName(cs[t]) + '</button>').join('') + '</div><div class="pwrap" id="tpw"></div></div></div>';
   }
   view.innerHTML = html;
@@ -4810,12 +4922,12 @@ function renderTeller(){
   view.querySelector('#trate').addEventListener('input', e => { cs.rate = e.target.value; cs.rateAuto = false; const nt = Math.round((+f.amt || 0) * (+cs.rate || 0)); const n = view.querySelector('#tntd'); if(n) n.textContent = ntdText(f, nt); const h = view.querySelector('#trateh'); if(h) h.textContent = rateHint(cs, f); const th = view.querySelector('#tthr'); if(th) th.innerHTML = thrHtml(cs.A || cs.B || cs.D, f, nt); drawPaper(); });
   ['tcase','tmemo'].forEach(id => { const el = view.querySelector('#' + id); if(el) el.addEventListener('input', e => { cs[id === 'tcase' ? 'caseNo' : 'memoNo'] = e.target.value; drawPaper(); }); });
   const ts = view.querySelector('#tsend'); if(ts) ts.addEventListener('click', () => {
-    const A = cs.A || cs.B, fa = A.f, din = A.d === 'in';
+    const A = cs.A || cs.B || cs.D, fa = A.f, din = A.d === 'in';
     if(cs.final !== (A.dc || '') && !cs.reason.trim()){ telMsg('分類有更正時，請填寫更正原因', 'err'); const t2 = view.querySelector('#treason'); if(t2) t2.focus(); return; }
     const t = {id:'C' + String(custTxns.length + 1).padStart(2, '0'), source:'行員受理', who: A.w === 'person' ? '個人' : '公司', declared:cs.final, mtfd:A.m || null,
       ben:{name:din ? fa.rmName : fa.bfName}, memo:fa.memo || '', dir:din ? 'in' : 'out', src:fa.pay, cur:fa.cur, amt:+fa.amt || 0, rate:+cs.rate || null, similar:0, passThrough:false,
       truth: A.o ? '客戶改填類別' : '依事實申報',
-      extra:{swift:din ? fa.rmSwift : fa.bkSwift, bank:din ? fa.rmBank : fa.bkName, cty:ctyZh(fa.cty, fa.ctyOther), fx:money(fa.cur, fa.amt), decl: A.x ? (cs.D ? '已附（' + fmtCode(A.x) + '）' : '應附未帶入（' + fmtCode(A.x) + '）') : '未達門檻，不需申報書', corr: cs.final !== (A.dc || '') ? {from:A.dc || '待確認', to:cs.final, reason:cs.reason.trim()} : null}};
+      extra:{swift:din ? fa.rmSwift : fa.bkSwift, bank:din ? fa.rmBank : fa.bkName, cty:ctyZh(fa.cty, fa.ctyOther), fx:money(fa.cur, fa.amt), decl: A.t === 'D' ? '已附（' + fmtCode(A.c) + '）' : A.x ? (cs.D ? '已附（' + fmtCode(A.x) + '）' : '應附未帶入（' + fmtCode(A.x) + '）') : '未達門檻，不需申報書', corr: cs.final !== (A.dc || '') ? {from:A.dc || '待確認', to:cs.final, reason:cs.reason.trim()} : null}};
     custTxns.unshift(t); cs.sent = t.id; selId = t.id; telMsg('已完成受理，編號 ' + t.id + (t.extra.corr ? '；分類更正紀錄已保存' : ''), 'ok'); renderTeller();
   });
 }
@@ -4827,7 +4939,8 @@ function rateHint(cs, f){
 function ntdText(f, nt){ return f.pay === 'twd' ? 'TWD ' + fmt(nt) : '約 TWD ' + fmt(nt) + '（' + (SRC[fDir(f)][f.pay] || '非新臺幣結匯') + '，不結匯）'; }
 function thrHtml(base, f, nt){
   if(f.pay !== 'twd' || !(+f.amt > 0) || !(nt > 0)) return '';
-  const now = nt >= 500000, had = !!base.x;
+  if(base.d === 'in' && base.dc === '310') return '';
+  const now = nt >= 500000, had = base.t === 'D' || !!base.x;
   if(now === had) return '';
   return '<div class="callout warn">依目前匯率換算為新臺幣 ' + fmt(nt) + ' 元，' + (now ? '已達 50 萬元，但客戶產生文件時未達門檻、未附申報書，請客戶補填外匯收支或交易申報書（' + (fDir(f) === 'in' ? '結售' : '結購') + '外匯專用）。' : '未達 50 萬元；客戶產生文件時已達門檻並附申報書，請確認是否仍需申報書。') + '</div>';
 }
@@ -4844,49 +4957,89 @@ function matchBen(name, apName){
 
 /* ---------- research results (simulated) ---------- */
 function renderResults(){
-  const nc = (i, k) => i >= k ? ' class="num"' : '';
-  const tbl = (head, rows, k = 1) => '<div class="tablewrap"><table><thead><tr>' + head.map((h, i) => '<th' + nc(i, k) + '>' + h + '</th>').join('') + '</tr></thead><tbody>' + rows.map(r => '<tr>' + r.map((c, i) => '<td' + nc(i, k) + '>' + c + '</td>').join('') + '</tr>').join('') + '</tbody></table></div>';
-  const t2 = tbl(['案例', '方向', '情境', '基準答案', '判為正確', '修正規則表'], [
-    ['1', '匯出', '雲端軟體訂閱，只取得使用權', '19B', '6 / 6', '否'], ['2', '匯出', '韓國原料、越南加工、出貨歐洲', '710', '5 / 6', '否'], ['3', '匯出', '借款給持股 15% 的公司，6 個月', '221', '5 / 6', '否'],
-    ['4', '匯出', '匯到本人美國帳戶，已決定買股票', '262', '6 / 6', '否'], ['5', '匯入', '子公司匯回股利與借款利息', '441＋448', '4 / 6', '是']], 3);
-  const rev = tbl(['修正對象', '觸發', '修正後（v2）', '依據'], [
-    ['是否包含多種用途', '案例 5 正確比例 67%', '提示改為股利加借款利息的例子，並請客戶先想好各用途金額', 'Q2.1.4、Q3.3.3、Q3.3.9'],
-    ['服務類型', '使用權或所有權 7 次', '加註使用權與所有權的例子', 'Q3.4.1、Q3.4.14'],
-    ['持股 10%', '7 次', '加註「未達 10% 但擔任董事也選是」', 'Q3.3.2、Q3.3.9'],
-    ['通關狀態', '6 次', '題目改為「貨物是否運進或運出臺灣，並在臺灣報關」', 'Q3.2.3、Q3.2.4'],
-    ['國外用途', '5 次', '加註「已決定用途時依用途申報」', 'Q3.1.2、Q3.1.5'],
-    ['借款期限', '3 次', '加註「依合約約定的還款期限判斷」', '用語說明'],
-    ['投資人是誰', '3 次', '加註匯出與匯入時各選項的意思', '附件2；Q3.3.2'],
-    ['本人帳戶匯入的資金來源', '3 次', '加註「只有原本由臺灣匯出存放的錢才是收回國外存款」', '附件2；Q2.2.23；Q3.2.8']], 9);
-  const t3 = tbl(['指標', '直接選分類', '回答交易事實', '差異'], [
-    ['分類正確率', '60.0%', '83.3%', '+23.3 個百分點'],
-    ['答錯且信心低（1–2 分）的比例', '25.3%', '2.0%', '−23.3 個百分點'],
-    ['答錯但信心高（4–5 分）的比例', '1.3%', '4.0%', '+2.7 個百分點'],
-    ['中位作答秒數', '59', '97', '+38']]);
-  const t4 = tbl(['分組', '直接選分類', '回答交易事實', '差異'], [
-    ['案例 1（雲端軟體訂閱，匯出）', '66.7%', '93.3%', '+26.7 個百分點'],
-    ['案例 2（委外加工貿易，匯出）', '46.7%', '86.7%', '+40.0 個百分點'],
-    ['案例 3（對持股 15% 公司的短期放款，匯出）', '60.0%', '83.3%', '+23.3 個百分點'],
-    ['案例 4（匯至本人國外帳戶並已決定購買股票，匯出）', '76.7%', '86.7%', '+10.0 個百分點'],
-    ['案例 5（子公司匯回股利與借款利息，匯入）', '50.0%', '66.7%', '+16.7 個百分點'],
-    ['匯出案例（案例 1–4）', '62.5%', '87.5%', '+25.0 個百分點'],
-    ['匯入案例（案例 5）', '50.0%', '66.7%', '+16.7 個百分點'],
-    ['一般民眾（20 位）', '59.0%', '84.0%', '+25.0 個百分點'],
-    ['企業財會（10 位）', '62.0%', '82.0%', '+20.0 個百分點']]);
-  const sc = tbl(['量表（1–5 分）', '平均', '中位數'], [
-    ['題目用語易懂度', '3.67', '4'], ['匯入題目易懂度', '3.17', '3'], ['臨櫃導入可行性', '4.00', '4'], ['網銀導入可行性', '3.17', '3']]);
-  view.innerHTML = '<h2 class="big">三項研究的結果</h2>' +
-    '<div class="simban" role="note">研究一、研究二為已完成的實際資料。研究三的客戶作答尚未施測，以下數字由模擬資料產生，只用來預覽分析方式，不能當成研究發現。</div>' +
-    '<h3 class="res-h">研究一｜區辨分類需要哪些交易事實</h3>' +
-    '<p>以「匯出、入匯款之分類及說明」的全部分類編號為分析單位（匯出 104、匯入 105，合併 108 個），歸納出 9 個易混淆群組（含「方向與主體」），約 11 項可觀察的事實即可區辨，整理為最低交易事實資料集（MTFD）與規則表 v1。108 個編號在對應方向都至少有一條作答路徑可推導；雙人編碼的 Cohen’s κ 為 0.823。18 筆設計階段模擬案例（14 筆匯出、4 筆匯入）中，13 筆只憑客戶描述無法判定，補上 MTFD 後 17 筆可唯一推導。</p>' +
-    '<h3 class="res-h">研究二｜行員先做一遍，回饋修正規則表</h3><p>6 位外匯經辦（總行外匯部 4 位、分行外匯櫃檯 2 位，外匯業務年資 1 至 12 年）以客戶身分完成客戶將要作答的 5 個案例（4 筆匯出、1 筆匯入），逐案判斷原型推導的代碼：</p>' + t2 +
-    '<p style="margin-top:18px">依事先訂定的觸發條件（判為正確低於七成、同一題被 3 位以上選為最可能答錯）修正為規則表 v2。修正只改題目用語與提示，不改推導規則：</p>' + rev +
-    '<p style="margin-top:18px">問卷量表結果，四個中位數都不低於 3：</p>' + sc +
-    '<p class="small">5 個案例的多數判斷都與原基準答案相同，基準答案不變。訪談中提及人數最多的是「補問最多的是通關狀態與國外用途」（6 位）；4 位提到客戶不確定時由行員代選、未留紀錄；4 位提到匯入款常不知道匯款原因，需看電文附言或請客戶詢問匯款人。</p>' +
-    '<h3 class="res-h">研究三｜客戶作答：問事實是否比選代碼準</h3><p>30 位受試者（一般民眾 20、企業財會 10）以規則表 v2 施測，每人以兩種流程各做同樣 5 個案例，共 300 筆作答；單號先做基準流程、雙號先做結構化流程。基準流程依案例方向列出完整官方清單（匯出 104、匯入 105 個）。分析只做描述統計，不做假說檢定。</p>' +
-    '<span class="simtag">模擬資料</span>' + t3 +
-    '<p style="margin-top:18px">各案例、匯出與匯入、兩個客群的正確率：</p>' + t4 +
-    '<p class="small">差異為回答交易事實減直接選分類，未經統計檢定；比例的分母為該流程的全部作答（各 150 筆）。自評信心用來觀察「隨便填」：答錯但信心高的作答，行員最不容易察覺需要補問。模擬資料下，結構化流程每題多花約 38 秒；匯入的案例 5 在兩種流程下都是正確率最低的一題。</p>';
+  const E = s => s;
+  const GROUPS = [['G1','貨款','70A、701、702、703、704、706、710、711、720、801、802、19H','是否經我國通關、由誰報關；是否預付或預收；是否委外加工；有無證明文件；是否為燃油補給、樣品或漁獲'],
+    ['G2','軟體與智慧財產','19B、195、19P、540、19D、191、19E','服務內容；取得使用權或所有權'],
+    ['G3','直接投資與融資','210、220、221、280、262、263、264、310、320、321、340、360','股本、借款或債票券；投資人是我方或國外；持股是否達 10%；期限是否滿一年'],
+    ['G4','所得','441、442、448、440、443、444、445、446、449','股利或利息；是否具直接投資關係；利息來源（借款、存款、債券、進出口融資）'],
+    ['G5','存款與移轉','250、70A、510、520、599、134','匯出時是否已決定國外用途；匯入本人帳戶時資金原始來源；有無對價；受款人是否本人'],
+    ['G6','國內交易','692、693、694、695、696 及細分類','是否同一銀行；新臺幣與外幣互換或外幣互換；資金原始來源或用途'],
+    ['G7','退匯','611、612、619','是否為退款；原交易性質；匯出與匯入的 611、612 意義不同'],
+    ['G8','電子支付與平台','不對應單一代碼，依背後是商品或服務歸入 7XX 或 1XX','商品或服務'],
+    ['G9','方向與主體','2 字頭與 3 字頭、19F 與 19G、612、133 與 139、136、291 與 391、292 與 392、196、410 與 511','匯出或匯入；投資人或主體是居住民或非居住民；分類只存在於單一方向']];
+  const FACTS = [['路由欄位（每筆必答）',['方向（匯出或匯入）','申報人']],['核心欄位（必填）',['交易對象','交易本質','是否含多種成分','有無佐證文件']],['條件欄位（依前題出現）',['通關狀態','加工安排','服務型態','投資關係（含投資人是誰）','資金來源及用途']]];
+  const CASES = [[1,'匯出','付德國機器的貨款','公司向德國訂購一台機器設備，貨物由公司自己向臺灣海關報關進口，匯出約 8 萬歐元貨款。','否','未說明由誰報關、是否已進口','70A','是'],
+    [2,'匯出','付訂金給日本供應商','公司預付日本供應商原料款的 30%，約 2 萬美元，貨物下個月才會進口。','否','「訂金」未說明貨物尚未進口','701','是'],
+    [3,'匯出','付韓國原料的貨款','公司向韓國購買原料，另付加工費請越南工廠加工，成品從越南直接出貨到歐洲，貨物不經過臺灣；這筆匯款是原料貨款。','否','未說明貨物不經臺灣、是否委外加工','710','是'],
+    [4,'匯出','付軟體費','小型設計公司每年支付美國雲端軟體訂閱費，約 3,000 美元，只取得使用權。','否','未說明是資訊服務還是智慧財產權授權','19B','是'],
+    [5,'匯出','付兒子的留學學費','父親匯出兒子在美國大學就讀一年的學費與生活費，約 3 萬美元。','是','描述已足以判定 134','134','是'],
+    [6,'匯出','付廣告費','公司支付新加坡行銷公司的廣告企劃費，約 1.5 萬美元。','是','描述已足以判定 19D','19D','是'],
+    [7,'匯出','付專利授權的權利金','公司支付美國公司專利授權的年度權利金，約 5 萬美元，只取得使用權。','是','描述已足以判定 195','195','是'],
+    [8,'匯出','付美國零件的貨款','公司向美國購買零件，委託國內貿易商以貿易商名義報關進口，貨款由公司直接匯給美國賣方，有貿易商的進口報單。','否','未說明由他人報關、有無證明文件','706','是'],
+    [9,'匯出','借錢給泰國的關係企業','公司借款給持股 15% 的泰國公司作為週轉金，約 20 萬美元，約定 6 個月後還款。','否','未說明持股比例與借款期限','221','是'],
+    [10,'匯出','匯薪水回家','在臺工作已三年的外籍工作者，把當月薪資約 1,500 美元匯回母國家中。','否','未說明在臺居留是否滿一年，510、410、511 無法區辨','511','是'],
+    [11,'匯出','付海運運費','公司支付出口貨物的海運運費給外國船公司，約 6,000 美元。','是','描述已足以判定 111','111','是'],
+    [12,'匯出','匯到自己的美國帳戶','把約 2 萬美元匯到自己在美國的銀行帳戶，匯款時已決定用來買美國上市股票。','否','未說明匯款時是否已決定用途','262','是'],
+    [13,'匯入','子公司匯回款項','持股 100% 的越南子公司匯回約 15 萬美元，部分是股利，部分是先前借款（期限半年）的利息。','否','未說明款項組成與持股關係','441＋448','是'],
+    [14,'匯入','PayPal 提領','網拍賣家從 PayPal 提領約 4,000 美元，款項同時包含商品貨款與代客設計服務費，平台對帳單沒有分開列示金額。','否','付款管道不是交易性質，且金額未拆分','人工判讀','否'],
+    [15,'匯入','母公司匯錢進來','持股 100% 的日本母公司匯入約 50 萬美元增資款，作為臺灣子公司的股本，已取得經濟部核准。','否','未說明是股本、借款或貨款，也未說明誰是投資人','310','是'],
+    [16,'匯入','收到客戶貨款','公司收到美國客戶匯入的貨款約 3 萬美元，貨物已由公司自己報關出口。','否','未說明是否已出口、由誰報關','70A','是'],
+    [17,'匯入','把香港帳戶的錢匯回來','把存在自己香港帳戶的約 1 萬美元匯回臺灣，這筆錢原本是兩年前從臺灣匯出存放的。','否','未說明錢當初怎麼存到國外（存款、出口貨款或投資收回）','250','是'],
+    [18,'匯入','家人匯生活費給我','住在加拿大的姊姊匯來約 2,000 美元，資助母親的生活費。','是','描述已足以判定 510','510','是']];
+  const S2 = [['1','匯出','雲端軟體訂閱，只取得使用權','19B','6 / 6','否'],['2','匯出','韓國原料、越南加工、出貨歐洲','710','5 / 6','否'],['3','匯出','借款給持股 15% 的公司，6 個月','221','5 / 6','否'],['4','匯出','匯到本人美國帳戶，已決定買股票','262','6 / 6','否'],['5','匯入','子公司匯回股利與借款利息','441＋448','4 / 6','是']];
+  const REV = [['是否包含多種用途','提示改為股利加借款利息的例子，並請客戶先想好各用途金額'],['服務類型','加註使用權與所有權的例子'],['持股 10%','加註「未達 10% 但擔任董事也選是」'],['通關狀態','題目改為「貨物是否運進或運出臺灣，並在臺灣報關」'],['國外用途','加註「已決定用途時依用途申報」'],['借款期限','加註「依合約約定的還款期限判斷」'],['投資人是誰','加註匯出與匯入時各選項的意思'],['本人帳戶匯入的資金來源','加註「只有原本由臺灣匯出存放的錢才是收回國外存款」']];
+  const SCALE = [['題目用語易懂度',3.67,'4'],['匯入題目易懂度',3.17,'3'],['臨櫃導入可行性',4.00,'4'],['網銀導入可行性',3.17,'3']];
+  const MET = [['答錯且信心低','25.3%','2.0%'],['答錯但信心高','1.3%','4.0%'],['中位作答秒數','59 秒','97 秒']];
+  const GRP = [['案例 1 雲端軟體訂閱',66.7,93.3],['案例 2 委外加工貿易',46.7,86.7],['案例 3 短期放款',60.0,83.3],['案例 4 匯至本人國外帳戶',76.7,86.7],['案例 5 股利與利息匯入',50.0,66.7],['匯出案例（1–4）',62.5,87.5],['匯入案例（5）',50.0,66.7],['一般民眾（20 位）',59.0,84.0],['企業財會（10 位）',62.0,82.0]];
+  const SECS = [['研究一','區辨分類需要哪些交易事實'],['研究二','行員先做一遍，回饋修正規則表'],['研究三','客戶作答：問事實是否比選代碼準']];
+  const chev = '<svg class="rs-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  const tag = v => '<span class="rs-tag' + (v === '是' ? ' yes' : '') + '">' + v + '</span>';
+  const det = (title, meta, body) => '<details class="rs-det"><summary><span class="rs-dt">' + title + '<small>' + meta + '</small></span><span class="rs-tog"><span class="c">展開</span><span class="o">收合</span>' + chev + '</span></summary><div class="rs-db">' + body + '</div></details>';
+  const groups = '<div class="rs-scroll"><table class="rs-tbl"><thead><tr><th>群組</th><th>易混淆分類</th><th>區辨所需事實</th></tr></thead><tbody>' + GROUPS.map(g => '<tr><td class="b nw">' + g[0] + ' ' + g[1] + '</td><td>' + g[2] + '</td><td>' + g[3] + '</td></tr>').join('') + '</tbody></table></div>';
+  const facts = '<div class="rs-fgrid">' + FACTS.map(f => '<div class="rs-fcard"><p class="h">' + f[0] + '・' + f[1].length + ' 項</p>' + f[1].map(x => '<p>' + x + '</p>').join('') + '</div>').join('') + '</div><p class="rs-note">合計 11 項。判斷性的條件題都提供「不確定」選項，選擇後轉為補問。</p>';
+  const cases = '<p class="rs-callout">此為研究者依問答集設計的模擬案例，用來檢驗 MTFD。<br>「只憑客戶描述能否判定」由研究者判讀；「補上 MTFD 後」的代碼由規則推導。</p><p class="rs-note" style="margin:0 0 10px">點選任一列，展開該案例的完整題目。</p>' +
+    '<div class="rs-scroll"><div class="rs-cases"><div class="rs-crow rs-chead"><span>案例</span><span>方向</span><span>客戶的說法</span><span>只憑描述判定</span><span>應申報代碼</span><span>補上 MTFD 後</span><span></span></div>' +
+    CASES.map(c => '<details class="rs-case"><summary class="rs-crow"><span class="rs-no">' + c[0] + '</span><span class="sub">' + c[1] + '</span><span>' + c[2] + '</span><span>' + tag(c[4]) + '</span><span class="b">' + c[6] + '</span><span>' + tag(c[7]) + '</span>' + chev + '</summary><div class="rs-cbody"><p class="k">案例內容</p><p class="t">' + c[3] + '</p><p class="w"><b>' + (c[4] === '是' ? '可以判定' : '無法判定的原因') + '：</b>' + c[5] + '</p></div></details>').join('') +
+    '</div></div><p class="rs-note">只憑描述無法判定 13 筆；補上 MTFD 後 17 筆可唯一推導，案例 14 因平台對帳單未拆分金額，仍需人工判讀。</p>';
+  const s1 = '<p class="rs-eb">研究一</p><h2 class="rs-h2">區辨分類需要哪些交易事實</h2>' +
+    '<p class="rs-p">以全部分類編號為分析單位（匯出 104、匯入 105，合併 108 個），歸納出 9 個易混淆群組，約 11 項可觀察的事實即可區辨，整理為最低交易事實資料集（MTFD）與規則表 v1。108 個編號在對應方向都至少有一條作答路徑可推導；雙人編碼的 Cohen’s κ 為 0.823。18 筆設計階段模擬案例中，13 筆只憑客戶描述無法判定，補上 MTFD 後 17 筆可唯一推導。</p>' +
+    '<div class="rs-tiles"><div><b>9</b><span>易混淆群組</span></div><div><b>11</b><span>項可觀察事實</span></div><div><b>13 → 17</b><span>可唯一推導（共 18 筆）</span></div></div>' +
+    '<div class="rs-dets">' + det('9 個易混淆群組', '點選查看各群組的分類與區辨事實', groups) + det('11 項可觀察事實', 'MTFD 的路由、核心與條件欄位', facts) + det('18 筆模擬案例', '13 筆無法判定 → 補上 MTFD 後 17 筆可唯一推導', cases) + '</div>';
+  const s2 = '<p class="rs-eb">研究二</p><h2 class="rs-h2">行員先做一遍，回饋修正規則表</h2>' +
+    '<p class="rs-p">6 位外匯經辦（總行外匯部 4 位、分行外匯櫃檯 2 位，外匯業務年資 1 至 12 年）以客戶身分完成客戶將要作答的 5 個案例（4 筆匯出、1 筆匯入），逐案判斷原型推導的代碼，再依事先訂定的觸發條件（判為正確低於七成、同一題被 3 位以上選為最可能答錯）修正為規則表 v2。修正只改題目用語與提示，不改推導規則。</p>' +
+    '<div class="rs-scroll"><table class="rs-tbl"><thead><tr><th>案例</th><th>方向</th><th>情境</th><th>基準答案</th><th class="num">判為正確</th><th class="num">修正規則表</th></tr></thead><tbody>' + S2.map(r => '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td class="b">' + r[3] + '</td><td class="num">' + r[4] + '</td><td class="num">' + r[5] + '</td></tr>').join('') + '</tbody></table></div>' +
+    '<h3 class="rs-h3">修正為規則表 v2 的 8 項</h3><div class="rs-revs">' + REV.map((r, i) => '<div class="rs-rev"><span>' + (i + 1) + '</span><div><b>' + r[0] + '</b><p>' + r[1] + '</p></div></div>').join('') + '</div>' +
+    '<h3 class="rs-h3">問卷量表（1–5 分）</h3><div class="rs-scale">' + SCALE.map(s => '<div><div class="l"><span>' + s[0] + '</span><span>平均 <b>' + s[1].toFixed(2) + '</b>・中位數 ' + s[2] + '</span></div><div class="trk"><div style="width:' + (s[1] / 5 * 100).toFixed(1) + '%"></div></div></div>').join('') + '</div>' +
+    '<p class="rs-note">5 個案例的多數判斷都與原基準答案相同，基準答案不變。訪談中提及人數最多的是「補問最多的是通關狀態與國外用途」（6 位）；4 位提到客戶不確定時由行員代選、未留紀錄；4 位提到匯入款常不知道匯款原因，需看電文附言或請客戶詢問匯款人。</p>';
+  const s3 = '<p class="rs-eb">研究三</p><h2 class="rs-h2">客戶作答：問事實是否比選代碼準</h2><span class="rs-sim">模擬資料・非研究發現</span>' +
+    '<p class="rs-p">30 位受試者（一般民眾 20、企業財會 10）以規則表 v2 施測，每人以兩種流程各做同樣 5 個案例，共 300 筆作答；單號先做基準流程、雙號先做結構化流程。基準流程依案例方向列出完整官方清單（匯出 104、匯入 105 個）。分析只做描述統計，不做假說檢定。</p>' +
+    '<div class="rs-met"><div class="rs-mcard rs-mbig"><p class="l">分類正確率</p><div class="v"><span>60.0%</span><span>→</span><b>83.3%</b></div></div>' + MET.map(m => '<div class="rs-mcard"><p class="s">' + m[0] + '</p><div class="v sm"><span>' + m[1] + '</span><span>→</span><b>' + m[2] + '</b></div></div>').join('') + '</div>' +
+    '<h3 class="rs-h3">各案例與客群的分類正確率</h3><div class="rs-leg"><span><i class="a"></i>直接選分類</span><span><i class="b"></i>回答交易事實</span></div>' +
+    '<div class="rs-bars">' + GRP.map(g => '<div class="rs-bar"><span class="n">' + g[0] + '</span><div><div class="r"><i class="a" style="width:' + g[1] + '%"></i><em>' + g[1].toFixed(1) + '%</em></div><div class="r"><i class="b" style="width:' + g[2] + '%"></i><em class="b">' + g[2].toFixed(1) + '%</em></div></div></div>').join('') + '</div>' +
+    '<p class="rs-note">差異為回答交易事實減直接選分類，未經統計檢定；比例的分母為該流程的全部作答（各 150 筆）。自評信心用來觀察「隨便填」：答錯但信心高的作答，行員最不容易察覺需要補問。模擬資料下，結構化流程每題多花約 38 秒；匯入的案例 5 在兩種流程下都是正確率最低的一題。</p>';
+  view.innerHTML = '<div class="rs">' +
+    '<header class="rs-hero"><p class="rs-kick">RESEARCH FINDINGS</p><h1>三項研究的結果</h1><p class="rs-sub">從區辨分類需要的交易事實，到行員試做與客戶作答比較。</p>' +
+    '<div class="rs-ban" role="note"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg><span>研究一、研究二為已完成的實際資料；研究三的客戶作答尚未施測，數字由模擬資料產生，只用來預覽分析方式。</span></div></header>' +
+    '<div class="rs-body"><nav class="rs-nav" aria-label="研究章節"><p class="rs-navh">本頁目錄</p>' + SECS.map((s, i) => '<a href="#rs-s' + (i + 1) + '" data-s="' + (i + 1) + '"' + (i === 0 ? ' class="on"' : '') + '><b>' + s[0] + '</b><span>' + s[1] + '</span></a>').join('') + '<a href="#rs-top" class="rs-top" data-top="1">回到頂端 ↑</a></nav>' +
+    '<div class="rs-main">' + [s1, s2, s3].map((x, i) => '<section class="rs-sec" id="rs-s' + (i + 1) + '">' + x + '</section>').join('') + '</div></div></div>';
+  // 目錄：點選平滑捲動、捲動時自動標示所在章節
+  const nav = view.querySelector('.rs-nav');
+  nav.addEventListener('click', e => {
+    const a = e.target.closest('a'); if(!a) return; e.preventDefault();
+    const ln = document.querySelector('.localnav'), off = (ln ? ln.getBoundingClientRect().height : 52) + 20;
+    const target = a.dataset.top ? view.querySelector('.rs-hero') : document.getElementById('rs-s' + a.dataset.s);
+    if(target) window.scrollTo({top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - off), behavior:'smooth'});
+  });
+  if(window.__rsIO) window.__rsIO.disconnect();
+  if('IntersectionObserver' in window){
+    const links = [...nav.querySelectorAll('a[data-s]')], vis = new Map();
+    window.__rsIO = new IntersectionObserver(es => {
+      es.forEach(x => vis.set(x.target.id, x.isIntersecting ? x.intersectionRatio : 0));
+      let best = null, bv = 0; vis.forEach((v, k) => { if(v > bv){ bv = v; best = k; } });
+      if(best) links.forEach(l => l.classList.toggle('on', 'rs-s' + l.dataset.s === best));
+    }, {rootMargin:'-90px 0px -45% 0px', threshold:[0, .1, .25, .5, .75, 1]});
+    view.querySelectorAll('.rs-sec').forEach(s => window.__rsIO.observe(s));
+  }
 }
 
 /* ---------- tabs ---------- */
@@ -4896,6 +5049,7 @@ function show(t, scroll){
   if(t !== 'teller') stopCam();
   curTab = t;
   document.querySelector('.wrap').classList.toggle('bleed', t === 'overview');
+  document.querySelector('.wrap').classList.toggle('wide', t === 'results');
   document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.t === t));
   ({overview:renderOverview, customer:renderCustomer, teller:renderTeller, results:renderResults})[t]();
   if(scroll !== false){ const nav = document.querySelector('.localnav'); const top = nav.getBoundingClientRect().top + window.scrollY; if(scroll === 'force' || window.scrollY > top) window.scrollTo({top}); }
@@ -5003,7 +5157,7 @@ function custQ(qid){
   const q = qv(qid, cust.a), n = cust.hist.length;
   appBackFn = () => { if(n){ const p = cust.hist.pop(); delete cust.a[p]; renderCustomer(); } else show('home'); };
   bar(n ? '上一題' : '首頁', '第 ' + (n + 1) + ' 題');
-  const ex = n ? '' : '<details class="demo"><summary>示範情境（簡報用）</summary><div class="ex-btns">' + SCN.map((s, i) => '<button class="chip" data-ex="' + i + '">' + esc(s.t) + '</button>').join('') + '</div></details>';
+  const ex = n ? '' : '<details class="demo"><summary>示範情境</summary><div class="ex-btns">' + SCN.map((s, i) => '<button class="chip" data-ex="' + i + '">' + esc(s.t) + '</button>').join('') + '</div></details>';
   view.innerHTML = prog(n + 1) + '<h1 class="hq">' + esc(q.t) + '</h1>' + (q.h ? '<p class="hsub">' + esc(q.h) + '</p>' : '') +
     '<div class="bigopts">' + q.o.map(o => '<button class="bigopt" data-v="' + esc(o[0]) + '">' + esc(o[1]) + '</button>').join('') + '</div>' + ex;
   view.querySelectorAll('.bigopt').forEach(b => b.addEventListener('click', () => { b.classList.add('on'); setTimeout(() => { cust.a[qid] = b.dataset.v; cust.hist.push(qid); renderCustomer(); topY(); }, 140); }));
@@ -5023,7 +5177,7 @@ function custSlip(){
     '<div class="codecard"><div class="cc-top"><span class="cc-k">' + (cust.a.dir === 'in' ? '匯入' : '匯出') + '匯款分類</span>' + (sure ? '<span class="badge">可唯一推導</span>' : '<span class="badge warn">需行員確認</span>') + '</div><span class="cc-code">' + esc(sure ? r.code : '待確認') + '</span><span class="cc-name">' + esc(sure ? r.name : (r.code ? '候選：' + r.code + '　' + r.name : r.name)) + '</span><span class="cc-narr">' + esc(r.narrative) + '</span></div>' +
     (r.notes.length ? '<div class="note1">' + r.notes.map(esc).join('<br>') + '</div>' : '') +
     (sure ? '' : '<div class="note1 warn">這筆交易需要行員協助確認分類，你仍可先填寫其他資料。</div>') +
-    (canForm ? '<div class="appnav cta"><button class="link" id="restart">重新作答</button><button class="btn" id="toform">' + (cust.a.dir === 'in' ? '填寫匯入申請書' : '下一步：選擇銀行') + '</button></div>'
+    (canForm ? '<div class="appnav cta"><button class="link" id="restart">重新作答</button><button class="btn" id="toform">' + (cust.a.dir === 'in' ? '下一步：填寫匯入款資料' : '下一步：選擇銀行') + '</button></div>'
       : '<div class="note1">國內外匯交易不需要填寫匯款申請書，臨櫃告知行員上述分類即可。</div><div class="appnav cta"><button class="link" id="restart">重新作答</button><button class="btn" id="tohome">完成</button></div>');
   const tf = view.querySelector('#toform'); if(tf) tf.addEventListener('click', () => { initForm(); appPage = 0; cust.stage = cust.a.dir === 'in' ? 'form' : 'bank'; renderCustomer(); topY(); });
   const th = view.querySelector('#tohome'); if(th) th.addEventListener('click', () => show('home'));
@@ -5061,25 +5215,26 @@ function appNext(){
   appAll = true; submitForm().finally(() => { appAll = false; });
 }
 function custOut(){
-  const o = cust.out, docs = [o.pA].concat(o.pD ? [o.pD] : []);
-  const cur = docs.find(p => p.t === o.doc) || o.pA, ok = cur.t === 'D' ? o.okD : o.okA;
+  const o = cust.out, docs = [o.pA, o.pD].filter(Boolean);
+  if(!docs.length) return appNoDoc();
+  const cur = docs.find(p => p.t === o.doc) || docs[0], ok = cur.t === 'D' ? o.okD : o.okA;
   appBackFn = () => { appPage = 0; cust.stage = 'form'; renderCustomer(); };
   bar('修改資料', '完成');
   view.innerHTML = '<div class="done">' +
     '<div class="ticket"><div class="tk-head"><span class="okc"><svg width="26" height="20" viewBox="0 0 18 14" aria-hidden="true"><path d="M1.5 7.5l5 5 10-11" fill="none" stroke="#0B1F3A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div><h1 class="hq">申請資料已產生</h1><p class="tk-sub">' + esc(docName(cur)) + '</p></div></div>' +
-      '<div class="qrblock"><div class="bigqr"><img src="' + qrUrl(cur) + '" alt="' + esc(docName(cur)) + '的 QR Code"></div>' +
+      '<div class="qrblock"><div class="bigqr"><img src="' + qrUrl(cur) + '" alt="' + esc(docName(cur)) + '的 QR Code"></div><p class="tk-qrhint"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v6M13 10.5a2 2 0 0 1 4 0V13M17 12a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1.5a6 6 0 0 1-4.6-2.2L4.5 16.6a2 2 0 0 1 3-2.6L9 15.5"/></svg>長按 QR Code 可儲存圖片</p>' +
       (docs.length > 1 ? '<div class="seg segc" role="tablist">' + docs.map(p => '<button role="tab" data-doc="' + p.t + '" aria-selected="' + (p.t === cur.t) + '">' + (p.t === 'D' ? '申報書' : '申請書') + '</button>').join('') + '</div>' : '') + '</div>' +
       '<div class="tk-notch" aria-hidden="true"><span></span></div>' +
       '<div class="tk-foot"><div><p class="tk-k">預填代號</p><p class="bigcode' + (ok ? '' : ' off') + '">' + fmtCode(cur.c) + '</p></div><span class="badge' + (ok ? '' : ' warn') + '">' + (ok ? '當日有效' : '請出示 QR') + '</span></div></div>' +
     '<p class="hsub c tk-hint">' + (ok ? '臨櫃出示 QR Code，或告知預填代號；行員帶入後代號即失效' : '此檢視無法暫存代號，請臨櫃出示 QR Code') + '</p>' +
-    '<div class="tk-acts"><button class="btn" id="dPdf">下載 PDF</button><button class="btn ghost" id="dView">預覽文件</button></div>' +
-    '<div class="acts">' + (DL ? '<button class="btn ghost" id="dQr">下載 QR Code</button>' : '') + (ok ? '' : '<button class="btn ghost" id="dRetry">重新暫存代號</button>') + '</div>' +
+    (cur.d === 'in' ? '<div class="note1">因為' + inWhy(cur) + '，本筆須簽署外匯收支或交易申報書（結售外匯專用）。<br><span class="small">' + IN_NOTE + '</span></div>' : '') +
+    '<div class="tk-acts"><button class="btn" id="dPdf">開啟 PDF</button></div>' +
+    '<p class="tk-pdfhint">' + (ON_CLAUDE ? '產生後會跳出下載確認。' : 'PDF 會在新分頁開啟，可用「分享 › 儲存到檔案」保存。') + '</p>' +
+    (ok ? '' : '<div class="acts"><button class="btn ghost" id="dRetry">重新暫存代號</button></div>') +
     '<div class="appnav"><button class="link" id="again">再申報一筆</button><button class="link" id="demoTel">示範：帶入行員端</button></div></div>';
   view.querySelectorAll('[data-doc]').forEach(b => b.addEventListener('click', () => { o.doc = b.dataset.doc; custOut(); }));
   const pdfName = p => ({A:'FX-Application_' + ((p.f && p.f.bank) || 'bot') + '_', B:'FX-Inward_', D:'FX-Declaration_'})[p.t] + p.c + '.pdf';
-  view.querySelector('#dPdf').addEventListener('click', e => saveFile(e.currentTarget, pdfName(cur), () => makePdf(paperOf(cur))));
-  view.querySelector('#dView').addEventListener('click', () => docSheet(cur));
-  const dq = view.querySelector('#dQr'); if(dq) dq.addEventListener('click', e => saveFile(e.currentTarget, 'FX-QR_' + cur.t + '_' + cur.c + '.png', () => qrBlob(cur)));
+  view.querySelector('#dPdf').addEventListener('click', e => openPdf(e.currentTarget, cur, pdfName(cur)));
   view.querySelector('#again').addEventListener('click', () => { resetCust(); topY(); });
   const rt = view.querySelector('#dRetry'); if(rt) rt.addEventListener('click', async () => {
     rt.disabled = true; rt.textContent = '暫存中…';
@@ -5089,6 +5244,45 @@ function custOut(){
   });
   topY();
   view.querySelector('#demoTel').addEventListener('click', async () => { for(const p of docs) await telFromText(qrText(p), '示範掃描 QR Code'); appPin = true; show('teller'); });
+}
+function appNoDoc(){
+  const o = cust.out, code = o.dc || '';
+  appBackFn = () => { appPage = 0; cust.stage = 'form'; renderCustomer(); };
+  bar('修改資料', '完成');
+  view.innerHTML = '<div class="done">' +
+    '<div class="ticket"><div class="tk-head"><span class="okc"><svg width="26" height="20" viewBox="0 0 18 14" aria-hidden="true"><path d="M1.5 7.5l5 5 10-11" fill="none" stroke="#0B1F3A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div><h1 class="hq">匯入款資料已完成</h1><p class="tk-sub">本筆不需簽署文件</p></div></div>' +
+      '<div class="qrblock" style="align-items:flex-start;padding-bottom:22px"><span class="cc-k">匯入匯款分類</span><span class="cc-code">' + esc(code || '待確認') + '</span><span class="cc-name">' + esc(code ? codeName(code, 'in') : '由行員確認') + '</span><span class="cc-narr">' + esc(o.r ? o.r.narrative : '') + '</span></div></div>' +
+    '<p class="hsub c tk-hint">行員會以電話向你確認交易事實與入戶帳號，接電話時直接告知上面的分類即可</p>' +
+    '<div class="note1">' + IN_NOTE + '</div>' +
+    '<div class="appnav"><button class="link" id="again">再申報一筆</button></div></div>';
+  view.querySelector('#again').addEventListener('click', () => { resetCust(); topY(); });
+  topY();
+}
+/* 開啟 PDF：網站版在新分頁開啟（用手機的分享功能存檔）；Claude 版改用下載確認 */
+const pdfUrls = {};
+function openUrl(u){ const a = document.createElement('a'); a.href = u; a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove(); }
+async function openPdf(btn, p, filename){
+  const key = p.t + p.c;
+  if(pdfUrls[key] && !ON_CLAUDE){ openUrl(pdfUrls[key]); return; }
+  const old = '開啟 PDF'; btn.disabled = true; btn.textContent = '產生 PDF 中…';
+  let w = null;
+  if(!ON_CLAUDE){ try{ w = window.open('', '_blank'); if(w) w.document.write('<title>產生 PDF 中…</title><p style="font:17px -apple-system,PingFang TC,sans-serif;padding:32px;color:#0B1F3A">正在產生 PDF，請稍候…</p>'); }catch(e){ w = null; } }
+  try{
+    const blob = await makePdf(paperOf(p));
+    if(ON_CLAUDE){
+      if(!DL) throw new Error('no-dl');
+      btn.textContent = '等待確認…'; await DL.save({filename, data:blob}); btn.textContent = '已下載 PDF';
+    } else {
+      const u = URL.createObjectURL(blob.type === 'application/pdf' ? blob : new Blob([blob], {type:'application/pdf'}));
+      pdfUrls[key] = u;
+      if(w && !w.closed){ w.location.href = u; btn.textContent = '已開啟 PDF'; }
+      else { btn.textContent = 'PDF 已準備好，再按一次開啟'; btn.disabled = false; return; }
+    }
+  }catch(e){
+    if(w) try{ w.close(); }catch(_){}
+    btn.textContent = e && e.code === 'declined' ? old : '產生失敗，請再試一次';
+  }
+  btn.disabled = false; setTimeout(() => { btn.textContent = old; }, 2600);
 }
 function docSheet(p, tobj){
   const ov = document.createElement('div'); ov.className = 'cpov docov';
@@ -5134,7 +5328,7 @@ function telCase(cs){
   const opts = '<option value="">請選擇分類</option>' + groupsFor(dd).map(g => '<optgroup label="' + g[0] + '">' + g[1].map(k => '<option value="' + k + '"' + (cs.final === k ? ' selected' : '') + '>' + k + ' ' + esc(codeName(k, dd)) + '</option>').join('') + '</optgroup>').join('');
   const changed = cs.final !== (base.dc || ''), ntd = Math.round((+f.amt || 0) * (+cs.rate || 0)), needX = base.x && !(base.t === 'D' ? A : D);
   const docs = ['A','B','D'].filter(t => cs[t]);
-  view.innerHTML = '<p class="eyebrow">案件 ' + esc(fmtCode(cs.k)) + '</p><h1 class="hq">' + esc(f.apNameZh || f.apName || '') + '</h1><p class="hsub">' + esc(money(f.cur, f.amt)) + '・' + esc(A ? docName(A) : '') + '</p>' +
+  view.innerHTML = '<p class="eyebrow">案件 ' + esc(fmtCode(cs.k)) + '</p><h1 class="hq">' + esc(f.apNameZh || f.apName || '') + '</h1><p class="hsub">' + esc(money(f.cur, f.amt)) + '・' + esc(docName(base)) + '</p>' + (dd === 'in' ? '<div class="note1">' + IN_NOTE + '</div>' : '') +
     '<div class="tcard"><div class="pills"><span class="pill">申報 ' + esc(base.dc || '待確認') + '</span><span class="pill">推導 ' + esc(base.m || '無法唯一推導') + '</span><span class="pill ' + (same ? 'ok' : 'warn') + '">' + (same ? '一致' : '需確認') + '</span></div>' +
       (reasons.length ? '<div class="note1 warn">' + reasons.map(esc).join('<br>') + '</div>' : '') +
       (needX ? '<div class="note1">本案還有一份文件，請回上一頁輸入另一組代號或掃描另一個 QR Code。</div>' : '') +
@@ -5147,7 +5341,7 @@ function telCase(cs){
     '<div class="acts">' + docs.map(t => '<button class="btn ghost" data-tdoc="' + t + '">預覽' + (t === 'D' ? '申報書' : '申請書') + '</button>').join('') + '</div>' +
     '<details class="ans"><summary>客戶作答紀錄（' + Object.keys(parseAns(base.ans)).length + ' 題）</summary><div class="tablewrap"><table><tbody>' + ansList(base.ans) + '</tbody></table></div></details>' +
     '<p id="telmsg" class="tmsg ' + tel.mt + '"' + (tel.msg ? '' : ' hidden') + ' role="status">' + esc(tel.msg) + '</p>' +
-    '<div class="appnav cta"><span></span>' + (cs.sent ? '<span class="pill ok">已完成受理（' + esc(cs.sent) + '）</span>' : '<button class="btn" id="tsend"' + (A && cs.final ? '' : ' disabled') + '>完成受理</button>') + '</div>';
+    '<div class="appnav cta"><span></span>' + (cs.sent ? '<span class="pill ok">已完成受理（' + esc(cs.sent) + '）</span>' : '<button class="btn" id="tsend"' + ((A || D) && cs.final ? '' : ' disabled') + '>完成受理</button>') + '</div>';
   const telObj = () => ({rate:cs.rate, caseNo:cs.caseNo, memoNo:cs.memoNo});
   view.querySelectorAll('[data-tdoc]').forEach(b => b.addEventListener('click', () => docSheet(cs[b.dataset.tdoc], telObj())));
   view.querySelector('#tfinal').addEventListener('change', e => { cs.final = e.target.value; renderTeller(); });
@@ -5155,11 +5349,11 @@ function telCase(cs){
   view.querySelector('#trate').addEventListener('input', e => { cs.rate = e.target.value; cs.rateAuto = false; const nt = Math.round((+f.amt || 0) * (+cs.rate || 0)); view.querySelector('#tntd').textContent = ntdText(f, nt); view.querySelector('#trateh').textContent = rateHint(cs, f); view.querySelector('#tthr').innerHTML = thrHtml(base, f, nt); });
   ['tcase','tmemo'].forEach(id => { const el = view.querySelector('#' + id); if(el) el.addEventListener('input', e => { cs[id === 'tcase' ? 'caseNo' : 'memoNo'] = e.target.value; }); });
   const ts = view.querySelector('#tsend'); if(ts) ts.addEventListener('click', () => {
-    const fa = A.f, din = A.d === 'in';
+    const A = base, fa = A.f, din = A.d === 'in';
     if(cs.final !== (A.dc || '') && !cs.reason.trim()){ telMsg('分類有更正時，請填寫更正原因', 'err'); const t2 = view.querySelector('#treason'); if(t2) t2.focus(); return; }
     const t = {id:'C' + String(custTxns.length + 1).padStart(2, '0'), source:'行員受理', who: A.w === 'person' ? '個人' : '公司', declared:cs.final, mtfd:A.m || null,
       ben:{name:din ? fa.rmName : fa.bfName}, memo:fa.memo || '', dir:din ? 'in' : 'out', src:fa.pay, cur:fa.cur, amt:+fa.amt || 0, rate:+cs.rate || null, similar:0, passThrough:false, truth: A.o ? '客戶改填類別' : '依事實申報',
-      extra:{swift:din ? fa.rmSwift : fa.bkSwift, bank:din ? fa.rmBank : fa.bkName, cty:ctyZh(fa.cty, fa.ctyOther), fx:money(fa.cur, fa.amt), decl: A.x ? (cs.D ? '已附（' + fmtCode(A.x) + '）' : '應附未帶入（' + fmtCode(A.x) + '）') : '未達門檻，不需申報書', corr: cs.final !== (A.dc || '') ? {from:A.dc || '待確認', to:cs.final, reason:cs.reason.trim()} : null}};
+      extra:{swift:din ? fa.rmSwift : fa.bkSwift, bank:din ? fa.rmBank : fa.bkName, cty:ctyZh(fa.cty, fa.ctyOther), fx:money(fa.cur, fa.amt), decl: A.t === 'D' ? '已附（' + fmtCode(A.c) + '）' : A.x ? (cs.D ? '已附（' + fmtCode(A.x) + '）' : '應附未帶入（' + fmtCode(A.x) + '）') : '未達門檻，不需申報書', corr: cs.final !== (A.dc || '') ? {from:A.dc || '待確認', to:cs.final, reason:cs.reason.trim()} : null}};
     custTxns.unshift(t); cs.sent = t.id; selId = t.id; telMsg('已完成受理，編號 ' + t.id + (t.extra.corr ? '；分類更正紀錄已保存' : ''), 'ok'); renderTeller();
   });
 }
@@ -5357,32 +5551,40 @@ loadRates();
 document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => show(b.dataset.t)));
 document.querySelectorAll('.hero [data-go]').forEach(b => b.addEventListener('click', () => show(b.dataset.go, 'force')));
 
-/* ---------- APP QR Code（浮動卡與全螢幕） ---------- */
+/* ---------- QR Code：右下角是本網頁；「手機一起操作」是 APP ---------- */
 (function appQr(){
   const fl = document.getElementById('qrFloat'); if(!fl) return;
   const APP_URL = 'https://fx-remittance-demo-v6.netlify.app/app/';
+  const ON_CL = !!(window.claude && typeof window.claude.use === 'function');
+  const SITE_URL = ON_CL ? 'https://claude.ai/artifact/1SYuoxm3hMiYCFfQPjXmns' : (location.origin + '/');
   const pill = document.getElementById('qrPill'), img = document.getElementById('qfImg');
-  let url = '';
-  try{ const q = qrMake(APP_URL); if(q) url = qrCanvas(q, 10).toDataURL('image/png'); }catch(e){}
-  if(url) img.src = url;
+  const mk = u => { try{ const q = qrMake(u); if(q) return qrCanvas(q, 10).toDataURL('image/png'); }catch(e){} return ''; };
+  const siteQr = mk(SITE_URL), appQrImg = mk(APP_URL);
+  if(siteQr) img.src = siteQr;
   let min = false; try{ min = localStorage.getItem('fxQrMin') === '1'; }catch(e){}
   const sync = () => { fl.hidden = min; pill.hidden = !min; };
   sync();
   document.getElementById('qfMin').addEventListener('click', () => { min = true; try{ localStorage.setItem('fxQrMin', '1'); }catch(e){} sync(); pill.focus(); });
   pill.addEventListener('click', () => { min = false; try{ localStorage.setItem('fxQrMin', '0'); }catch(e){} sync(); });
-  const openBig = () => {
+  const short = u => u.replace(/^https:\/\//, '').replace(/\/$/, '');
+  const openBig = kind => {
+    const app = kind === 'app', url = app ? appQrImg : siteQr;
     const ov = document.createElement('div'); ov.className = 'qrbig';
-    ov.innerHTML = '<div class="qb" role="dialog" aria-modal="true" aria-labelledby="qbT">' + (url ? '<img src="' + url + '" alt="開啟外匯申報 APP 的 QR Code">' : '') +
-      '<div class="qt"><p class="k">現場一起操作</p><h2 id="qbT">用手機掃描，打開 APP</h2><p>回答幾個白話問題，產生你的申請書與 QR Code。資料皆為虛構，請勿輸入真實個人資料。</p><p class="u">' + APP_URL.replace(/^https:\/\//, '').replace(/\/$/, '') + '</p><button class="btn ghost" data-x>關閉</button></div></div>';
+    ov.innerHTML = '<div class="qb" role="dialog" aria-modal="true" aria-labelledby="qbT">' + (url ? '<img src="' + url + '" alt="' + (app ? '開啟外匯申報 APP' : '開啟本網頁') + '的 QR Code">' : '') +
+      '<div class="qt">' + (app
+        ? '<p class="k">現場一起操作</p><h2 id="qbT">用手機掃描，打開 APP</h2><p>回答幾個白話問題，產生你的申請書與 QR Code。</p><p class="u">' + short(APP_URL) + '</p>' +
+          '<div class="qact"><a class="btn qgo" href="' + APP_URL + '" target="_blank" rel="noopener">直接開啟 APP<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a><button class="btn ghost" data-x>關閉</button></div>'
+        : '<p class="k">掃描檢視</p><h2 id="qbT">用手機掃描，打開本網頁</h2><p class="u">' + short(SITE_URL) + '</p><div class="qact"><button class="btn ghost" data-x>關閉</button></div>') +
+      '</div></div>';
     document.body.appendChild(ov);
     const close = () => { ov.remove(); document.removeEventListener('keydown', onKey); };
     const onKey = e => { if(e.key === 'Escape') close(); };
     document.addEventListener('keydown', onKey);
     ov.addEventListener('click', e => { if(e.target === ov || e.target.closest('[data-x]')) close(); });
-    ov.querySelector('[data-x]').focus();
+    (ov.querySelector('.qgo') || ov.querySelector('[data-x]')).focus();
   };
-  document.getElementById('qfBig').addEventListener('click', openBig);
-  const ob = document.getElementById('qrOpen'); if(ob) ob.addEventListener('click', openBig);
+  document.getElementById('qfBig').addEventListener('click', () => openBig('site'));
+  const ob = document.getElementById('qrOpen'); if(ob) ob.addEventListener('click', () => openBig('app'));
 })();
 show('cover');
 })();
