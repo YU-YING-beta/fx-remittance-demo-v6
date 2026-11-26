@@ -843,7 +843,7 @@ body.at-foot .qrfloat,body.at-foot .qrpill{opacity:0;transform:translateY(12px);
 @media (max-width:760px){
   .rs-c5i{grid-template-columns:32px minmax(0,1fr);gap:12px;padding:16px}
   .rs-c5n{width:32px;height:32px;font-size:16px}
-  .rs-c5ref{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.rs-c5ref::-webkit-scrollbar{display:none}
+  .rs-c5ref{display:flex;flex-wrap:wrap;overflow:visible;gap:8px}
   .rs-c5ref > span{display:none}.rs-c5ref button{flex:none}
   .rs-c5a{grid-column:2;flex-direction:row;align-items:baseline;justify-content:flex-start;gap:8px;text-align:left}
 }
@@ -864,6 +864,128 @@ body.at-foot .qrfloat,body.at-foot .qrpill{opacity:0;transform:translateY(12px);
   .appban b{font-size:16px;color:#0058B0}.appban small{font-size:14px;color:var(--ink2)}
   .appban svg{flex:none;color:#0058B0;width:20px;height:20px}
 }
+
+/* ===== 手機版閱讀優化（760px 以下；桌機不受影響） ===== */
+.ph{display:inline-block}
+.totop{position:fixed;right:24px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:45;display:flex;align-items:center;gap:6px;appearance:none;border:0;cursor:pointer;
+  font:inherit;font-size:14px;font-weight:600;color:#FFFFFF;background:rgba(29,29,31,.86);-webkit-backdrop-filter:saturate(180%) blur(12px);backdrop-filter:saturate(180%) blur(12px);
+  padding:0 16px 0 12px;height:44px;border-radius:999px;box-shadow:0 8px 24px -8px rgba(0,0,0,.35);opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .25s,transform .25s}
+.totop.on{opacity:1;transform:none;pointer-events:auto}
+.totop:active{transform:scale(.96)}
+.totop svg{flex:none}
+body.at-foot .totop{bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+@media print{ .totop{display:none} }
+@media (max-width:760px){
+  body{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  .wrap{padding:36px 20px 40px}
+  body.sub .wrap{padding-top:32px}
+  .band{padding:64px 0}
+  .band-in{padding:0 20px}
+  /* 文字：一般換行、靠左，行尾自然貼齊右邊界 */
+  p,li,.lede,.story-lead,.story-end,.rs-sub,.rs-p,.rs-note{text-wrap:wrap}
+  .band p.fit,#view > p.fit,.phead p.fit{text-align:left;text-wrap:wrap}
+  #view > p.fit br,.band p.fit br{display:none}
+  h1,h2,h3,.q{text-wrap:wrap}
+  h2.big{font-size:clamp(26px,7.6vw,32px);line-height:1.25;margin-bottom:16px}
+  .lede,.story-lead,.story-end{font-size:18px;line-height:1.6}
+  p{font-size:16px;line-height:1.75}
+  .small,.note-list span{font-size:14px}
+  /* 客戶答事實，規則推代碼：改成一步一張卡 */
+  .story{margin-top:28px}
+  .story-steps{display:flex;flex-direction:column;gap:12px}
+  .st,.st:first-child{min-height:0;padding:20px;background:var(--bg);border-radius:20px;justify-content:flex-start}
+  .band.grey .st{background:#FFFFFF}
+  .st .st-chip{display:inline-block;align-self:flex-start;font-size:13px;padding:4px 12px;margin:0 0 10px}
+  .st .st-num{font-size:14px;margin:0 0 4px}
+  .st h4{font-size:20px;margin:0 0 8px}
+  .st p{font-size:16px;line-height:1.7}
+  .story-end{margin-top:28px}
+  /* 一次填寫：步驟卡改成橫向緊湊版 */
+  .v4flow{margin-top:28px;gap:10px}
+  .v4flow li{display:grid;grid-template-columns:36px minmax(0,1fr);column-gap:14px;align-items:start;padding:16px 18px;border-radius:20px}
+  .v4flow li i{grid-row:1 / span 2;width:36px;height:36px;border-radius:50%;background:#E8F1FD;display:flex;align-items:center;justify-content:center;font-size:16px}
+  .v4flow li.key i{background:rgba(255,255,255,.22);color:#FFFFFF}
+  .v4flow li b{margin-top:0;font-size:17px}
+  .v4flow li span{font-size:15px;margin-top:2px}
+  /* 三個分頁卡片 */
+  .bento{margin-top:28px;gap:12px}
+  .tile{padding:24px 22px;border-radius:24px}
+  .t-name{font-size:24px}
+  /* 行員受理 */
+  .tin-row{display:grid;grid-template-columns:1fr;gap:10px}
+  .tin-row .btn,.tin-row label.btn{width:100%;justify-content:center;text-align:center}
+  .panel.empty h2.q{font-size:22px;line-height:1.35}
+  /* 研究結果 */
+  .rs-hero h1{font-size:clamp(26px,7.6vw,32px)}
+  .rs-nav{display:grid !important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;overflow:visible;padding:0}
+  .rs-nav a{max-width:none;padding:12px 8px;align-items:center;text-align:center;border-radius:14px}
+  .rs-nav a span{display:none}
+  .rs-sec{padding:24px 18px;border-radius:24px}
+  .rs-h2{font-size:24px;line-height:1.3}
+  .rs-h3{font-size:18px}
+  .rs-c5i{padding:16px}
+  .rs-mcard{border-radius:20px}
+  /* 表格改成一列一張卡，不必左右滑動 */
+  .rs-scroll{overflow:visible}
+  .rs-tbl{min-width:0;font-size:15px}
+  .rs-tbl thead{display:none}
+  .rs-tbl,.rs-tbl tbody,.rs-tbl tr,.rs-tbl td{display:block;width:100%}
+  .rs-tbl tr{background:transparent;border-radius:0;padding:14px 0;margin:0;border-bottom:1px solid var(--rs-line)}
+  .rs-tbl tr:last-child{border-bottom:0}
+  .rs-tbl td{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:10px;padding:6px 0;border:0;text-align:left !important;white-space:normal}
+  .rs-tbl td::before{content:attr(data-l);font-size:14px;font-weight:600;color:var(--rs-sub)}
+  .rs-tbl td.nw{white-space:normal}
+  /* 回到頂端：在底部分頁列上方 */
+  .totop{right:16px;bottom:calc(80px + env(safe-area-inset-bottom,0px));height:44px}
+  body.at-foot .totop{bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:760px){
+  .rs-revs{grid-template-columns:minmax(0,1fr)}
+  .btab span{font-size:13px}
+  .rs-chead,.rs-cbody .k,.rs-tag,.rs-sim,.rs-pill,.rs-c5a span,.simtag,.rs-c5ref button b{font-size:13px}
+}
+@media (max-width:360px){
+  .wrap{padding-left:16px;padding-right:16px}
+  .band-in{padding:0 16px}
+  h2.big{font-size:26px}
+  .btab span{font-size:13px}
+}
+
+/* 中／英切換（只在成果總覽、研究結果顯示） */
+.langbtn{appearance:none;font:inherit;font-size:14px;font-weight:700;letter-spacing:.02em;min-width:52px;height:32px;padding:0 12px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--rule);background:transparent;color:var(--ink);transition:background-color .15s,border-color .15s,transform .12s;white-space:nowrap;flex:none}
+.langbtn:hover{border-color:var(--ink2)}
+.ln-in > .langbtn{margin-left:auto;margin-right:-4px}
+html[lang="en"] p,html[lang="en"] li,html[lang="en"] .rs-p,html[lang="en"] .lede{text-align:left !important;hyphens:auto}
+.langbtn:active{transform:scale(.96)}
+body:not([data-tab="overview"]):not([data-tab="results"]) .langbtn{display:none}
+html[lang="en"] body{word-break:normal;overflow-wrap:anywhere}
+html[lang="en"] .ph{display:inline}
+@media (max-width:760px){
+  .localnav .langbtn{position:absolute;left:16px;top:50%;transform:translateY(-50%);height:32px;min-width:48px;font-size:13px}
+  .localnav .langbtn:active{transform:translateY(-50%) scale(.96)}
+}
+@media (max-width:374px){ .localnav .ln-title::after{content:"FX Purpose Data"} }
+
+/* 桌機：「頂端」按鈕位在 QR 卡片／膠囊正上方，隨展開或收合移動 */
+@media (min-width:761px){
+  .totop{bottom:calc(24px + var(--qrstack, 48px) + 12px + env(safe-area-inset-bottom,0px));transition:opacity .25s,transform .25s,bottom .3s cubic-bezier(.2,.8,.2,1)}
+  body.at-foot .totop{bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+}
+
+/* 客戶答事實：桌機捲動敘事（流程圖固定、文字逐段淡入、藍色底塊平滑移動） */
+@media (min-width:801px){
+  .story-fig{position:sticky;top:calc(50vh - 220px);isolation:isolate}
+  .story-fig .sn{position:relative;z-index:1;background:transparent !important;transition:color .35s ease}
+  .story-fig .sn i{transition:background .35s ease,color .35s ease}
+  .sn-hl{position:absolute;top:0;left:0;z-index:0;border-radius:20px;background:var(--accent);box-shadow:0 10px 24px -12px rgba(0,113,227,.55);
+    transition:transform .5s cubic-bezier(.2,.8,.2,1),height .5s cubic-bezier(.2,.8,.2,1);will-change:transform}
+  .story-steps{padding-bottom:22vh}
+  .st,.st:first-child{min-height:72vh;justify-content:center;padding:0;opacity:.25;transform:translateY(12px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
+  .st:first-child{min-height:60vh}
+  .st.cur{opacity:1;transform:none}
+}
+@media (min-width:801px) and (prefers-reduced-motion:reduce){ .sn-hl,.st{transition:none} }
 </style>
 </head>
 <body>
@@ -910,7 +1032,7 @@ body.at-foot .qrfloat,body.at-foot .qrpill{opacity:0;transform:translateY(12px);
 <nav class="localnav" aria-label="分頁">
   <div class="ln-in">
     <span class="ln-title" title="From Self-Selected Codes to Reliable FX Purpose Data">From Self-Selected Codes to Reliable FX Purpose Data</span>
-    <div class="ln-right"><div class="tabs" role="tablist">
+    <button class="langbtn" id="langBtn" type="button" aria-pressed="false" lang="en" aria-label="Switch to English">EN</button><div class="ln-right"><div class="tabs" role="tablist">
       <button class="tab" role="tab" data-t="overview" aria-selected="true">成果總覽</button>
       <button class="tab" role="tab" data-t="customer" aria-selected="false">客戶申報</button>
       <button class="tab" role="tab" data-t="teller" aria-selected="false">行員受理</button>
@@ -921,6 +1043,7 @@ body.at-foot .qrfloat,body.at-foot .qrpill{opacity:0;transform:translateY(12px);
 <aside class="qrfloat" id="qrFloat" aria-label="用手機檢視本網頁" hidden><p class="qf-t">掃描檢視本網頁</p><img id="qfImg" alt="開啟本網頁的 QR Code"><div class="qf-act"><button id="qfBig" type="button">放大</button><button id="qfMin" type="button" aria-label="收合 QR Code">收合</button></div></aside>
 <button class="qrpill" id="qrPill" hidden aria-label="顯示本網頁的 QR Code"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM14 18h2M18 14h2"/></svg>本網頁 QR Code</button>
 <nav class="btabs" aria-label="分頁（手機）"><button class="btab" type="button" data-t="overview" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg><span>成果總覽</span></button><button class="btab" type="button" data-t="customer" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4"/></svg><span>客戶申報</span></button><button class="btab" type="button" data-t="teller" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5.5A1.5 1.5 0 0 1 5.5 4H7M17 4h1.5A1.5 1.5 0 0 1 20 5.5V7M20 17v1.5a1.5 1.5 0 0 1-1.5 1.5H17M7 20H5.5A1.5 1.5 0 0 1 4 18.5V17"/><path d="M8 12h8"/></svg><span>行員受理</span></button><button class="btab" type="button" data-t="results" aria-current="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 20V11M12 20V5M19 20v-6"/></svg><span>研究結果</span></button></nav>
+<button class="totop" id="toTop" type="button" aria-label="回到頁面頂端"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>頂端</button>
 <main class="wrap" id="main" tabindex="-1">
   <header class="phead" id="phead" hidden><h2 class="big">客戶申報</h2><p class="fit">回答幾個白話問題，系統推導匯款分類，再一次填好申請書，取得 PDF、QR Code 與預填代號。</p><a class="m-only applink appban" href="/app/"><span><b>在手機上？改用 APP 版</b><small>全螢幕操作，可加入主畫面</small></span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a></header>
   <section id="view"></section>
@@ -1431,12 +1554,31 @@ function renderOverview(){
     io.observe(band); ovObs.push(io);
   }
   const sns = view.querySelectorAll('.sn'), so = view.querySelector('.sn-outs');
-  const setStep = k => { sns.forEach((n, i) => { n.classList.toggle('on', i === k); n.classList.toggle('done', i < k); }); so.classList.toggle('on', k === 3); };
+  /* 左側流程圖固定不動，右側文字逐段捲過；以「最接近畫面中央的那一段」決定目前步驟，左側藍色底塊平滑滑到對應步驟 */
+  const sts = [...view.querySelectorAll('.st')], sfig = view.querySelector('.story-fig');
+  let hl = null;
+  if(sfig){ hl = document.createElement('div'); hl.className = 'sn-hl'; hl.setAttribute('aria-hidden', 'true'); sfig.appendChild(hl); }
+  let cur = -1;
+  const placeHl = k => { if(!hl || !sns[k]) return; const n = sns[k]; hl.style.transform = 'translateY(' + n.offsetTop + 'px)'; hl.style.height = n.offsetHeight + 'px'; hl.style.left = n.offsetLeft + 'px'; hl.style.width = n.offsetWidth + 'px'; };
+  const setStep = k => {
+    if(k === cur) return; cur = k;
+    sns.forEach((n, i) => { n.classList.toggle('on', i === k); n.classList.toggle('done', i < k); });
+    sts.forEach((st, i) => st.classList.toggle('cur', i === k));
+    so.classList.toggle('on', k === 3); placeHl(k);
+  };
   setStep(0);
-  if('IntersectionObserver' in window){
-    const io2 = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) setStep(parseInt(e.target.dataset.i, 10)); }), {rootMargin:'-45% 0px -45% 0px'});
-    view.querySelectorAll('.st').forEach(st => io2.observe(st)); ovObs.push(io2);
-  }
+  let tick = false;
+  const pick = () => {
+    tick = false; if(!sts.length || !sts[0].isConnected) return;
+    const mid = window.innerHeight * 0.5; let best = 0, bd = Infinity;
+    sts.forEach((st, i) => { const c = st.querySelector('h4') || st; const r = c.getBoundingClientRect(); const d = Math.abs((r.top + r.bottom) / 2 - mid); if(d < bd){ bd = d; best = i; } });
+    setStep(best);
+  };
+  const onScroll = () => { if(!tick){ tick = true; requestAnimationFrame(pick); } };
+  const onResize = () => { const k = cur; cur = -1; setStep(k < 0 ? 0 : k); onScroll(); };
+  window.addEventListener('scroll', onScroll, {passive:true}); window.addEventListener('resize', onResize);
+  ovObs.push({disconnect(){ window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onResize); }});
+  requestAnimationFrame(() => { placeHl(cur < 0 ? 0 : cur); pick(); });
 }
 
 /* ---------- v4: mode, capabilities, helpers ---------- */
@@ -2761,6 +2903,7 @@ function show(t, scroll, fromHist){
   const prev = curTab;
   if(!fromHist && scroll !== false){ try{ if(location.hash !== '#' + t) history.pushState({t}, '', '#' + t); }catch(e){} }
   document.body.classList.toggle('sub', t !== 'overview');
+  document.body.dataset.tab = t;
   const ph = document.getElementById('phead'); if(ph) ph.hidden = t !== 'customer';
   if(t !== 'teller') stopCam();
   curTab = t;
@@ -2794,6 +2937,86 @@ loadRates();
 document.querySelectorAll('.tab,.btab').forEach(b => b.addEventListener('click', () => show(b.dataset.t)));
 document.querySelectorAll('.hero [data-go]').forEach(b => b.addEventListener('click', () => show(b.dataset.go, 'force')));
 
+
+/* ---------- 回到頂端 ---------- */
+(function(){
+  const b = document.getElementById('toTop'); if(!b) return;
+  let ticking = false;
+  const upd = () => { ticking = false; b.classList.toggle('on', window.scrollY > Math.max(480, window.innerHeight * 0.8)); };
+  window.addEventListener('scroll', () => { if(!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+  b.addEventListener('click', () => { window.scrollTo({top:0, behavior:'smooth'}); const m = document.getElementById('main'); if(m) setTimeout(() => { try{ m.focus({preventScroll:true}); }catch(e){} }, 400); });
+  upd();
+})();
+/* ---------- 手機排版輔助：標題依逗號分段不從詞中間斷行；表格儲存格加上欄名 ---------- */
+(function(){
+  const SEL = 'h1,h2,h3,h4,.t-name,.q';
+  const chunk = el => {
+    if(el.dataset.ph || el.children.length || !/[，、：；？]/.test(el.textContent)) return;
+    const parts = el.textContent.match(/[^，、：；？]+[，、：；？]?/g);
+    if(!parts || parts.length < 2) return;
+    el.dataset.ph = '1';
+    el.innerHTML = parts.map(t => '<span class="ph">' + t.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])) + '</span>').join('');
+  };
+  const label = tb => {
+    if(tb.dataset.lab) return; tb.dataset.lab = '1';
+    const hs = [...tb.querySelectorAll('thead th')].map(th => th.textContent.trim());
+    tb.querySelectorAll('tbody tr').forEach(tr => [...tr.children].forEach((td, i) => { if(hs[i] && !td.hasAttribute('data-l')) td.setAttribute('data-l', hs[i]); }));
+  };
+  const run = () => { document.querySelectorAll(SEL).forEach(chunk); document.querySelectorAll('table.rs-tbl').forEach(label); };
+  let q = false;
+  new MutationObserver(() => { if(!q){ q = true; requestAnimationFrame(() => { q = false; run(); }); } }).observe(document.body, {childList:true, subtree:true});
+  run();
+})();
+
+
+/* ---------- 中／英切換：成果總覽與研究結果的內容（底部分頁列不翻譯） ---------- */
+(function(){
+  const EN = {"試填一筆申報": "Try it out", "開啟 APP 試填申報": "Try it in the app", "看研究結果": "See the results", "示範版：所有交易、數據與範例個人資料皆為虛構，請勿輸入真實個人資料": "Demo only. All transactions, data and personal details are made up. Please don't enter real personal info.", "客戶看得到": "What the customer sees", "電腦與資訊服務": "Computer & IT services", "匯出｜買賣服務：軟體、雲端或資訊服務": "Outbound | Services: software, cloud or IT", "外匯匯款申報｜第 4 題": "FX remittance | Question 4", "這筆錢是為了什麼？": "What's this money for?", "買賣商品": "Buying or selling goods", "買賣服務（含運費、保險、旅費）": "Buying or selling services (incl. shipping, insurance, travel)", "投資或借貸": "Investing or lending", "利息、股利、薪資或租金等所得": "Income like interest, dividends, pay or rent", "贈與、資助、捐款、稅款或子女留學費用": "Gifts, support, donations, taxes or a kid's study abroad", "退回先前的款項": "Refunding an earlier payment", "下一題": "Next", "行員看得到的作答紀錄": "What the teller sees", "交易對象": "Who it's with", "國外公司": "Overseas company", "交易本質": "What it's for", "買賣服務": "Services", "服務型態": "Type of service", "軟體、雲端": "Software, cloud", "客戶申報": "Customer form", "回答幾個白話問題，系統推導匯款分類，再一次填好申請書，取得 PDF、QR Code 與預填代號。": "Answer a few plain questions. The system works out the code, then you fill in the form once and get a PDF, a QR code and a prefill code.", "在手機上？改用 APP 版": "On your phone? Use the app", "全螢幕操作，可加入主畫面": "Full screen, and you can add it to your home screen", "客戶說的是付款名目，": "Customers talk about payments.", "分類要的是交易事實": "Codes need the facts.", "匯出匯款有 104 個、匯入匯款有 105 個分類編號（合併 108 個），客戶必須自己選，並且容易描述「貨款」「服務費」「匯給自己」等付款名目，分類看的卻是是否經我國通關、取得使用權還是所有權、持股是否達 10%等交易事實。": "There are 104 codes for money going out and 105 for money coming in (108 in total). Customers have to pick one themselves. They tend to think in terms like “payment for goods,” “service fee” or “sending money to myself.” But the right code depends on facts: Did the goods clear Taiwan customs? Are you buying the right to use something, or buying it outright? Do you own 10% or more?", "本研究將不了解分類而選錯定義為「不會填」，不確定卻只能選一個而用猜的定義為「隨便填」，兩者合稱誠實誤填。": "We call it “not knowing how” when people pick the wrong code because they don't get the categories. We call it “just guessing” when they're unsure but have to pick one anyway. Together, these are honest mistakes.", "客戶自選的匯款類別": "The code the customer picks", "報送央行": "Goes to the central bank", "編製國際收支統計，選錯就失準": "It feeds balance-of-payments stats, so wrong picks skew the numbers", "填錯要更正": "Mistakes need fixing", "依申報辦法第13條申請並舉證非故意": "Under Article 13, you apply and show it wasn't on purpose", "問事實與選代碼，": "Asking facts vs. picking codes:", "正確率差多少": "how big is the gap?", "直接選分類（現行做法）": "Picking a code (how it works today)", "本研究 30 位受試者直接選分類時的正確率": "Accuracy when our 30 participants picked a code themselves", "回答結構化交易事實": "Answering fact questions", "同樣 30 位受試者改用結構化提問後的正確率": "Accuracy for the same 30 people with guided questions", "數字來源：研究三的模擬資料。受試者為本研究立意取樣的 30 位（一般民眾 20 位、企業財會人員 10 位），同樣 5 個案例以兩種流程各做一次，共 10 題。": "Source: simulated data for Study 3. We picked 30 participants on purpose (20 members of the public, 10 corporate finance staff). Each did the same 5 cases both ways, 10 questions in all.", "客戶答事實，": "Customers answer facts.", "規則推代碼": "Rules find the code.", "客戶不必學會分類，只要回答自己本來就知道的事。代碼由規則推導，並提供可回溯的交易事實與作答紀錄。": "Customers don't need to learn the codes. They just answer what they already know. The rules work out the code and keep a clear record of the facts and answers.", "回答白話事實問題": "Answer plain fact questions", "系統自動": "Automatic", "規則表推導代碼": "The rule table finds the code", "不確定轉為補問": "“Not sure” becomes a follow-up", "臨櫃": "At the counter", "行員核對、客戶親簽": "Teller checks, customer signs", "分類代碼": "Code", "交易事實": "Facts", "作答紀錄": "Answer record", "步驟 1": "Step 1", "步驟 2": "Step 2", "步驟 3": "Step 3", "步驟 4": "Step 4", "客戶回答「這筆錢是匯出，還是匯入」「交易對象是誰」「這筆錢是為了什麼」等白話問題，不需要先認識匯出 104 個、匯入 105 個分類代碼。": "Customers answer plain questions like “Is this money going out or coming in?” “Who's it with?” and “What's it for?” They don't need to know the 104 outbound or 105 inbound codes.", "依《外匯收支或交易申報辦法》與央行申報問答集整理的規則表，由答案推導分類代碼，並自動產生白話性質敘述。分類日後修正時，只要改規則表。": "A rule table built from the FX reporting regulations and the central bank's Q&A turns the answers into a code. It also writes a plain description. If the codes change later, we only update the rule table.", "判斷性題目都可以回答「不確定」。系統不會擋下，而是標示需要確認的事項，留給臨櫃時由行員協助，猜測因此變得看得見。": "Any judgment question can be answered “Not sure.” The system doesn't block it. It flags what needs checking so the teller can help at the counter. That way, guesses become visible.", "代碼、交易事實與作答紀錄隨申請書一起帶入行員端。行員確認分類；若需更正，更正原因一併保存。": "The code, facts and answers travel with the form to the teller. The teller confirms the code. If it needs fixing, the reason is saved too.", "一次填寫，": "Fill it in once.", "臨櫃免重填": "No redoing it at the counter.", "分類推導完成後，客戶接著在同一個流程填寫資料。匯出填匯出匯款賣匯申請書，以新臺幣結購且金額達新臺幣 50 萬元時，系統加填外匯收支或交易申報書（結購外匯專用）。匯入不填申請書：結售為新臺幣且金額達新臺幣 50 萬元，或分類為 310 僑外股本投資時，系統產生外匯收支或交易申報書（結售外匯專用）；其餘匯入款不需簽署文件，由行員以電話照會交易事實與入戶帳號。每份文件各有一份 PDF、一組 QR Code 與一組預填代號，行員帶入後只需核對、填寫匯率，再請客戶親自簽章。": "Once the code is set, customers fill in their details in the same flow. For money going out, they fill in the outward remittance form. If they buy foreign currency with NT$500,000 or more, the system adds the FX declaration form (for buying FX). Money coming in needs no remittance form. If it's converted to NT$500,000 or more, or the code is 310 (foreign equity investment), the system makes the FX declaration form (for selling FX). For other incoming money, there's nothing to sign. The teller calls to confirm the facts and the account. Each document comes with a PDF, a QR code and a prefill code. The teller loads it, checks it, adds the rate, and the customer signs.", "本研究為簡化流程，匯入匯款不另產生匯入匯款申請書；實際作業請依各銀行規定辦理。": "To keep things simple, we don't create an inward remittance form. In real life, follow each bank's rules.", "不必先認識分類代碼": "No need to know the codes", "推導分類代碼": "Find the code", "自動帶入申請書的匯款分類欄": "Fills the code box on the form", "填寫申請書": "Fill in the form", "達門檻時加填申報書，共同欄位只填一次": "Adds the declaration over the limit. Shared fields are filled once.", "取得 PDF、QR Code、預填代號": "Get a PDF, QR code and prefill code", "代號當日有效，帶入後失效": "The code works for the day and expires once used", "行員帶入、核對，客戶親簽": "Teller loads and checks, customer signs", "誠實申報責任在簽章時成立": "Signing is when the customer vouches for it", "作答紀錄跟著申請書走": "The answers stay with the form", "每份 QR Code 都附上客戶的作答紀錄與推導出的分類。行員可以直接看到客戶回答了什麼；客戶日後若依申報辦法第13條申請更正，也有「如實作答」的紀錄可查。": "Every QR code carries the customer's answers and the code they led to. The teller sees exactly what the customer said. If the customer later asks for a correction under Article 13, there's a record showing they answered honestly.", "更正原因回饋規則表": "Fix reasons improve the rules", "行員更正分類時須填寫原因，與作答紀錄一併保存。累積後可以看出哪些題目最常讓客戶答錯，回頭修改題目用語或規則表。": "When a teller fixes a code, they note why. It's saved with the answers. Over time, we can see which questions trip people up most and fix the wording or the rules.", "示範版的 QR Code 以明碼編入申請資料，預填代號暫存當日；正式導入應改為加密內容，或只放伺服器端代號。": "In this demo, the QR code holds the form data in plain text, and prefill codes last one day. A real rollout should encrypt the data or store only a server-side code.", "三個分頁，": "Three tabs,", "三種視角，": "three views,", "加上完整附錄": "plus a full appendix", "匯款客戶": "Customers", "用白話問題完成匯出或匯入的申報，接著填好申請書，取得 PDF、QR Code 與預填代號": "Report money going out or coming in by answering plain questions. Then fill in the form and get a PDF, QR code and prefill code.", "前往客戶申報": "Go to customer form", "外匯匯款申報｜第 3 題": "FX remittance | Question 3", "交易對象是誰？": "Who's it with?", "國外的人或公司": "A person or company overseas", "我自己在國外的帳戶": "My own account overseas", "國內的其他人或公司（外幣轉帳）": "Someone else in Taiwan (foreign currency transfer)", "我自己在國內的帳戶（外幣轉帳、外匯存款或換匯）": "My own account in Taiwan (transfer, FX deposit or exchange)", "分行行員": "Branch tellers", "行員受理": "Teller desk", "輸入預填代號或上傳 QR Code，帶入申請書與申報書；看作答紀錄、確認分類、填寫匯率": "Enter a prefill code or upload a QR code to load the forms. Check the answers, confirm the code and add the rate.", "前往行員受理": "Go to teller desk", "研究者": "Researchers", "研究結果": "Results", "三項研究的結果：文件分析、行員核對與規則表修正、客戶作答（研究三為模擬預覽）": "Results from three studies: document review, teller testing with rule fixes, and customer answers (Study 3 is a simulated preview)", "前往研究結果": "Go to results", "附錄": "Appendix", "匯出入分類代碼完整資料": "Full list of remittance codes", "108 個分類代碼的推導條件與匯出入對應表，可搜尋、篩選並下載 PDF": "How each of the 108 codes is worked out, plus an in/out lookup table. Search, filter or download a PDF.", "開啟附錄": "Open appendix", "說明": "Notes", "規則依據": "Sources for the rules", "《外匯收支或交易申報辦法》與中央銀行外匯局《銀行業辦理外匯收支或交易資料申報問答集》（111年9月版）。": "Taiwan's FX reporting regulations, and the central bank FX department's Q&A for banks on FX reporting (Sept. 2022 edition).", "表單欄位": "Form fields", "匯出參照各銀行公布之「匯出匯款賣匯申請書」；「外匯收支或交易申報書（結購外匯專用）」與「外匯收支或交易申報書（結售外匯專用）」參照中央銀行。": "The outward remittance form follows the versions banks publish. The FX declaration forms (for buying and for selling FX) follow the central bank's versions.", "匯率": "Exchange rates", "預設使用 ExchangeRate-API 開放端點（open.er-api.com）的國際參考匯率（中間價，每日更新；Rates By Exchange Rate API）。": "We use reference mid-market rates from ExchangeRate-API's open endpoint (open.er-api.com), updated daily. Rates By Exchange Rate API.", "使用 ExchangeRate-API 開放端點（open.er-api.com）的國際參考匯率（中間價，每日更新；Rates By Exchange Rate API）；暫時無法連線時，改用最近一次取得的參考匯率並標示資料時間。僅供示範換算，實際以臨櫃成交匯率為準。": "We use reference mid-market rates from ExchangeRate-API's open endpoint (open.er-api.com), updated daily. Rates By Exchange Rate API. If it's down, we show the last rates we got, with the time. These are for the demo only. The counter rate is what counts.", "使用限制": "Limits", "本頁不是官方申報工具，產生的文件不能實際使用於臨櫃交易。": "This isn't an official reporting tool. Documents made here can't be used at a real bank counter.", "掃描檢視本網頁": "Scan to open this page", "放大": "Enlarge", "收合": "Hide", "本網頁 QR Code": "QR code for this page", "三項研究的結果": "What we found in three studies", "從區辨分類需要的交易事實，到行員試做與客戶作答比較。": "From the facts that tell codes apart, to teller tests and customer answers.", "研究一、研究二為已完成的實際資料；研究三的客戶作答尚未施測，數字由模擬資料產生，只用來預覽分析方式。": "Studies 1 and 2 use real, completed data. Study 3 hasn't been run with customers yet. Its numbers are simulated, just to preview the analysis.", "本頁目錄": "On this page", "研究一": "Study 1", "研究二": "Study 2", "研究三": "Study 3", "區辨分類需要哪些交易事實": "Which facts tell the codes apart?", "行員先做一遍，回饋修正規則表": "Tellers try it first and help fix the rules", "客戶作答：問事實是否比選代碼準": "Customers: are fact questions more accurate than picking codes?", "回到頂端 ↑": "Back to top ↑", "以全部分類編號為分析單位（匯出 104、匯入 105，合併 108 個），歸納出 9 個易混淆群組，約 11 項可觀察的事實即可區辨，整理為最低交易事實資料集（MTFD）與規則表 v1。108 個編號在對應方向都至少有一條作答路徑可推導；雙人編碼的 Cohen’s κ 為 0.823。18 筆設計階段模擬案例中，13 筆只憑客戶描述無法判定，補上 MTFD 後 17 筆可唯一推導。": "We went through every code (104 out, 105 in, 108 in total). We found 9 groups that get mixed up, and about 11 observable facts are enough to tell them apart. We turned this into the Minimum Transaction Fact Dataset (MTFD) and rule table v1. Every one of the 108 codes can be reached by at least one answer path. Two coders agreed well (Cohen's κ = 0.823). In 18 practice cases, 13 couldn't be coded from the customer's words alone. With the MTFD, 17 could be pinned to one code.", "易混淆群組": "Groups that get mixed up", "項可觀察事實": "Observable facts", "可唯一推導（共 18 筆）": "Pinned to one code (out of 18)", "9 個易混淆群組": "9 groups that get mixed up", "點選查看各群組的分類與區辨事實": "Tap to see each group's codes and deciding facts", "展開": "Show", "群組": "Group", "易混淆分類": "Codes that get mixed up", "區辨所需事實": "Facts that decide it", "G1 貨款": "G1 Goods", "是否經我國通關、由誰報關；是否預付或預收；是否委外加工；有無證明文件；是否為燃油補給、樣品或漁獲": "Did it clear Taiwan customs, and who filed? Paid or received in advance? Outsourced processing? Any documents? Fuel supplies, samples or fish catch?", "G2 軟體與智慧財產": "G2 Software & IP", "服務內容；取得使用權或所有權": "What the service is; right to use or full ownership", "G3 直接投資與融資": "G3 Direct investment & lending", "股本、借款或債票券；投資人是我方或國外；持股是否達 10%；期限是否滿一年": "Shares, loans or bonds? Is the investor local or foreign? 10% or more ownership? One year or longer?", "G4 所得": "G4 Income", "股利或利息；是否具直接投資關係；利息來源（借款、存款、債券、進出口融資）": "Dividends or interest? A direct investment link? Where the interest comes from (loans, deposits, bonds, trade finance)", "G5 存款與移轉": "G5 Deposits & transfers", "匯出時是否已決定國外用途；匯入本人帳戶時資金原始來源；有無對價；受款人是否本人": "Going out: is the use already decided? Coming into your own account: where did the money come from? Anything in return? Is the payee you?", "G6 國內交易": "G6 Domestic deals", "692、693、694、695、696 及細分類": "692, 693, 694, 695, 696 and sub-codes", "是否同一銀行；新臺幣與外幣互換或外幣互換；資金原始來源或用途": "Same bank? NT$ to FX, or FX to FX? Where the money came from or what it's for", "G7 退匯": "G7 Refunds", "是否為退款；原交易性質；匯出與匯入的 611、612 意義不同": "Is it a refund? What was the original deal? 611 and 612 mean different things out vs. in", "G8 電子支付與平台": "G8 E-payments & platforms", "不對應單一代碼，依背後是商品或服務歸入 7XX 或 1XX": "No single code. It goes under 7XX or 1XX depending on goods or services.", "商品或服務": "Goods or services", "G9 方向與主體": "G9 Direction & who's involved", "2 字頭與 3 字頭、19F 與 19G、612、133 與 139、136、291 與 391、292 與 392、196、410 與 511": "2xx vs. 3xx, 19F vs. 19G, 612, 133 vs. 139, 136, 291 vs. 391, 292 vs. 392, 196, 410 vs. 511", "匯出或匯入；投資人或主體是居住民或非居住民；分類只存在於單一方向": "Out or in? Is the investor or party a resident or not? Some codes only exist one way.", "11 項可觀察事實": "11 observable facts", "MTFD 的路由、核心與條件欄位": "MTFD routing, core and conditional fields", "路由欄位（每筆必答）・2 項": "Routing fields (always asked) · 2", "方向（匯出或匯入）": "Direction (out or in)", "申報人": "Who's reporting", "核心欄位（必填）・4 項": "Core fields (required) · 4", "是否含多種成分": "More than one purpose?", "有無佐證文件": "Supporting documents?", "條件欄位（依前題出現）・5 項": "Conditional fields (based on earlier answers) · 5", "通關狀態": "Customs status", "加工安排": "Processing setup", "投資關係（含投資人是誰）": "Investment link (incl. who the investor is)", "資金來源及用途": "Where the money's from and what it's for", "合計 11 項。判斷性的條件題都提供「不確定」選項，選擇後轉為補問。": "11 in total. Every judgment question has a “Not sure” option, which turns into a follow-up.", "18 筆模擬案例": "18 practice cases", "13 筆無法判定 → 補上 MTFD 後 17 筆可唯一推導": "13 couldn't be coded → with MTFD, 17 pinned to one code", "此為研究者依問答集設計的模擬案例，用來檢驗 MTFD。": "We wrote these practice cases from the central bank Q&A to test the MTFD.", "「只憑客戶描述能否判定」由研究者判讀；「補上 MTFD 後」的代碼由規則推導。": "“Codable from the description?” is our call. “With MTFD” codes come from the rules.", "點選任一列，展開該案例的完整題目。": "Tap a row to see the full case.", "案例": "Case", "方向": "Direction", "客戶的說法": "What the customer says", "只憑描述判定": "Codable from words alone", "應申報代碼": "Correct code", "補上 MTFD 後": "With MTFD", "匯出": "Out", "匯入": "In", "否": "No", "是": "Yes", "案例內容": "Full case", "無法判定的原因：": "Why it can't be coded: ", "可以判定：": "Codable: ", "付德國機器的貨款": "Paying for a machine from Germany", "公司向德國訂購一台機器設備，貨物由公司自己向臺灣海關報關進口，匯出約 8 萬歐元貨款。": "A company orders a machine from Germany and clears it through Taiwan customs itself. It sends about €80,000.", "未說明由誰報關、是否已進口": "Doesn't say who cleared customs or if it's been imported", "付訂金給日本供應商": "Paying a deposit to a Japanese supplier", "公司預付日本供應商原料款的 30%，約 2 萬美元，貨物下個月才會進口。": "A company pays 30% upfront for materials from Japan, about US$20,000. The goods arrive next month.", "「訂金」未說明貨物尚未進口": "“Deposit” doesn't say the goods haven't arrived", "付韓國原料的貨款": "Paying for materials from Korea", "公司向韓國購買原料，另付加工費請越南工廠加工，成品從越南直接出貨到歐洲，貨物不經過臺灣；這筆匯款是原料貨款。": "A company buys materials from Korea and pays a Vietnamese factory to process them. The finished goods ship straight from Vietnam to Europe and never pass through Taiwan. This payment is for the materials.", "未說明貨物不經臺灣、是否委外加工": "Doesn't say the goods skip Taiwan or that processing is outsourced", "付軟體費": "Paying for software", "小型設計公司每年支付美國雲端軟體訂閱費，約 3,000 美元，只取得使用權。": "A small design firm pays a US cloud software subscription each year, about US$3,000. It only gets the right to use it.", "未說明是資訊服務還是智慧財產權授權": "Doesn't say if it's an IT service or an IP license", "付兒子的留學學費": "Paying my son's tuition abroad", "父親匯出兒子在美國大學就讀一年的學費與生活費，約 3 萬美元。": "A dad sends a year of tuition and living costs for his son at a US college, about US$30,000.", "描述已足以判定 134": "The description is enough for 134", "付廣告費": "Paying for ads", "公司支付新加坡行銷公司的廣告企劃費，約 1.5 萬美元。": "A company pays a Singapore marketing firm for ad planning, about US$15,000.", "描述已足以判定 19D": "The description is enough for 19D", "付專利授權的權利金": "Paying patent royalties", "公司支付美國公司專利授權的年度權利金，約 5 萬美元，只取得使用權。": "A company pays a US firm yearly royalties for a patent license, about US$50,000. It only gets the right to use it.", "描述已足以判定 195": "The description is enough for 195", "付美國零件的貨款": "Paying for parts from the US", "公司向美國購買零件，委託國內貿易商以貿易商名義報關進口，貨款由公司直接匯給美國賣方，有貿易商的進口報單。": "A company buys parts from the US. A local trading company clears customs in its own name. The company pays the US seller directly and has the trader's import papers.", "未說明由他人報關、有無證明文件": "Doesn't say someone else cleared customs or whether there are papers", "借錢給泰國的關係企業": "Lending to a related company in Thailand", "公司借款給持股 15% 的泰國公司作為週轉金，約 20 萬美元，約定 6 個月後還款。": "A company lends about US$200,000 in working capital to a Thai company it owns 15% of. It's due back in 6 months.", "未說明持股比例與借款期限": "Doesn't say the ownership share or the loan term", "匯薪水回家": "Sending pay home", "在臺工作已三年的外籍工作者，把當月薪資約 1,500 美元匯回母國家中。": "A foreign worker who's been in Taiwan for three years sends this month's pay, about US$1,500, home.", "未說明在臺居留是否滿一年，510、410、511 無法區辨": "Doesn't say if they've lived in Taiwan a year or more, so 510, 410 and 511 can't be told apart", "付海運運費": "Paying ocean freight", "公司支付出口貨物的海運運費給外國船公司，約 6,000 美元。": "A company pays a foreign shipping line for ocean freight on exports, about US$6,000.", "描述已足以判定 111": "The description is enough for 111", "匯到自己的美國帳戶": "Sending to my own US account", "把約 2 萬美元匯到自己在美國的銀行帳戶，匯款時已決定用來買美國上市股票。": "Sending about US$20,000 to my own US bank account. I've already decided to use it to buy US stocks.", "未說明匯款時是否已決定用途": "Doesn't say if the use was decided when sending", "子公司匯回款項": "Money back from a subsidiary", "持股 100% 的越南子公司匯回約 15 萬美元，部分是股利，部分是先前借款（期限半年）的利息。": "A wholly owned subsidiary in Vietnam sends back about US$150,000. Part is dividends, part is interest on an earlier six-month loan.", "未說明款項組成與持股關係": "Doesn't say what the money is made of or the ownership", "PayPal 提領": "PayPal withdrawal", "人工判讀": "Manual review", "網拍賣家從 PayPal 提領約 4,000 美元，款項同時包含商品貨款與代客設計服務費，平台對帳單沒有分開列示金額。": "An online seller withdraws about US$4,000 from PayPal. It mixes product sales and design service fees, and the statement doesn't split them.", "付款管道不是交易性質，且金額未拆分": "How it was paid isn't what it's for, and the amounts aren't split", "母公司匯錢進來": "Money in from a parent company", "持股 100% 的日本母公司匯入約 50 萬美元增資款，作為臺灣子公司的股本，已取得經濟部核准。": "A Japanese parent that owns 100% sends about US$500,000 to add capital to its Taiwan subsidiary. The Ministry of Economic Affairs has approved it.", "未說明是股本、借款或貨款，也未說明誰是投資人": "Doesn't say if it's equity, a loan or a payment, or who the investor is", "收到客戶貨款": "Getting paid by a customer", "公司收到美國客戶匯入的貨款約 3 萬美元，貨物已由公司自己報關出口。": "A company gets about US$30,000 from a US customer. It cleared the export through customs itself.", "未說明是否已出口、由誰報關": "Doesn't say if it's been exported or who cleared customs", "把香港帳戶的錢匯回來": "Bringing money back from Hong Kong", "把存在自己香港帳戶的約 1 萬美元匯回臺灣，這筆錢原本是兩年前從臺灣匯出存放的。": "Moving about US$10,000 from my own Hong Kong account back to Taiwan. I sent it there from Taiwan two years ago.", "未說明錢當初怎麼存到國外（存款、出口貨款或投資收回）": "Doesn't say how the money got there (a deposit, export sales or investment returns)", "家人匯生活費給我": "Family sending living money", "住在加拿大的姊姊匯來約 2,000 美元，資助母親的生活費。": "An older sister in Canada sends about US$2,000 to help with Mom's living costs.", "描述已足以判定 510": "The description is enough for 510", "只憑描述無法判定 13 筆；補上 MTFD 後 17 筆可唯一推導，案例 14 因平台對帳單未拆分金額，仍需人工判讀。": "13 couldn't be coded from words alone. With MTFD, 17 got one code. Case 14 still needs a manual check, since the platform statement doesn't split the amounts.", "6 位外匯經辦（總行外匯部 4 位、分行外匯櫃檯 2 位，外匯業務年資 1 至 12 年）以客戶身分完成客戶將要作答的 5 個案例（4 筆匯出、1 筆匯入），逐案判斷原型推導的代碼，再依事先訂定的觸發條件（判為正確低於七成、同一題被 3 位以上選為最可能答錯）修正為規則表 v2。修正只改題目用語與提示，不改推導規則。": "Six FX staff (4 from head office, 2 from branch counters, 1 to 12 years in FX) played the customer on the same 5 cases customers will see (4 out, 1 in). For each case, they judged the code the prototype gave. We set triggers ahead of time: under 70% judged correct, or 3+ people naming the same question as the hardest. Based on these, we made rule table v2. We only changed wording and hints, not the rules.", "5 個測試案例": "The 5 test cases", "研究二與研究三使用同樣 5 個案例，由研究者依問答集設計，並非真實個案；基準答案為研究二行員核對後定版的結果。": "Studies 2 and 3 use the same 5 cases. We wrote them from the central bank Q&A. They aren't real cases. The answer key is what the tellers settled on in Study 2.", "一般案例": "Simple", "複雜案例": "Complex", "雲端軟體訂閱": "Cloud software subscription", "一家小型設計公司每年支付美國雲端軟體的訂閱費，約 3,000 美元，只取得使用權。": "A small design firm pays for a US cloud software subscription each year, about US$3,000. It only gets the right to use it.", "基準答案": "Answer key", "委外加工貿易": "Outsourced processing trade", "公司接到歐洲客戶訂單，向韓國購買原料，並另外付加工費請越南工廠加工，成品從越南直接出貨到歐洲，貨物不經過臺灣。這筆匯款是支付韓國原料的貨款，約 12 萬美元；加工費另筆支付。": "A company gets an order from a European customer. It buys materials from Korea and pays a Vietnamese factory to process them. The finished goods ship from Vietnam straight to Europe and never touch Taiwan. This payment is for the Korean materials, about US$120,000. The processing fee is paid separately.", "短期放款": "Short-term loan", "匯至本人國外帳戶": "Sending to your own account abroad", "你把約 2 萬美元匯到自己在美國的銀行帳戶，匯款時就已決定要用這筆錢買美國上市股票。": "You send about US$20,000 to your own US bank account. You've already decided to use it to buy US stocks.", "股利與利息匯入": "Dividends and interest coming in", "公司持股 100% 的越南子公司匯回約 15 萬美元，其中一部分是股利，另一部分是子公司支付母公司先前借款的利息（借款期限半年）。": "A company's wholly owned Vietnamese subsidiary sends back about US$150,000. Part is dividends. The rest is interest on a six-month loan from the parent.", "行員逐案判斷": "How tellers judged each case", "情境": "Scenario", "判為正確": "Judged correct", "修正規則表": "Rule fix needed", "雲端軟體訂閱，只取得使用權": "Cloud software, right to use only", "韓國原料、越南加工、出貨歐洲": "Korean materials, processed in Vietnam, shipped to Europe", "借款給持股 15% 的公司，6 個月": "Loan to a 15%-owned company, 6 months", "匯到本人美國帳戶，已決定買股票": "To my own US account, already planning to buy stocks", "子公司匯回股利與借款利息": "Subsidiary sends back dividends and loan interest", "修正為規則表 v2 的 8 項": "8 changes in rule table v2", "是否包含多種用途": "More than one purpose?", "提示改為股利加借款利息的例子，並請客戶先想好各用途金額": "Hint now uses a dividends-plus-interest example and asks customers to work out each amount first", "服務類型": "Type of service", "加註使用權與所有權的例子": "Added examples of right to use vs. ownership", "持股 10%": "10% ownership", "加註「未達 10% 但擔任董事也選是」": "Added: “Under 10% but on the board? Pick Yes.”", "題目改為「貨物是否運進或運出臺灣，並在臺灣報關」": "Question now reads: “Do the goods come into or leave Taiwan and clear customs here?”", "國外用途": "Use abroad", "加註「已決定用途時依用途申報」": "Added: “If you've decided the use, report by that use.”", "借款期限": "Loan term", "加註「依合約約定的還款期限判斷」": "Added: “Go by the repayment date in the contract.”", "投資人是誰": "Who's the investor", "加註匯出與匯入時各選項的意思": "Added what each option means for out vs. in", "本人帳戶匯入的資金來源": "Source of money into your own account", "加註「只有原本由臺灣匯出存放的錢才是收回國外存款」": "Added: “Only money you first sent from Taiwan counts as bringing a deposit home.”", "問卷量表（1–5 分）": "Survey scores (1–5)", "題目用語易懂度": "Wording is easy to follow", "匯入題目易懂度": "Inbound questions are easy to follow", "臨櫃導入可行性": "Could work at the counter", "網銀導入可行性": "Could work in online banking", "平均 ": "Avg ", "平均": "Avg", "頂端": "Top", "5 個案例的多數判斷都與原基準答案相同，基準答案不變。訪談中提及人數最多的是「補問最多的是通關狀態與國外用途」（6 位）；4 位提到客戶不確定時由行員代選、未留紀錄；4 位提到匯入款常不知道匯款原因，需看電文附言或請客戶詢問匯款人。": "For all 5 cases, most tellers agreed with the original answer, so the key stayed the same. In interviews, the top point (6 people) was that customs status and use abroad need the most follow-up. 4 said that when customers aren't sure, tellers pick for them with no record. 4 said people often don't know why money came in, so tellers check the wire memo or ask them to check with the sender.", "模擬資料・非研究發現": "Simulated data · not a finding", "30 位受試者（一般民眾 20、企業財會 10）以規則表 v2 施測，每人以兩種流程各做同樣 5 個案例，共 300 筆作答；單號先做基準流程、雙號先做結構化流程。基準流程依案例方向列出完整官方清單（匯出 104、匯入 105 個）。分析只做描述統計，不做假說檢定。": "30 participants (20 public, 10 corporate finance) use rule table v2. Each does the same 5 cases both ways, 300 answers in all. Odd numbers start with picking codes, even numbers start with fact questions. The pick-a-code flow shows the full official list for that direction (104 out, 105 in). We only report descriptive stats, no hypothesis tests.", "使用的 5 個案例（同研究二）": "The 5 cases (same as Study 2)", "分類正確率": "Accuracy", "答錯且信心低": "Wrong and unsure", "答錯但信心高": "Wrong but confident", "中位作答秒數": "Median time per answer", "各案例與客群的分類正確率": "Accuracy by case and group", "依案例": "By case", "依方向": "By direction", "依客群": "By group", "直接選分類": "Pick a code", "回答交易事實": "Answer facts", "差異為回答交易事實減直接選分類，未經統計檢定；比例的分母為該流程的全部作答（各 150 筆）。自評信心用來觀察「隨便填」：答錯但信心高的作答，行員最不容易察覺需要補問。模擬資料下，結構化流程每題多花約 38 秒；匯入的案例 5 在兩種流程下都是正確率最低的一題。": "The gap is fact questions minus picking a code, with no significance test. Each rate is out of all answers in that flow (150 each). Self-rated confidence helps spot “just guessing.” Wrong-but-confident answers are the hardest for tellers to catch. In the simulated data, fact questions take about 38 seconds longer each. Case 5, the inbound one, has the lowest accuracy both ways.", "匯出案例": "Outbound cases", "案例 1–4": "Cases 1–4", "匯入案例": "Inbound case", "一般民眾": "Public", "企業財會": "Corporate finance", "客戶說的是付款名目，分類要的是交易事實": "Customers talk about payments. Codes need the facts.", "問事實與選代碼，正確率差多少": "Asking facts vs. picking codes: how big is the gap?", "客戶答事實，規則推代碼": "Customers answer facts. Rules find the code.", "一次填寫，臨櫃免重填": "Fill it in once. No redoing it at the counter.", "三個分頁，三種視角，加上完整附錄": "Three tabs, three views, plus a full appendix", "此為研究者依問答集設計的模擬案例，用來檢驗 MTFD。「只憑客戶描述能否判定」由研究者判讀；「補上 MTFD 後」的代碼由規則推導。": "We wrote these practice cases from the central bank Q&A to test the MTFD. “Codable from the description?” is our call. “With MTFD” codes come from the rules."};
+  const PATS = [["^(\\d+(?:\\.\\d+)?) 秒$", "$1 sec"], ["^案例 (\\d+)$", "Case $1"], ["^(\\d+) 位$", "$1 people"], ["^・中位數 (\\S+)$", " · median $1"], ["^外匯匯款申報｜第 (\\d+) 題$", "FX remittance | Question $1"], ["^步驟 (\\d+)$", "Step $1"]].map(p => [new RegExp(p[0]), p[1]]);
+  const CJK = /[\u3400-\u9fff\uff00-\uffef\u3000-\u303f]/;
+  const btn = document.getElementById('langBtn');
+  let lang = 'zh'; try{ if(localStorage.getItem('fxLang') === 'en') lang = 'en'; }catch(e){}
+  const done = [];   // [文字節點, 原文]
+  const roots = () => [document.getElementById('toTop'), document.querySelector('header.hero'), document.getElementById('view'), document.querySelector('.foot'), document.getElementById('qrFloat'), document.getElementById('qrPill')].filter(Boolean);
+  const active = () => lang === 'en' && ['overview','results'].includes(document.body.dataset.tab);
+  const toEn = t => {
+    if(Object.prototype.hasOwnProperty.call(EN, t)) return EN[t];
+    const n = t.replace(/\s+/g, ' '); if(Object.prototype.hasOwnProperty.call(EN, n)) return EN[n];
+    for(const [re, r] of PATS) if(re.test(t)) return t.replace(re, r);
+    if(/^[0-9A-Z、＋\s]+$/.test(t)) return t.replace(/、/g, ', ').replace(/＋/g, ' + ');
+    return null;
+  };
+  const translate = () => {
+    roots().forEach(r => r.querySelectorAll('[data-ph]').forEach(h => {
+      if(!CJK.test(h.textContent)) return;
+      const en = toEn(h.textContent.trim()); if(en == null) return;
+      const ts = []; const w = document.createTreeWalker(h, NodeFilter.SHOW_TEXT); let n; while((n = w.nextNode())) ts.push(n);
+      ts.forEach((n, i) => { done.push([n, n.nodeValue]); n.nodeValue = i ? '' : en; });
+    }));
+    roots().forEach(r => {
+      const w = document.createTreeWalker(r, NodeFilter.SHOW_TEXT); let n;
+      while((n = w.nextNode())){
+        const raw = n.nodeValue; if(!CJK.test(raw)) continue;
+        const t = raw.trim(); const en = toEn(t); if(en == null) continue;
+        const lead = raw.slice(0, raw.indexOf(t)), tail = raw.slice(raw.indexOf(t) + t.length);
+        done.push([n, raw]); n.nodeValue = lead + en + tail;
+      }
+    });
+  };
+  const restore = () => { while(done.length){ const [n, raw] = done.pop(); if(n.isConnected) n.nodeValue = raw; } };
+  const apply = () => {
+    const on = active();
+    document.documentElement.lang = on ? 'en' : 'zh-Hant';
+    if(on) translate(); else restore();
+    if(btn){ btn.textContent = lang === 'en' ? '中文' : 'EN'; btn.setAttribute('aria-pressed', lang === 'en'); btn.setAttribute('lang', lang === 'en' ? 'zh-Hant' : 'en');
+      btn.setAttribute('aria-label', lang === 'en' ? '切換為中文' : 'Switch to English'); }
+  };
+  if(btn) btn.addEventListener('click', () => { lang = lang === 'en' ? 'zh' : 'en'; try{ localStorage.setItem('fxLang', lang); }catch(e){} if(lang === 'zh') restore(); apply(); });
+  let q = false;
+  new MutationObserver(() => { if(!q){ q = true; requestAnimationFrame(() => { q = false; apply(); }); } }).observe(document.body, {childList:true, subtree:true, attributes:true, attributeFilter:['data-tab']});
+  apply();
+})();
+
 document.querySelectorAll('a.applink').forEach(a => { if(window.claude && typeof window.claude.use === 'function'){ a.target = '_blank'; a.rel = 'noopener'; } });
 /* 記住從哪個分頁進入 APP，APP 的「回到研究成果網站」會回到這裡 */
 document.addEventListener('click', e => { const a = e.target.closest('a.applink, a.qgo'); if(a){ try{ sessionStorage.setItem('fxSiteBack', location.pathname + location.hash); }catch(x){} } }, true);
@@ -2810,7 +3033,15 @@ document.addEventListener('click', e => { const a = e.target.closest('a.applink,
   let min = true; try{ min = localStorage.getItem('fxQrMin') !== '0'; }catch(e){}
   const footEl = document.querySelector('.foot');
   if(footEl && 'IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(x => document.body.classList.toggle('at-foot', x.isIntersecting))).observe(footEl);
-  const sync = () => { fl.hidden = min; pill.hidden = !min; };
+  /* 「頂端」按鈕永遠疊在 QR 卡片（或收合後的膠囊）上方 12px，不互相遮住 */
+  const stackTop = () => {
+    const el = !fl.hidden ? fl : (!pill.hidden ? pill : null);
+    const h = el && getComputedStyle(el).display !== 'none' ? el.getBoundingClientRect().height : 0;
+    document.documentElement.style.setProperty('--qrstack', Math.round(h) + 'px');
+  };
+  const sync = () => { fl.hidden = min; pill.hidden = !min; requestAnimationFrame(stackTop); };
+  if('ResizeObserver' in window){ const ro = new ResizeObserver(stackTop); ro.observe(fl); ro.observe(pill); }
+  window.addEventListener('resize', stackTop);
   sync();
   document.getElementById('qfMin').addEventListener('click', () => { min = true; try{ localStorage.setItem('fxQrMin', '1'); }catch(e){} sync(); pill.focus(); });
   pill.addEventListener('click', () => { min = false; try{ localStorage.setItem('fxQrMin', '0'); }catch(e){} sync(); });
